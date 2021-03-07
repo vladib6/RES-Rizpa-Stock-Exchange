@@ -1,6 +1,9 @@
 package com.Menus;
 
-import com.Command.*;
+import com.Command.CmdTypes.Command;
+import com.Command.CmdTypes.CommandFactory;
+import com.Command.CmdTypes.Direction;
+import com.Command.CmdTypes.Type;
 import com.Engine.MainEngine;
 import com.stock.Stock;
 
@@ -8,6 +11,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ExecuteCommandMenu {
+    private MainEngine mainEngine;
 
     public ExecuteCommandMenu(MainEngine mainEngine){
         this.mainEngine=mainEngine;
@@ -23,7 +27,6 @@ public class ExecuteCommandMenu {
 
 
     }
-    private MainEngine mainEngine;
     public Direction getDirectionFromUser() {
         Scanner scanner = new Scanner(System.in);
         int userchoice;

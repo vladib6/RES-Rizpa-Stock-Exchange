@@ -1,4 +1,4 @@
-package com.Command;
+package com.Command.CmdTypes;
 
 import com.stock.Stock;
 

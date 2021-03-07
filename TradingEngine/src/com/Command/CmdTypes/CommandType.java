@@ -1,5 +1,8 @@
-package com.Command;
+package com.Command.CmdTypes;
 
+import com.Command.WaitingCommands.BuyWaitinglist;
+import com.Command.WaitingCommands.SellWaitinglist;
+import com.Transaction.Transaction;
 import com.stock.Stock;
 
 import java.time.LocalDateTime;
@@ -7,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public  abstract class CommandType {
 
-   public CommandType(Direction direction,int numOfStocks,Stock stock,int price){
+   public CommandType(Direction direction, int numOfStocks, Stock stock, int price){
       this.direction=direction;
       this.numOfStocks=numOfStocks;
       this.stock=stock;
@@ -17,13 +20,22 @@ public  abstract class CommandType {
    }
 
    private Stock stock;
-   private Direction direction;
+   protected Direction direction;
    private String time;
    private int numOfStocks;
    private static int id=0;
    private int price;
 
-   public abstract void  EXE();
+   public abstract Transaction FindSellcmd(SellWaitinglist sellWaitinglist);
+   public abstract Transaction  FindBuycmd(BuyWaitinglist buyWaitinglist);
+   public Transaction Findcmd(Stock stock){
+    if(direction==Direction.SELL){
+      return FindBuycmd(stock.getBuyWaitinglist());
+    }else{
+      return FindSellcmd(stock.getSellWaitinglist());
+    }
+   }
+
    //GETTERS
    public Direction getDirection() { return direction; }
 

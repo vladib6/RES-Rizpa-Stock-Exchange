@@ -1,6 +1,6 @@
-package com.Command;
+package com.Command.CmdTypes;
 
-public class Buycmd extends Command{
+public class Buycmd extends Command {
     public Buycmd(CommandType command){
         this.command=command;
     }

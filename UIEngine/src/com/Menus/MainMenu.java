@@ -1,8 +1,8 @@
 package com.Menus;
-import com.Command.Buycmd;
-import com.Command.Command;
-import com.Command.CommandType;
-import com.Command.Sellcmd;
+import com.Command.CmdTypes.Buycmd;
+import com.Command.CmdTypes.Command;
+import com.Command.CmdTypes.CommandType;
+import com.Command.CmdTypes.Sellcmd;
 import com.Transaction.Transaction;
 import com.load.*;
 import com.Engine.MainEngine;
@@ -183,16 +183,14 @@ public class MainMenu {
         }
 
         public void ShowWaitingSellCommands(Stock stock){
-            ArrayList<Command> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
-            for(Command command: arrayList){
-                CommandType cmd=((Sellcmd)command).getCommand();
+            ArrayList<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
+            for(CommandType cmd: arrayList){
                 System.out.println(cmd.getTime()+"   "+ "Number of stock : "+cmd.getNumOfStocks()+"   "+"Price : "+cmd.getPrice()+"   "+"Turnover : "+(cmd.getNumOfStocks()*cmd.getPrice()));
             }
         }
         public void ShowWaitingBuyCommands(Stock stock){
-            ArrayList<Command> arrayList=stock.getBuyWaitinglist().getBuylwaitinglist();
-            for(Command command: arrayList){
-                CommandType cmd=((Buycmd)command).getCommand();
+            ArrayList<CommandType> arrayList=stock.getBuyWaitinglist().getBuylwaitinglist();
+            for(CommandType cmd: arrayList){
                 System.out.println(cmd.getTime()+"   "+ "Number of stock : "+cmd.getNumOfStocks()+"   "+"Price : "+cmd.getPrice()+"   "+"Turnover : "+(cmd.getNumOfStocks()*cmd.getPrice()));
             }
        }

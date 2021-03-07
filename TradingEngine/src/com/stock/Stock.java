@@ -2,8 +2,8 @@ package com.stock;
 
 import java.util.LinkedList;
 
-import com.Command.BuyWaitinglist;
-import com.Command.SellWaitinglist;
+import com.Command.WaitingCommands.BuyWaitinglist;
+import com.Command.WaitingCommands.SellWaitinglist;
 import com.Transaction.*;
 //After create stock we must to add the transactionsList to AllTransaction Hashmap.
 public class Stock {

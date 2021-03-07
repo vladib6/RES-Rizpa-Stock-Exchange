@@ -1,13 +1,13 @@
 package com.Transaction;
 
-import com.Command.Direction;
+import com.Command.CmdTypes.Direction;
 import com.stock.Stock;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Transaction {
-    Transaction(int price,Stock stock, int numOfStock, int turnover,Direction direction ){
+    public Transaction(int price,Stock stock, int numOfStock, int turnover,Direction direction ){
         this.price=price;
         this.numOfStock=numOfStock;
         this.turnover=turnover;

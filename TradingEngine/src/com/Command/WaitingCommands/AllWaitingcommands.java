@@ -1,4 +1,7 @@
-package com.Command;
+package com.Command.WaitingCommands;
+
+import com.Command.CmdTypes.Command;
+import com.Command.CmdTypes.CommandType;
 
 import java.util.HashMap;
 
@@ -27,11 +30,11 @@ public class AllWaitingcommands {
         this.sellWaitinglistMap.put(symbol, sellWaitinglist);
     }
 
-    public void addWaiitngBuycmd(String symbol,Command command){
+    public void addWaiitngBuycmd(String symbol, CommandType command){
         buyWaitinglistMap.get(symbol).addCmdToList(command);
     }
 
-    public void addWaitingSellcmd(String symbol,Command command){
+    public void addWaitingSellcmd(String symbol, CommandType command){
         sellWaitinglistMap.get(symbol).addCmdToList(command);
     }
 }
