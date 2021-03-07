@@ -15,5 +15,7 @@ public class Main {
         Command cmd= new Sellcmd(new MKTcmd(Direction.SELL,new Stock("GOO","google",100,25),5));
 
         System.out.println(cmd.getCommand().getClass().getSimpleName());
+
+        System.out.println("changes only for check push");
     }
 }
