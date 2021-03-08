@@ -7,8 +7,11 @@ import com.Transaction.Transaction;
 import com.load.*;
 import com.Engine.MainEngine;
 import com.stock.Stock;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class MainMenu {
@@ -59,15 +62,23 @@ public class MainMenu {
         switch (userchoice){
             case 1:
                     try{
+                        System.out.println("Enter full path of XML file");
+                        scanner.nextLine();
                         String filepath= scanner.nextLine();
-                        mainEngine= new Loadxml().load(filepath);
+                        mainEngine= new Loadxml().ParseXml(filepath);
                     }
                     catch (FileNotFoundException e ){
-                        System.out.printf("We can't find the file, please enter correct path or ensure that file exist");
+                        System.out.println("We can't find the file, please enter correct path or ensure that file exist");
                     }
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
-                     }
+                     } catch (SAXException e) {
+                        System.out.println("SaxException");
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 break;
 
             case 2:
@@ -79,6 +90,7 @@ public class MainMenu {
         }
     }
     public void menuafterload()  {//TODO: check exceptions
+        System.out.println("---------------");
         System.out.println("Select option");
         System.out.println("");
         System.out.println("1- Load from XML file");
@@ -94,13 +106,21 @@ public class MainMenu {
         switch (userchoice){
             case 1://Load from XML file
                 try {
+                    System.out.println("Enter full path of XML file");
+                    scanner.nextLine();
                     String filepath=scanner.nextLine();
-                    mainEngine= new Loadxml().load(filepath);
+                    mainEngine= new Loadxml().ParseXml(filepath);
                 } catch (FileNotFoundException e) {
                     System.out.printf("We can't find the file, please enter correct path or ensure that file exist");
                 }
                 catch (InputMismatchException e){
                     System.out.println("Wrong Input");
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    System.out.printf("Cannot Open the file, check is name or the path");
                 }
                 break;
 
@@ -156,7 +176,7 @@ public class MainMenu {
                   }
         }
         public void DisplayStock(String symbol){
-            Stock  stock=mainEngine.getStockByName(symbol);
+            Stock stock=mainEngine.getStockByName(symbol);
             System.out.println(stock);
             ShowTransactionsByStock(stock);
         }
