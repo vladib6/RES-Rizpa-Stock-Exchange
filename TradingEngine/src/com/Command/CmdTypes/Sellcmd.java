@@ -11,12 +11,8 @@ public class Sellcmd extends Command {
         return command;
     }
 
-    public int getlimitprice(){
-        return command.getPrice();
-    }
-
-    public int getid(){
-        return command.getId();
+    public void Execue(){
+        command.Execute();
     }
 
 }

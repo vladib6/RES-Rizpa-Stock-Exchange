@@ -60,12 +60,10 @@ public class MainMenu {
             case 1:
                     try{
                         String filepath= scanner.nextLine();
-                        mainEngine= new Loadxml().load(filepath);//Todo: loading data from xml file
-
+                        mainEngine= new Loadxml().load(filepath);
                     }
                     catch (FileNotFoundException e ){
                         System.out.printf("We can't find the file, please enter correct path or ensure that file exist");
-
                     }
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
@@ -80,7 +78,7 @@ public class MainMenu {
                 break;
         }
     }
-    public void menuafterload()  {//TODO
+    public void menuafterload()  {//TODO: check exceptions
         System.out.println("Select option");
         System.out.println("");
         System.out.println("1- Load from XML file");
@@ -152,15 +150,14 @@ public class MainMenu {
     }
 
          public void DisplayAllStocks(){
-        for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
-              Stock stock= entry.getValue();
-            System.out.println(stock.getId()+"-  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName()+ "  Current Price: "+stock.getCurrentPrice() +"  Number Of Transactions : "+stock.getTransactionsList().size() + "  Turnover: "+stock.getTransactionTurnover());
-
-        }
+              for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
+                  Stock stock= entry.getValue();
+                  System.out.println(stock);
+                  }
         }
         public void DisplayStock(String symbol){
             Stock  stock=mainEngine.getStockByName(symbol);
-            System.out.println(stock.getId()+"-  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName()+ "  Current Price: "+stock.getCurrentPrice() +"  Number Of Transactions : "+stock.getTransactionsList().size() + "  Turnover: "+stock.getTransactionTurnover());
+            System.out.println(stock);
             ShowTransactionsByStock(stock);
         }
 
@@ -178,20 +175,18 @@ public class MainMenu {
             Iterator<Transaction> itr=stock.getTransactionsList().iterator();
             while(itr.hasNext()){
                 Transaction transaction= itr.next();
-                System.out.println(transaction.getDate()+"   "+"Number of stocks : "+transaction.getNumOfStock()+"   "+"Price : "+transaction.getPrice()+"   "+"Turnover : "+transaction.getTurnover());
-            }
+                System.out.println(transaction);            }
         }
 
         public void ShowWaitingSellCommands(Stock stock){
             ArrayList<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
             for(CommandType cmd: arrayList){
-                System.out.println(cmd.getTime()+"   "+ "Number of stock : "+cmd.getNumOfStocks()+"   "+"Price : "+cmd.getPrice()+"   "+"Turnover : "+(cmd.getNumOfStocks()*cmd.getPrice()));
-            }
+                System.out.println(cmd);            }
         }
         public void ShowWaitingBuyCommands(Stock stock){
             ArrayList<CommandType> arrayList=stock.getBuyWaitinglist().getBuylwaitinglist();
             for(CommandType cmd: arrayList){
-                System.out.println(cmd.getTime()+"   "+ "Number of stock : "+cmd.getNumOfStocks()+"   "+"Price : "+cmd.getPrice()+"   "+"Turnover : "+(cmd.getNumOfStocks()*cmd.getPrice()));
+                System.out.println(cmd);
             }
        }
     }

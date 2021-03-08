@@ -28,9 +28,8 @@ public class SellWaitinglist extends CommandWaitinglist{
 
     public ArrayList<CommandType> getSellwaitinglist(){return sellwaitinglist;}
     public void addCmdToList(CommandType command){
-
         sellwaitinglist.add(command);
-        Collections.sort(sellwaitinglist,new sortby());
+        SortArrayList();
     }
 
     public void removeByObject(CommandType command){

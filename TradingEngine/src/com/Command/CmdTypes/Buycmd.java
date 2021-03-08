@@ -10,11 +10,7 @@ public class Buycmd extends Command {
 
     public CommandType getCommand() { return command; }
 
-    public int getlimitprice(){
-       return command.getPrice();
-    }
-
-    public int getid(){
-        return command.getId();
+    public void Execue(){
+        command.Execute();
     }
 }

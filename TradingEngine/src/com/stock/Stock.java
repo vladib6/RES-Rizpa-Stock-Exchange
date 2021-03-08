@@ -2,6 +2,8 @@ package com.stock;
 
 import java.util.LinkedList;
 
+import com.Command.CmdTypes.CommandType;
+import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
 import com.Transaction.*;
@@ -16,6 +18,7 @@ public class Stock {
         sellWaitinglist=new SellWaitinglist();
         buyWaitinglist=new BuyWaitinglist();
         transactionsList= new LinkedList<Transaction>();
+        TransactionTurnover=0;
         id++;
     }
     private static int id=0;
@@ -54,9 +57,7 @@ public class Stock {
         return transactionsList;
     }
 
-    public SellWaitinglist getSellWaitinglist() {
-        return sellWaitinglist;
-    }
+    public SellWaitinglist getSellWaitinglist() { return sellWaitinglist; }
 
     public BuyWaitinglist getBuyWaitinglist() {
         return buyWaitinglist;
@@ -76,7 +77,7 @@ public class Stock {
     }
 
     public void setTransactionTurnover(int transactionTurnover) {
-        TransactionTurnover = transactionTurnover;
+        TransactionTurnover += transactionTurnover;
     }
 
     public void setSymbol(String symbol) {
@@ -87,13 +88,24 @@ public class Stock {
         this.transactionsList = transactionsList;
     }
 
-    public void addTransaction(Transaction transaction){
-        transactionsList.add(transaction);
+    public void addTransaction(Transaction transaction){//add to head of list
+        transactionsList.addFirst(transaction);
 
     }
 
+    public void addWaitingCommand(CommandType cmd){
+        if(cmd.getDirection()== Direction.BUY){
+            buyWaitinglist.addCmdToList(cmd);
+        }else{
+            sellWaitinglist.addCmdToList(cmd);
+        }
+    }
 
+    @Override
+    public String toString(){
+        return  id+"-  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover;
 
+    }
 
 }
 

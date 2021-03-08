@@ -1,12 +1,8 @@
 package com.Menus;
 
-import com.Command.CmdTypes.Command;
-import com.Command.CmdTypes.CommandFactory;
-import com.Command.CmdTypes.Direction;
-import com.Command.CmdTypes.Type;
+import com.Command.CmdTypes.*;
 import com.Engine.MainEngine;
 import com.stock.Stock;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,16 +12,36 @@ public class ExecuteCommandMenu {
     public ExecuteCommandMenu(MainEngine mainEngine){
         this.mainEngine=mainEngine;
     }
-    public void RunMenu() {
+    public void RunMenu() {//TODO: complete progress of transaction execute
+        Command command= CreateCommand();
+        int numOfTransactions=command.getCommand().Execute();
+
+        if(numOfTransactions==0){//print message about transactions
+            System.out.println("No Transactions Were performed");
+        }else{
+            System.out.println(numOfTransactions+"  Transactions Performed");
+            for(int i=0;i<numOfTransactions;i++){
+                System.out.println(command.getCommand().getStock().getTransactionsList().get(i));
+            }
+        }
+
+        if(command.getCommand().getNumOfStocks()==0){//print message about the command
+            System.out.printf("The whole command were performed");
+        }else{
+            System.out.println("Not all command were performed, The command :" );
+            System.out.println(command.getCommand());
+            System.out.println("Added to waiting list");
+        }
+    }
+    public Command CreateCommand(){
         Direction direction = getDirectionFromUser();
         Type type=getTypeFromUser();
         String symbol=getSymbolFromUser();
         Stock stock= mainEngine.getStockByName(symbol);
         int numofstock=getNumOfStockFromUser();
         int limitprice=getLimitPriceFromUser();
-        Command command= CommandFactory.Createcmd(direction,type,stock,numofstock,limitprice);
 
-
+        return CommandFactory.Createcmd(direction,type,stock,numofstock,limitprice);
     }
     public Direction getDirectionFromUser() {
         Scanner scanner = new Scanner(System.in);
