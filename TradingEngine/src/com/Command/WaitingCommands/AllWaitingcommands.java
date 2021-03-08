@@ -37,4 +37,10 @@ public class AllWaitingcommands {
     public void addWaitingSellcmd(String symbol, CommandType command){
         sellWaitinglistMap.get(symbol).addCmdToList(command);
     }
+
+    public void addCellToHashMap(String symbol,BuyWaitinglist bl,SellWaitinglist sl){
+        buyWaitinglistMap.put(symbol,bl);
+        sellWaitinglistMap.put(symbol,sl);
+
+    }
 }

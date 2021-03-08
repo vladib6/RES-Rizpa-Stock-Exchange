@@ -100,7 +100,7 @@ public class ExecuteCommandMenu {
         Scanner scanner = new Scanner(System.in);
         boolean validchoise = false;
         String symbol=null;
-        System.out.println("Enter Tha name of Stock");
+        System.out.println("Enter The name of Stock");
         while (!validchoise) {
             try {
                symbol= scanner.next();

@@ -58,6 +58,6 @@ public  abstract class CommandType {
 
    @Override
    public String toString(){
-      return time+ "   "+ "Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
+      return time+ "   "+stock.getSymbol()+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
    }
 }

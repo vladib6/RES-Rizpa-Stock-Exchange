@@ -20,5 +20,8 @@ public class Alltransactions {
         allTransactionList.get(symbol).add(transaction);
     }
 
+    public void addCellToHashMap(String symbol,LinkedList<Transaction> lt){
+        allTransactionList.put(symbol,lt);
+    }
 
 }
