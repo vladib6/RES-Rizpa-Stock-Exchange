@@ -19,20 +19,21 @@ public  abstract class CommandType {
       id++;
    }
 
-   private Stock stock;
+   protected Stock stock;
    protected Direction direction;
-   private String time;
-   private int numOfStocks;
-   private static int id=0;
-   private int price;
+   protected String time;
+   protected int numOfStocks;
+   protected static int id=0;
+   protected int price;
 
-   public abstract Transaction FindSellcmd(SellWaitinglist sellWaitinglist);
-   public abstract Transaction  FindBuycmd(BuyWaitinglist buyWaitinglist);
-   public Transaction Findcmd(Stock stock){
+   public abstract int SellExecute();
+   public abstract int  BuyExecute();
+
+   public int  Execute(){
     if(direction==Direction.SELL){
-      return FindBuycmd(stock.getBuyWaitinglist());
+     return SellExecute();
     }else{
-      return FindSellcmd(stock.getSellWaitinglist());
+     return BuyExecute();
     }
    }
 
@@ -55,4 +56,8 @@ public  abstract class CommandType {
       this.numOfStocks = numOfStocks;
    }
 
+   @Override
+   public String toString(){
+      return time+ "   "+ "Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
+   }
 }

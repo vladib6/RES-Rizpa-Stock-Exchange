@@ -14,12 +14,14 @@ public class IOCcmd extends CommandType {
 
 
     @Override
-    public Transaction FindSellcmd(SellWaitinglist sellWaitinglist) {
-        return null;
+    public int SellExecute() {
+
+        return 0;
     }
 
     @Override
-    public Transaction FindBuycmd(BuyWaitinglist buyWaitinglist) {
-        return null;
+    public int BuyExecute() {
+        return 0;
+
     }
 }

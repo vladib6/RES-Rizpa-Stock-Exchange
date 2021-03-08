@@ -30,9 +30,12 @@ public class BuyWaitinglist extends CommandWaitinglist{
     public ArrayList<CommandType> getBuylwaitinglist(){return buywaitinglist;}
 
     public void addCmdToList(CommandType command){
-
         buywaitinglist.add(command);
+        SortArrayList();
+    }
 
+    public void removeByObject(CommandType command){
+        buywaitinglist.remove(command);
     }
 
     public boolean isEmpyt(){

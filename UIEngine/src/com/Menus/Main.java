@@ -10,7 +10,7 @@ import com.stock.Stock;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//TODO:implement toString() in all classes
 //        MainMenu main=new MainMenu();
 //        main.Run();
 

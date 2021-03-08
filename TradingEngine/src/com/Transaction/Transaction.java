@@ -46,7 +46,8 @@ public class Transaction {
         return stock;
     }
 
-    public void Show(){
-        System.out.println(date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover );
+    @Override
+    public String toString(){
+        return date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover;
     }
 }

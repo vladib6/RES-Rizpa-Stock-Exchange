@@ -9,17 +9,18 @@ public class FOKcmd extends CommandType {
 
     public FOKcmd(Direction direction, Stock stock, int numOfStocks) {
 
-        super(direction, numOfStocks,stock,stock.getCurrentPrice());
-    }
-
-
-    @Override
-    public Transaction FindSellcmd(SellWaitinglist sellWaitinglist) {
-        return null;
+        super(direction, numOfStocks, stock, stock.getCurrentPrice());
     }
 
     @Override
-    public Transaction FindBuycmd(BuyWaitinglist buyWaitinglist) {
-        return null;
+    public int SellExecute() {
+        return 0;
+
+    }
+
+    @Override
+    public int BuyExecute() {
+        return 0;
+
     }
 }
