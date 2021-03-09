@@ -108,7 +108,8 @@ public class MainMenu {
                     scanner.nextLine();
                     String filepath=scanner.nextLine();
                     mainEngine= new Loadxml().ParseXml(filepath);
-                    System.out.println("Loading Success");
+                    System.out.println("<--- Loading Success --->");
+                    System.out.println("Now you can Trade on the system");
                 } catch (FileNotFoundException e) {
                     System.out.println("We can't find the file, please enter correct path or ensure that file exist");
                 }

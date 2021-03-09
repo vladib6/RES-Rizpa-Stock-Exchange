@@ -16,7 +16,8 @@ public  abstract class CommandType {
       this.stock=stock;
       this.price=price;
       this.time=DateTimeFormatter.ofPattern("HH:mm:ss.SSS").format(LocalDateTime.now());
-
+      staticid++;
+      this.id=staticid;
    }
 
    protected Stock stock;
@@ -24,11 +25,12 @@ public  abstract class CommandType {
    protected String time;
    protected int numOfStocks;
    protected int price;
-
-
+   static int staticid=0;
+   protected int id;
    public abstract int  Execute();
 
    //GETTERS
+   public int getId(){return id; }
    public Direction getDirection() { return direction; }
 
    public String getTime() { return time; }
