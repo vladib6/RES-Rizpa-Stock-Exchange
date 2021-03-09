@@ -1,8 +1,6 @@
 package com.Command.CmdTypes;
 
-import com.Command.WaitingCommands.BuyWaitinglist;
-import com.Command.WaitingCommands.SellWaitinglist;
-import com.Transaction.Transaction;
+
 import com.stock.Stock;
 
 public class IOCcmd extends CommandType {
@@ -14,14 +12,7 @@ public class IOCcmd extends CommandType {
 
 
     @Override
-    public int SellExecute() {
-
+    public int Execute() {
         return 0;
-    }
-
-    @Override
-    public int BuyExecute() {
-        return 0;
-
     }
 }
