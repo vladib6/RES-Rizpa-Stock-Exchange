@@ -10,11 +10,11 @@ import com.Transaction.*;
 //After create stock we must to add the transactionsList to AllTransaction Hashmap.
 public class Stock {
 
-    public Stock(String symbol, String companyName, int numOfStocks) {
+    public Stock(String symbol, String companyName, int price) {
         this.symbol = symbol.toUpperCase();
         this.companyName = companyName;
-        this.numOfStocks = numOfStocks;
-        this.currentPrice = 0;
+        this.numOfStocks = 0;
+        this.currentPrice = price;
         sellWaitinglist=new SellWaitinglist();
         buyWaitinglist=new BuyWaitinglist();
         transactionsList= new LinkedList<Transaction>();

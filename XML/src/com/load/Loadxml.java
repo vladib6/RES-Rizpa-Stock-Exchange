@@ -11,9 +11,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.SQLOutput;
 
-public class Loadxml {
+
+public class Loadxml {//TODO:change the load to using DOM JAXB
     public Loadxml(){
         mainEngine=null;
     }

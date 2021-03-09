@@ -31,7 +31,7 @@ public class MainEngine {
 
     public void addStock(Stock stock) throws Myexception {
         if(allStocks.getAllStocks().containsKey(stock.getSymbol()) || allStocks.isCompanyNameExist(stock.getCompanyName())){
-            throw new Myexception("You can't creat two stocks with the same name !");
+            throw new Myexception("You can't create two stocks with the same Symbol or company name !");
         }else{
             allStocks.addStock(stock);
             allTransactions.addCellToHashMap(stock.getSymbol(),stock.getTransactionsList());

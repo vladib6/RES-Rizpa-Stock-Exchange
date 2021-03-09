@@ -27,7 +27,11 @@ public class BuyWaitinglist extends CommandWaitinglist{
     }
     private ArrayList<CommandType> buywaitinglist;
 
-    public ArrayList<CommandType> getBuylwaitinglist(){return buywaitinglist;}
+    public ArrayList<CommandType> getBuywaitinglist(){return buywaitinglist;}
+
+    public CommandType getFirst(){
+        return buywaitinglist.get(0);
+    }
 
     public void addCmdToList(CommandType command){
         buywaitinglist.add(command);
@@ -38,6 +42,9 @@ public class BuyWaitinglist extends CommandWaitinglist{
         buywaitinglist.remove(command);
     }
 
+    public void removeFirst(){
+        buywaitinglist.remove(0);
+    }
     public boolean isEmpyt(){
         return buywaitinglist.isEmpty();
     }

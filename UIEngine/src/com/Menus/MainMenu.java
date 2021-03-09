@@ -3,6 +3,7 @@ import com.Command.CmdTypes.Buycmd;
 import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
 import com.Command.CmdTypes.Sellcmd;
+import com.Engine.Myexception;
 import com.Transaction.Transaction;
 import com.load.*;
 import com.Engine.MainEngine;
@@ -50,6 +51,7 @@ public class MainMenu {
     }
 
     public void menubeforeload(){
+        System.out.println("------------------------------");
         System.out.println("Please load data to the system");
         System.out.println("");
         System.out.println("Select option");
@@ -66,6 +68,7 @@ public class MainMenu {
                         scanner.nextLine();
                         String filepath= scanner.nextLine();
                         mainEngine= new Loadxml().ParseXml(filepath);
+                        System.out.println("Loading Success");
                     }
                     catch (FileNotFoundException e ){
                         System.out.println("We can't find the file, please enter correct path or ensure that file exist");
@@ -73,7 +76,7 @@ public class MainMenu {
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
                      } catch (SAXException e) {
-                        System.out.println("SaxException");
+                        System.out.println(e.getMessage());
                     } catch (ParserConfigurationException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -85,7 +88,7 @@ public class MainMenu {
                 turnoff();
                 break;
             default:
-                System.out.printf("Please select option from the menu");
+                System.out.println("Please select option from the menu");
                 break;
         }
     }
@@ -110,8 +113,10 @@ public class MainMenu {
                     scanner.nextLine();
                     String filepath=scanner.nextLine();
                     mainEngine= new Loadxml().ParseXml(filepath);
+                    System.out.println("Loading Success");
+
                 } catch (FileNotFoundException e) {
-                    System.out.printf("We can't find the file, please enter correct path or ensure that file exist");
+                    System.out.println("We can't find the file, please enter correct path or ensure that file exist");
                 }
                 catch (InputMismatchException e){
                     System.out.println("Wrong Input");
@@ -120,7 +125,7 @@ public class MainMenu {
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    System.out.printf("Cannot Open the file, check is name or the path");
+                    System.out.println("Cannot Open the file, check is name or the path");
                 }
                 break;
 
@@ -134,7 +139,7 @@ public class MainMenu {
                     String stockname=scanner.next();
                     DisplayStock(stockname.toUpperCase());
                 }catch (InputMismatchException e){
-                    System.out.printf("Wrong input! , please enter symbol of stock");
+                    System.out.println("Wrong input! , please enter symbol of stock");
                 }
                 catch (NullPointerException e){
                     System.out.println("The doesn't exist");
@@ -145,9 +150,11 @@ public class MainMenu {
                try{
                    ExecuteCommand(mainEngine);
                }catch (InputMismatchException e){
-                   System.out.printf("You entered a Wrong input please sign only a valid chars according to orders in each step");
+                   System.out.println("You entered a Wrong input please sign only a valid chars according to orders in each step");
                }catch (NullPointerException e){
                    System.out.println("One or more of your details was wrong,\n Try Again with a correct details");
+               }catch (Myexception e){
+                   System.out.println(e.getMessage());
                }
                 break;
 
@@ -159,12 +166,12 @@ public class MainMenu {
                 turnoff();
                 break;
             default:
-                System.out.printf("Please select option from the menu");
+                System.out.println("Please select option from the menu");
                 break;
         }
     }
 
-        public void ExecuteCommand(MainEngine mainEngine){
+        public void ExecuteCommand(MainEngine mainEngine) throws Myexception {
             ExecuteCommandMenu executeCommandMenu=new ExecuteCommandMenu(mainEngine);
             executeCommandMenu.RunMenu();
     }
@@ -177,7 +184,9 @@ public class MainMenu {
         }
         public void DisplayStock(String symbol){
             Stock stock=mainEngine.getStockByName(symbol);
+            System.out.println("<------ Stock Details ------>");
             System.out.println(stock);
+            System.out.println("<------ Stock Transactions ------>");
             ShowTransactionsByStock(stock);
         }
 
@@ -185,29 +194,49 @@ public class MainMenu {
             for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
                 Stock stock= entry.getValue();
                 System.out.println(stock.getId()+"-  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName());
+                System.out.println("<------- Transactions ------->");
                 ShowTransactionsByStock(stock);
+                System.out.println("<------- Waiting Buy Commands ------->");
                 ShowWaitingBuyCommands(stock);
+                System.out.println("<------- Waiting Sell Commands ------->");
                 ShowWaitingSellCommands(stock);
+                System.out.println("");
+                System.out.println("");
             }
         }
 
         public void ShowTransactionsByStock(Stock stock){
-            Iterator<Transaction> itr=stock.getTransactionsList().iterator();
-            while(itr.hasNext()){
-                Transaction transaction= itr.next();
-                System.out.println(transaction);            }
+            if(stock.getTransactionsList().size()==0){
+                System.out.println("There is no Transaction for this stock yet");
+            }else {
+                Iterator<Transaction> itr = stock.getTransactionsList().iterator();
+                while (itr.hasNext()) {
+                    Transaction transaction = itr.next();
+                    System.out.println(transaction);
+                }
+            }
         }
 
         public void ShowWaitingSellCommands(Stock stock){
             ArrayList<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
-            for(CommandType cmd: arrayList){
-                System.out.println(cmd);            }
+            if(arrayList.size()==0){
+                System.out.println("There is no Waiting Sell Command for this stock yet");
+            }else{
+                for(CommandType cmd: arrayList){
+                    System.out.println(cmd);
+                }
+            }
         }
         public void ShowWaitingBuyCommands(Stock stock){
-            ArrayList<CommandType> arrayList=stock.getBuyWaitinglist().getBuylwaitinglist();
-            for(CommandType cmd: arrayList){
-                System.out.println(cmd);
+            ArrayList<CommandType> arrayList=stock.getBuyWaitinglist().getBuywaitinglist();
+            if(arrayList.size()==0){
+                System.out.println("There is no Waiting Buy Command for this stock yet");
+            }else{
+                for(CommandType cmd: arrayList){
+                    System.out.println(cmd);
+                }
             }
+
        }
     }
 

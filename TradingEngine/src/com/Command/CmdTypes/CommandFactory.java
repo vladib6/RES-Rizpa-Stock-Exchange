@@ -28,7 +28,7 @@ public class CommandFactory {
                         break;
 
                     default:
-                        throw new InvalidParameterException();
+                        throw new InvalidParameterException("The type of command are  Wrong");
                 }
                 break;
             case BUY://create Buy command
@@ -49,7 +49,7 @@ public class CommandFactory {
                         break;
 
                     default:
-                        throw new InvalidParameterException();
+                        throw new InvalidParameterException("The type of command are  Wrong");
                 }
                 break;
 
