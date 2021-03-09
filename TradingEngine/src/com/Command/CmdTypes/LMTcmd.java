@@ -26,7 +26,7 @@ public class LMTcmd extends CommandType {
     }
 
 
-    public Transaction FindBuycmd(BuyWaitinglist buyWaitinglist) {//TODO: ask in which purchase rate the transaction execute buy or sell and decide where to update current price
+    public Transaction FindBuycmd(BuyWaitinglist buyWaitinglist) {
         for(CommandType cmd: buyWaitinglist.getBuywaitinglist()){
             if(super.price<=cmd.getPrice()){
                 Transaction transaction=DoTransaction(cmd,this,cmd.getPrice());
