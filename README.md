@@ -1,3 +1,2 @@
-# RES-Rizpa-Stock-Exchange
-Stock Trading System
-
+# RSE-Rizpa-Stock-Exchange
+##Stock Trading System

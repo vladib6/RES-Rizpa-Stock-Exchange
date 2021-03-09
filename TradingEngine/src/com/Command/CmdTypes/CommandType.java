@@ -26,16 +26,8 @@ public  abstract class CommandType {
    protected static int id=0;
    protected int price;
 
-   public abstract int SellExecute();
-   public abstract int  BuyExecute();
 
-   public int  Execute(){
-    if(direction==Direction.SELL){
-     return SellExecute();
-    }else{
-     return BuyExecute();
-    }
-   }
+   public abstract int  Execute();
 
    //GETTERS
    public Direction getDirection() { return direction; }
@@ -58,6 +50,6 @@ public  abstract class CommandType {
 
    @Override
    public String toString(){
-      return time+ "   "+ "Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
+      return time+ "   "+stock.getSymbol()+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
    }
 }

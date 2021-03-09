@@ -10,18 +10,20 @@ import com.Transaction.*;
 //After create stock we must to add the transactionsList to AllTransaction Hashmap.
 public class Stock {
 
-    public Stock(String symbol, String companyName, int numOfStocks, int currentPrice) {
-        this.symbol = symbol;
+    public Stock(String symbol, String companyName, int price) {
+        this.symbol = symbol.toUpperCase();
         this.companyName = companyName;
-        this.numOfStocks = numOfStocks;
-        this.currentPrice = currentPrice;
+        this.numOfStocks = 0;
+        this.currentPrice = price;
         sellWaitinglist=new SellWaitinglist();
         buyWaitinglist=new BuyWaitinglist();
         transactionsList= new LinkedList<Transaction>();
         TransactionTurnover=0;
-        id++;
+        staticid++;
+        this.id=staticid;
     }
-    private static int id=0;
+    private static int staticid=0;
+    private int id;
     private  String symbol;
     private String companyName;
     private int numOfStocks;

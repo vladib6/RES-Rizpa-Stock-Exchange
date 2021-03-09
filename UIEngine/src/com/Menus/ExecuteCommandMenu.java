@@ -2,6 +2,7 @@ package com.Menus;
 
 import com.Command.CmdTypes.*;
 import com.Engine.MainEngine;
+import com.Engine.Myexception;
 import com.stock.Stock;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class ExecuteCommandMenu {
     public ExecuteCommandMenu(MainEngine mainEngine){
         this.mainEngine=mainEngine;
     }
-    public void RunMenu() {//TODO: complete progress of transaction execute
+    public void RunMenu()throws Myexception {
         Command command= CreateCommand();
         int numOfTransactions=command.getCommand().Execute();
 
@@ -26,22 +27,25 @@ public class ExecuteCommandMenu {
         }
 
         if(command.getCommand().getNumOfStocks()==0){//print message about the command
-            System.out.printf("The whole command were performed");
+            System.out.println("The whole command were performed");
         }else{
             System.out.println("Not all command were performed, The command :" );
             System.out.println(command.getCommand());
             System.out.println("Added to waiting list");
         }
     }
-    public Command CreateCommand(){
+    public Command CreateCommand(){//TODO: Handle exception in create command
         Direction direction = getDirectionFromUser();
         Type type=getTypeFromUser();
         String symbol=getSymbolFromUser();
         Stock stock= mainEngine.getStockByName(symbol);
         int numofstock=getNumOfStockFromUser();
-        int limitprice=getLimitPriceFromUser();
+        if(type==Type.LMT){
+            int limitprice=getLimitPriceFromUser();
+            return CommandFactory.Createcmd(direction,type,stock,numofstock,limitprice);
+        }
 
-        return CommandFactory.Createcmd(direction,type,stock,numofstock,limitprice);
+        return CommandFactory.Createcmd(direction,type,stock,numofstock,0);
     }
     public Direction getDirectionFromUser() {
         Scanner scanner = new Scanner(System.in);
@@ -61,8 +65,9 @@ public class ExecuteCommandMenu {
                     System.out.println("Please choose a number according the menu");
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Enter only numbers according to menu");
-                System.out.printf("Try Again");
+                System.out.println("Enter only numbers according to menu");
+                System.out.println("Try Again");
+                scanner.nextLine();
             }
         }
         return null;
@@ -88,8 +93,9 @@ public class ExecuteCommandMenu {
                     System.out.println("Please choose a number according the menu");
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Enter only numbers according to menu");
-                System.out.printf("Try Again");
+                System.out.println("Enter only numbers according to menu");
+                System.out.println("Try Again");
+                scanner.nextLine();
             }
         }
         return null;
@@ -100,15 +106,19 @@ public class ExecuteCommandMenu {
         Scanner scanner = new Scanner(System.in);
         boolean validchoise = false;
         String symbol=null;
-        System.out.println("Enter Tha name of Stock");
+        System.out.println("Enter The name of Stock");
         while (!validchoise) {
             try {
                symbol= scanner.next();
-               return symbol.toUpperCase();
-            } catch (InputMismatchException e) {
-                System.out.printf("Enter only numbers according to menu");
-                System.out.printf("Try Again");
+               if(mainEngine.getAllStocks().getAllStocks().containsKey(symbol.toUpperCase())){
+                   return symbol.toUpperCase();
+               }else{
 
+               }
+            } catch (InputMismatchException e) {
+                System.out.println("Enter only numbers according to menu");
+                System.out.println("Try Again");
+                scanner.nextLine();
             }
         }
         return symbol;

@@ -26,6 +26,17 @@ public class Allstocks {
         allStocks.remove(symbol);
     }
 
+    public boolean isCompanyNameExist(String cName){//check if already exist stock with that company name
+        boolean res=false;
+        for(Map.Entry<String,Stock> entry: allStocks.entrySet()){
+            if(entry.getValue().getCompanyName().equals(cName)){
+                res=true;
+            }
+        }
+
+        return res;
+
+    }
 
 
 

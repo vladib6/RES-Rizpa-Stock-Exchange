@@ -1,8 +1,6 @@
 package com.Command.CmdTypes;
 
-import com.Command.WaitingCommands.BuyWaitinglist;
-import com.Command.WaitingCommands.SellWaitinglist;
-import com.Transaction.Transaction;
+
 import com.stock.Stock;
 
 public class FOKcmd extends CommandType {
@@ -12,15 +10,9 @@ public class FOKcmd extends CommandType {
         super(direction, numOfStocks, stock, stock.getCurrentPrice());
     }
 
-    @Override
-    public int SellExecute() {
-        return 0;
-
-    }
 
     @Override
-    public int BuyExecute() {
+    public int Execute() {
         return 0;
-
     }
 }

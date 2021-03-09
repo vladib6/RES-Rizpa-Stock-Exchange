@@ -27,6 +27,9 @@ public class SellWaitinglist extends CommandWaitinglist{
     private ArrayList<CommandType> sellwaitinglist;
 
     public ArrayList<CommandType> getSellwaitinglist(){return sellwaitinglist;}
+    public CommandType getFirst(){
+       return sellwaitinglist.get(0);
+    }
     public void addCmdToList(CommandType command){
         sellwaitinglist.add(command);
         SortArrayList();
@@ -34,6 +37,10 @@ public class SellWaitinglist extends CommandWaitinglist{
 
     public void removeByObject(CommandType command){
         sellwaitinglist.remove(command);
+    }
+
+    public void removeFirst(){
+        sellwaitinglist.remove(0);
     }
     public boolean isEmpyt(){
         return sellwaitinglist.isEmpty();
