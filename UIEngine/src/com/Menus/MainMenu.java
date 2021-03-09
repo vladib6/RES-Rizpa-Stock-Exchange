@@ -10,9 +10,8 @@ import com.Engine.MainEngine;
 import com.stock.Stock;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class MainMenu {
@@ -23,7 +22,8 @@ public class MainMenu {
     private MainEngine mainEngine;//The engine of trading system, store all classes and data that related to logics operations,stocks,commands,users and etc,if null so the data not loaded
     private boolean systemrunning;//if true the system run if false so turnoff.
 
-    public void turnoff(){//turnof the system
+    public void turnoff(){//turnoff the system
+        System.out.println("Closing the system, Bye Bye...");
         systemrunning=false;
     }
 
@@ -45,19 +45,16 @@ public class MainMenu {
                     System.out.println("Please enter only numbers according the Menu");
                 }
             }
-
-
         }
     }
 
     public void menubeforeload(){
-        System.out.println("------------------------------");
+        System.out.println("<------------------------------>");
         System.out.println("Please load data to the system");
         System.out.println("");
         System.out.println("Select option");
         System.out.println("1- Load from XML file");
         System.out.println("2-Exit");
-
         Scanner scanner=new Scanner(System.in);
         int userchoice=scanner.nextInt();
 
@@ -68,18 +65,16 @@ public class MainMenu {
                         scanner.nextLine();
                         String filepath= scanner.nextLine();
                         mainEngine= new Loadxml().ParseXml(filepath);
-                        System.out.println("Loading Success");
+                        System.out.println("<--- Loading Success ---> \n Now you Can Trade in the system");
                     }
                     catch (FileNotFoundException e ){
                         System.out.println("We can't find the file, please enter correct path or ensure that file exist");
                     }
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
-                     } catch (SAXException e) {
+                     } catch (Myexception e) {
                         System.out.println(e.getMessage());
-                    } catch (ParserConfigurationException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JAXBException  e) {
                         e.printStackTrace();
                     }
                 break;
@@ -119,12 +114,8 @@ public class MainMenu {
                 }
                 catch (InputMismatchException e){
                     System.out.println("Wrong Input");
-                } catch (SAXException e) {
-                    e.printStackTrace();
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    System.out.println("Cannot Open the file, check is name or the path");
+                } catch (JAXBException | Myexception e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
 
@@ -192,7 +183,7 @@ public class MainMenu {
         public void DisplayAllCommandsAndTranscation(){
             for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
                 Stock stock= entry.getValue();
-                System.out.println(stock.getId()+"-  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName());
+                System.out.println("-->  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName()+"<--");
                 System.out.println("<------- Transactions ------->");
                 ShowTransactionsByStock(stock);
                 System.out.println("<------- Waiting Buy Commands ------->");

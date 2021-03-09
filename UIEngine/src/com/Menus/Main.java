@@ -8,6 +8,5 @@ public class Main {
       MainMenu main=new MainMenu();
       main.Run();
 
-
     }
 }

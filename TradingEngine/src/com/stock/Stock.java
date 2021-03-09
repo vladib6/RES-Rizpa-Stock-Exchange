@@ -7,26 +7,28 @@ import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
 import com.Transaction.*;
-//After create stock we must to add the transactionsList to AllTransaction Hashmap.
-public class Stock {
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement (name="rse-stock")
+public class Stock {
+    public Stock(){
+        sellWaitinglist=new SellWaitinglist();
+        buyWaitinglist=new BuyWaitinglist();
+        transactionsList= new LinkedList<Transaction>();
+    }
     public Stock(String symbol, String companyName, int price) {
         this.symbol = symbol.toUpperCase();
         this.companyName = companyName;
-        this.numOfStocks = 0;
         this.currentPrice = price;
         sellWaitinglist=new SellWaitinglist();
         buyWaitinglist=new BuyWaitinglist();
         transactionsList= new LinkedList<Transaction>();
-        TransactionTurnover=0;
-        staticid++;
-        this.id=staticid;
     }
-    private static int staticid=0;
-    private int id;
+
     private  String symbol;
     private String companyName;
-    private int numOfStocks;
     private int currentPrice;
     private int TransactionTurnover;
     private  LinkedList<Transaction> transactionsList;
@@ -34,19 +36,17 @@ public class Stock {
     private BuyWaitinglist buyWaitinglist;
 
     //Getters
+    @XmlElement(name="rse-symbol")
     public String getSymbol() {
         return symbol;
     }
 
-    public int getId(){ return id; }
+    @XmlElement (name="rse-company-name")
     public String getCompanyName() {
         return companyName;
     }
 
-    public int getNumOfStocks() {
-        return numOfStocks;
-    }
-
+    @XmlElement(name="rse-price")
     public int getCurrentPrice() {
         return currentPrice;
     }
@@ -70,9 +70,6 @@ public class Stock {
         this.companyName = companyName;
     }
 
-    public void setNumOfStocks(int numOfStocks) {
-        this.numOfStocks = numOfStocks;
-    }
 
     public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
@@ -105,9 +102,10 @@ public class Stock {
 
     @Override
     public String toString(){
-        return  id+"-  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover;
+        return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover;
 
     }
+
 
 }
 
