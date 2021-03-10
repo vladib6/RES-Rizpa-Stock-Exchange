@@ -73,9 +73,9 @@ public class MainMenu {
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
                      } catch (Myexception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e);
                     } catch (JAXBException  e) {
-                        e.printStackTrace();
+                        System.out.println("THe file not found or problem with the schema");
                     }
                 break;
 
@@ -145,7 +145,7 @@ public class MainMenu {
                }catch (NullPointerException e){
                    System.out.println("One or more of your details was wrong,\n Try Again with a correct details");
                }catch (Myexception e){
-                   System.out.println(e.getMessage());
+                   System.out.println(e.toString());
                }
                 break;
 

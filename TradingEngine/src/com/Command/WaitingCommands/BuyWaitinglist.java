@@ -19,9 +19,9 @@ public class BuyWaitinglist extends CommandWaitinglist{
         @Override
         public int compare(CommandType com1, CommandType com2) {
             if(com1.getPrice()!=com2.getPrice()){//compare by limit price
-                return (com1.getPrice()-com2.getPrice());
-            }else{//compare by date;
-                return (com2.getId()-com1.getId());
+                return (com2.getPrice()-com1.getPrice());
+            }else{//compare by date=compare by id;
+                return (com1.getId()-com2.getId());
             }
         }
     }
