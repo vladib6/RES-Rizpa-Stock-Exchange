@@ -210,7 +210,7 @@ public class MainMenu {
         }
 
         public void ShowWaitingSellCommands(Stock stock){
-            ArrayList<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
+            List<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
             if(arrayList.size()==0){
                 System.out.println("There is no Waiting Sell Command for this stock yet");
             }else{
@@ -220,7 +220,7 @@ public class MainMenu {
             }
         }
         public void ShowWaitingBuyCommands(Stock stock){
-            ArrayList<CommandType> arrayList=stock.getBuyWaitinglist().getBuywaitinglist();
+            List<CommandType> arrayList=stock.getBuyWaitinglist().getBuywaitinglist();
             if(arrayList.size()==0){
                 System.out.println("There is no Waiting Buy Command for this stock yet");
             }else{

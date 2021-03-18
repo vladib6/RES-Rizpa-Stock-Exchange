@@ -5,6 +5,7 @@ import com.stock.Stock;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Transaction {
     public Transaction(int price,Stock stock, int numOfStock, int turnover,Direction direction ){
@@ -49,5 +50,18 @@ public class Transaction {
     @Override
     public String toString(){
         return date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return price == that.price && numOfStock == that.numOfStock && date.equals(that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, price, numOfStock);
     }
 }

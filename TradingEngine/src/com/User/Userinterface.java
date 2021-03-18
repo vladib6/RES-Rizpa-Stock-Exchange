@@ -1,2 +1,4 @@
-package com.User;public interface Userinterface {
+package com.User;
+
+public interface Userinterface {
 }

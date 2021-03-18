@@ -9,6 +9,7 @@ import com.Transaction.Transaction;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
+import java.util.Objects;
 
 @XmlRootElement (name="rse-stock")
 public class Stock {
@@ -104,6 +105,17 @@ public class Stock {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stock stock = (Stock) o;
+        return symbol.equals(stock.symbol) && companyName.equals(stock.companyName);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol, companyName);
+    }
 }
 

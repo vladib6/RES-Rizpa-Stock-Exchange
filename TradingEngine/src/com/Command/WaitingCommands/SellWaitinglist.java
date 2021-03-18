@@ -1,16 +1,15 @@
 package com.Command.WaitingCommands;
 
-import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
-import com.Command.CmdTypes.Sellcmd;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class SellWaitinglist extends CommandWaitinglist{
     public SellWaitinglist(){
-        sellwaitinglist= new ArrayList<CommandType>();
+        sellwaitinglist= new ArrayList<>();
     }
 
     class sortby implements Comparator<CommandType>{
@@ -24,9 +23,9 @@ public class SellWaitinglist extends CommandWaitinglist{
             }
         }
     }
-    private ArrayList<CommandType> sellwaitinglist;
+    private List<CommandType> sellwaitinglist;
 
-    public ArrayList<CommandType> getSellwaitinglist(){return sellwaitinglist;}
+    public List<CommandType> getSellwaitinglist(){return sellwaitinglist;}
     public CommandType getFirst(){
        return sellwaitinglist.get(0);
     }

@@ -1,2 +1,4 @@
-package com.User;public class User {
+package com.User;
+
+public class User {
 }

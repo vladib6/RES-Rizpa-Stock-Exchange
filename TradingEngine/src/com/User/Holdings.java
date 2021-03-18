@@ -1,2 +1,4 @@
-package com.User;public class Holdings {
+package com.User;
+
+public class Holdings {
 }

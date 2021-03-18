@@ -1,16 +1,15 @@
 package com.Command.WaitingCommands;
 
-import com.Command.CmdTypes.Buycmd;
-import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class BuyWaitinglist extends CommandWaitinglist{
     public BuyWaitinglist(){
-    buywaitinglist=new ArrayList<CommandType>();
+    buywaitinglist=new ArrayList<>();
     }
 
 
@@ -25,9 +24,9 @@ public class BuyWaitinglist extends CommandWaitinglist{
             }
         }
     }
-    private ArrayList<CommandType> buywaitinglist;
+    private List<CommandType> buywaitinglist;
 
-    public ArrayList<CommandType> getBuywaitinglist(){return buywaitinglist;}
+    public List<CommandType> getBuywaitinglist(){return buywaitinglist;}
 
     public CommandType getFirst(){
         return buywaitinglist.get(0);
