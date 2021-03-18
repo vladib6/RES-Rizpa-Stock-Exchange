@@ -1,14 +1,12 @@
 package com.Menus;
-import com.Command.CmdTypes.Buycmd;
-import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
-import com.Command.CmdTypes.Sellcmd;
-import com.Engine.Myexception;
-import com.Transaction.Transaction;
-import com.load.*;
 import com.Engine.MainEngine;
+import com.Engine.Myexception;
+import com.Engine.StockException;
+import com.Transaction.Transaction;
+import com.load.Loadxml;
+import com.save.Savexml;
 import com.stock.Stock;
-import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -64,7 +62,8 @@ public class MainMenu {
                         System.out.println("Enter full path of XML file");
                         scanner.nextLine();
                         String filepath= scanner.nextLine();
-                        mainEngine= new Loadxml().ParseXml(filepath);
+                        mainEngine= Loadxml.ParseXml(filepath);
+                        Savexml.save(mainEngine);
                         System.out.println("<--- Loading Success ---> \n Now you Can Trade in the system");
                     }
                     catch (FileNotFoundException e ){
@@ -72,10 +71,10 @@ public class MainMenu {
                     }
                     catch (InputMismatchException e){
                         System.out.println("Wrong Input");
-                     } catch (Myexception e) {
+                     } catch (StockException e) {
                         System.out.println(e);
                     } catch (JAXBException  e) {
-                        System.out.println("THe file not found or problem with the schema");
+                        System.out.println("The file not found or problem with the schema");
                     }
                 break;
 
@@ -107,7 +106,7 @@ public class MainMenu {
                     System.out.println("Enter full path of XML file");
                     scanner.nextLine();
                     String filepath=scanner.nextLine();
-                    mainEngine= new Loadxml().ParseXml(filepath);
+                    mainEngine= Loadxml.ParseXml(filepath);
                     System.out.println("<--- Loading Success --->");
                     System.out.println("Now you can Trade on the system");
                 } catch (FileNotFoundException e) {
@@ -115,8 +114,10 @@ public class MainMenu {
                 }
                 catch (InputMismatchException e){
                     System.out.println("Wrong Input");
-                } catch (JAXBException | Myexception e) {
-                    System.out.println(e.getMessage());
+                } catch (JAXBException e) {
+                    System.out.println("The file not found or problem with the schema");
+                }catch (StockException e){
+                    System.out.println(e.toString());
                 }
                 break;
 

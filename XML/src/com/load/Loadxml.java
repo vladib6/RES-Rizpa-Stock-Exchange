@@ -1,8 +1,9 @@
 package com.load;
 
 import com.Engine.MainEngine;
-import com.Engine.Myexception;
+import com.Engine.StockException;
 import com.stock.Stock;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -11,7 +12,7 @@ import java.io.FileNotFoundException;
 
 public class Loadxml {
 
-    public MainEngine ParseXml(String filepath) throws JAXBException, Myexception, FileNotFoundException {
+    public static MainEngine ParseXml(String filepath) throws JAXBException, FileNotFoundException, StockException {
         JAXBContext jaxbContext=JAXBContext.newInstance(MainEngine.class);
         Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
         MainEngine mainEngine=(MainEngine) unmarshaller.unmarshal(new File(filepath));

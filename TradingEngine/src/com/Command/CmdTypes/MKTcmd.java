@@ -38,7 +38,7 @@ public class MKTcmd extends CommandType {
                     return null;
                 }else {
                     Transaction transaction=DoTransaction(this,sellWaitinglist.getFirst(),sellWaitinglist.getFirst().price);
-                    this.price=transaction.getPrice();
+                    this.price=transaction.getPrice();//update the command price in case we pass the command to waiting list
                     if(sellWaitinglist.getFirst().numOfStocks==0){ //if numofstock is 0 so remove the cmd from waiting list
                         sellWaitinglist.getSellwaitinglist().remove(0);
                     }

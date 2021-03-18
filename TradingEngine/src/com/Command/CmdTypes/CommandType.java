@@ -1,8 +1,5 @@
 package com.Command.CmdTypes;
 
-import com.Command.WaitingCommands.BuyWaitinglist;
-import com.Command.WaitingCommands.SellWaitinglist;
-import com.Transaction.Transaction;
 import com.stock.Stock;
 
 import java.time.LocalDateTime;
@@ -50,6 +47,6 @@ public  abstract class CommandType {
 
    @Override
    public String toString(){
-      return time+ "   "+stock.getSymbol()+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price;
+      return time+ "   "+stock.getSymbol()+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
    }
 }

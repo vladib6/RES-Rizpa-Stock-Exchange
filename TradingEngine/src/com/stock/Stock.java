@@ -1,15 +1,14 @@
 package com.stock;
 
-import java.util.LinkedList;
-
 import com.Command.CmdTypes.CommandType;
 import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
-import com.Transaction.*;
+import com.Transaction.Transaction;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.LinkedList;
 
 @XmlRootElement (name="rse-stock")
 public class Stock {
@@ -50,7 +49,6 @@ public class Stock {
     public int getCurrentPrice() {
         return currentPrice;
     }
-
     public int getTransactionTurnover() {
         return TransactionTurnover;
     }
@@ -102,7 +100,7 @@ public class Stock {
 
     @Override
     public String toString(){
-        return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover;
+        return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover+"$";
 
     }
 

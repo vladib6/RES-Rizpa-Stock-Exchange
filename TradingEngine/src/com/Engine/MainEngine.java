@@ -2,8 +2,9 @@ package com.Engine;
 
 import com.Command.WaitingCommands.AllWaitingcommands;
 import com.Transaction.Alltransactions;
-import com.Transaction.Transaction;
-import com.stock.*;
+import com.stock.Allstocks;
+import com.stock.Stock;
+import com.stock.StockArray;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,12 +44,12 @@ public class MainEngine {
         return allTransactions;
     }
 
-    public void addStock(Stock stock) throws Myexception {
+    public void addStock(Stock stock) throws StockException {
         if(allStocks.getAllStocks().containsKey(stock.getSymbol())){
-            throw new Myexception("You can't create two stocks with the same Symbol !");
+            throw new StockException(stock.getSymbol(),"Symbol");
         }
         if(allStocks.isCompanyNameExist(stock.getCompanyName())){
-            throw new Myexception("You can't create two stocks with the same Company name !");
+            throw new StockException(stock.getCompanyName(),"Company name");
         }else{
             allStocks.addStock(stock);
             allTransactions.addCellToHashMap(stock.getSymbol(),stock.getTransactionsList());
@@ -61,6 +62,7 @@ public class MainEngine {
     public Stock getStockByName(String symbol){
        return allStocks.getStockByName(symbol);
     }
+
 
 
 

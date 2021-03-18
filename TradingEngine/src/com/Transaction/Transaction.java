@@ -48,6 +48,6 @@ public class Transaction {
 
     @Override
     public String toString(){
-        return date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover;
+        return date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
     }
 }

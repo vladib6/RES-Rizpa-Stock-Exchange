@@ -36,8 +36,8 @@ public class ExecuteCommandMenu {
     }
     public Command CreateCommand()throws Myexception{//TODO: Handle exception in create command
         Direction direction = getDirectionFromUser();
-        Type type=getTypeFromUser();
         String symbol=getSymbolFromUser();
+        Type type=getTypeFromUser();
         Stock stock= mainEngine.getStockByName(symbol);
         int numofstock=getNumOfStockFromUser();
         if(type==Type.LMT){
@@ -158,8 +158,9 @@ public class ExecuteCommandMenu {
               validchoise=true;
 
             } catch (InputMismatchException e) {
-                System.out.printf("Enter only numbers according to menu");
-                System.out.printf("Try Again , Or type 0 to back to previous menu");
+                System.out.println("Enter only numbers according to menu");
+                System.out.println("Try Again , Or type 0 to back to previous menu");
+                scanner.nextLine();
             }catch (Myexception e){
                 throw e;
             }
@@ -181,8 +182,9 @@ public class ExecuteCommandMenu {
                 }
                 validchoise=true;
             } catch (InputMismatchException e) {
-                System.out.printf("Enter only numbers according to menu");
-                System.out.printf("Try Again , or type 0 to back to previous menu");
+                System.out.println("Enter only numbers according to menu");
+                System.out.println("Try Again , or type 0 to back to previous menu");
+                scanner.nextLine();
             }catch (Myexception e){
                 throw e;
             }
