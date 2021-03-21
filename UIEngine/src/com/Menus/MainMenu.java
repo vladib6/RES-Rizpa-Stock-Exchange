@@ -1,23 +1,25 @@
 package com.Menus;
-import com.Command.CmdTypes.CommandType;
-import com.Engine.MainEngine;
+import com.CommandDTO;
+import com.Engine.EngineInterface;
 import com.Engine.Myexception;
 import com.Engine.StockException;
-import com.Transaction.Transaction;
+import com.StockDTO;
+import com.TransactionDTO;
 import com.load.Loadxml;
-import com.save.Savexml;
-import com.stock.Stock;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 public class MainMenu {
     public MainMenu(){
         mainEngine=null;
         systemrunning=true;
     }
-    private MainEngine mainEngine;//The engine of trading system, store all classes and data that related to logics operations,stocks,commands,users and etc,if null so the data not loaded
+    private EngineInterface mainEngine;//The engine of trading system, store all classes and data that related to logics operations,stocks,commands,users and etc,if null so the data not loaded
     private boolean systemrunning;//if true the system run if false so turnoff.
 
     public void turnoff(){//turnoff the system
@@ -63,7 +65,7 @@ public class MainMenu {
                         scanner.nextLine();
                         String filepath= scanner.nextLine();
                         mainEngine= Loadxml.ParseXml(filepath);
-                        Savexml.save(mainEngine);
+
                         System.out.println("<--- Loading Success ---> \n Now you Can Trade in the system");
                     }
                     catch (FileNotFoundException e ){
@@ -86,7 +88,7 @@ public class MainMenu {
                 break;
         }
     }
-    public void menuafterload()  {//TODO: check exceptions
+    public void menuafterload()  {
         System.out.println("---------------");
         System.out.println("Select option");
         System.out.println("");
@@ -134,7 +136,7 @@ public class MainMenu {
                     System.out.println("Wrong input! , please enter symbol of stock");
                 }
                 catch (NullPointerException e){
-                    System.out.println("The doesn't exist");
+                    System.out.println("The stock doesn't exist");
                 }
                 break;
 
@@ -163,73 +165,59 @@ public class MainMenu {
         }
     }
 
-        public void ExecuteCommand(MainEngine mainEngine) throws Myexception {
+        public void ExecuteCommand(EngineInterface mainEngine) throws Myexception {
             ExecuteCommandMenu executeCommandMenu=new ExecuteCommandMenu(mainEngine);
             executeCommandMenu.RunMenu();
     }
 
-         public void DisplayAllStocks(){
-              for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
-                  Stock stock= entry.getValue();
-                  System.out.println(stock);
-                  }
+        public void DisplayAllStocks(){
+             for(StockDTO dto: mainEngine.getAllstocksDto()){
+                 System.out.println(dto);
+             }
         }
         public void DisplayStock(String symbol){
-            Stock stock=mainEngine.getStockByName(symbol);
+            StockDTO stockDTO=mainEngine.getStockDto(symbol);
             System.out.println("<------ Stock Details ------>");
-            System.out.println(stock);
+            System.out.println(stockDTO);
             System.out.println("<------ Stock Transactions ------>");
-            ShowTransactionsByStock(stock);
+            ShowTransactionsByStock(stockDTO.getTransactionDTOS());
         }
 
         public void DisplayAllCommandsAndTranscation(){
-            for (Map.Entry<String,Stock> entry: mainEngine.getAllStocks().getAllStocks().entrySet()){
-                Stock stock= entry.getValue();
-                System.out.println("-->  Stock Data : "+stock.getSymbol()+ "  "+ stock.getCompanyName()+"<--");
+            for (StockDTO stockDTO : mainEngine.getAllstocksDto()){
+                System.out.println("-->  Stock Data : "+stockDTO.getSymbol()+ "  "+ stockDTO.getCompanyName()+"<--");
                 System.out.println("<------- Transactions ------->");
-                ShowTransactionsByStock(stock);
+                ShowTransactionsByStock(stockDTO.getTransactionDTOS());
                 System.out.println("<------- Waiting Buy Commands ------->");
-                ShowWaitingBuyCommands(stock);
+                ShowWaitingCommands(stockDTO.getBuyWaiting());
                 System.out.println("<------- Waiting Sell Commands ------->");
-                ShowWaitingSellCommands(stock);
+                ShowWaitingCommands(stockDTO.getSellWaiting());
                 System.out.println("");
                 System.out.println("");
             }
         }
 
-        public void ShowTransactionsByStock(Stock stock){
-            if(stock.getTransactionsList().size()==0){
+        public void ShowTransactionsByStock(List<TransactionDTO> transactionDTOList){
+            if(transactionDTOList.size()==0){
                 System.out.println("There is no Transaction for this stock yet");
             }else {
-                Iterator<Transaction> itr = stock.getTransactionsList().iterator();
+                Iterator<TransactionDTO> itr = transactionDTOList.iterator();
                 while (itr.hasNext()) {
-                    Transaction transaction = itr.next();
-                    System.out.println(transaction);
+                    TransactionDTO transactionDTO = itr.next();
+                    System.out.println(transactionDTO);
                 }
             }
         }
 
-        public void ShowWaitingSellCommands(Stock stock){
-            List<CommandType> arrayList=stock.getSellWaitinglist().getSellwaitinglist();
-            if(arrayList.size()==0){
+        public void ShowWaitingCommands(List<CommandDTO> commandDTOList){
+            if(commandDTOList.size()==0){
                 System.out.println("There is no Waiting Sell Command for this stock yet");
             }else{
-                for(CommandType cmd: arrayList){
-                    System.out.println(cmd);
-                }
+                for(CommandDTO dto: commandDTOList){
+                    System.out.println(dto); }
             }
         }
-        public void ShowWaitingBuyCommands(Stock stock){
-            List<CommandType> arrayList=stock.getBuyWaitinglist().getBuywaitinglist();
-            if(arrayList.size()==0){
-                System.out.println("There is no Waiting Buy Command for this stock yet");
-            }else{
-                for(CommandType cmd: arrayList){
-                    System.out.println(cmd);
-                }
-            }
 
-       }
     }
 
 

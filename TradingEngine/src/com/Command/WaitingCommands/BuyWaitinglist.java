@@ -1,6 +1,7 @@
 package com.Command.WaitingCommands;
 
 import com.Command.CmdTypes.CommandType;
+import com.CommandDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,4 +53,12 @@ public class BuyWaitinglist extends CommandWaitinglist{
         Collections.sort(buywaitinglist,new sortby());
     }
 
+    public List<CommandDTO> createList(){
+        List<CommandDTO> res=new ArrayList<>();
+        for(CommandType cmd:buywaitinglist){
+            res.add(new CommandDTO(cmd.getInitiativeUser().getUsername(),cmd.getStockSymbol(),cmd.getDirection(),cmd.getTime(),cmd.getNumOfStocks(),cmd.getPrice()));
+        }
+        return res;
+
+    }
 }

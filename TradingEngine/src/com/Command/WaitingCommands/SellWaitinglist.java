@@ -1,6 +1,7 @@
 package com.Command.WaitingCommands;
 
 import com.Command.CmdTypes.CommandType;
+import com.CommandDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,7 @@ public class SellWaitinglist extends CommandWaitinglist{
     public CommandType getFirst(){
        return sellwaitinglist.get(0);
     }
+
     public void addCmdToList(CommandType command){
         sellwaitinglist.add(command);
         SortArrayList();
@@ -38,16 +40,15 @@ public class SellWaitinglist extends CommandWaitinglist{
         sellwaitinglist.remove(command);
     }
 
-    public void removeFirst(){
-        sellwaitinglist.remove(0);
-    }
-    public boolean isEmpyt(){
-        return sellwaitinglist.isEmpty();
-    }
-
     public void SortArrayList(){
         Collections.sort(sellwaitinglist,new SellWaitinglist.sortby());
     }
 
-
+    public List<CommandDTO> createList(){
+        List<CommandDTO> res=new ArrayList<>();
+        for(CommandType cmd:sellwaitinglist){
+            res.add(new CommandDTO(cmd.getInitiativeUser().getUsername(), cmd.getStockSymbol(),cmd.getDirection(),cmd.getTime(),cmd.getNumOfStocks(),cmd.getPrice()));
+        }
+        return res;
+    }
 }

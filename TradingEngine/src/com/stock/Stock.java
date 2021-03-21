@@ -4,8 +4,9 @@ import com.Command.CmdTypes.CommandType;
 import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
+import com.StockDTO;
 import com.Transaction.Transaction;
-
+import com.TransactionDTO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
@@ -50,6 +51,7 @@ public class Stock {
     public int getCurrentPrice() {
         return currentPrice;
     }
+
     public int getTransactionTurnover() {
         return TransactionTurnover;
     }
@@ -64,11 +66,12 @@ public class Stock {
         return buyWaitinglist;
     }
 
+    public int getNumOfTransactions(){ return transactionsList.size(); }
+
     //Setters
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-
 
     public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
@@ -82,9 +85,7 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public void setTransactionsList(LinkedList<Transaction> transactionsList) {
-        this.transactionsList = transactionsList;
-    }
+    public void setTransactionsList(LinkedList<Transaction> transactionsList) { this.transactionsList = transactionsList; }
 
     public void addTransaction(Transaction transaction){//add to head of list
         transactionsList.addFirst(transaction);
@@ -102,7 +103,6 @@ public class Stock {
     @Override
     public String toString(){
         return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+transactionsList.size() + "  Turnover: "+TransactionTurnover+"$";
-
     }
 
     @Override
@@ -116,6 +116,19 @@ public class Stock {
     @Override
     public int hashCode() {
         return Objects.hash(symbol, companyName);
+    }
+
+    public LinkedList<TransactionDTO> createTransactionDTOlist(){
+            LinkedList<TransactionDTO> res=new LinkedList<>();
+            for(Transaction trs: transactionsList){
+                res.add(new TransactionDTO(trs.getDate(),trs.getPrice(),trs.getNumOfStock(),trs.getTurnover(),trs.getDirection(),trs.getBuyer(),trs.getSeller()));
+            }
+
+            return res;
+    }
+    public StockDTO createStockDto(){
+        return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover,transactionsList.size(),sellWaitinglist.createList(),buyWaitinglist.createList(),createTransactionDTOlist());
+
     }
 }
 

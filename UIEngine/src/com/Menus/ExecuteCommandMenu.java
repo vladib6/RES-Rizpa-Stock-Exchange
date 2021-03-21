@@ -1,28 +1,34 @@
 package com.Menus;
 
-import com.Command.CmdTypes.*;
-import com.Engine.MainEngine;
+import com.Command.CmdTypes.Command;
+import com.Command.CmdTypes.CommandFactory;
+import com.Command.CmdTypes.Direction;
+import com.Command.CmdTypes.Type;
+import com.Engine.EngineInterface;
 import com.Engine.Myexception;
-import com.stock.Stock;
+import com.TransactionDTO;
+
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ExecuteCommandMenu {
-    private MainEngine mainEngine;
+    private EngineInterface mainEngine;
 
-    public ExecuteCommandMenu(MainEngine mainEngine){
+    public ExecuteCommandMenu(EngineInterface mainEngine){
         this.mainEngine=mainEngine;
     }
     public void RunMenu()throws Myexception {
         Command command= CreateCommand();
-        int numOfTransactions=command.getCommand().Execute();
+        int numOfTransactions=mainEngine.ExecuteCmd(command.getCommand());
 
         if(numOfTransactions==0){//print message about transactions
             System.out.println("No Transactions Were performed");
         }else{
             System.out.println(numOfTransactions+"  Transactions Performed :");
+            LinkedList<TransactionDTO> transactionsList=mainEngine.getTransactionListDtoByStock(command.getCommand().getStockSymbol());
             for(int i=0;i<numOfTransactions;i++){
-                System.out.println("--> "+command.getCommand().getStock().getTransactionsList().get(i));
+                System.out.println("--> "+transactionsList.get(i));
             }
         }
 
@@ -34,18 +40,16 @@ public class ExecuteCommandMenu {
             System.out.println("Added to waiting list");
         }
     }
-    public Command CreateCommand()throws Myexception{//TODO: Handle exception in create command
+    public Command CreateCommand()throws Myexception{
         Direction direction = getDirectionFromUser();
-        String symbol=getSymbolFromUser();
+        String stockSymbol=getSymbolFromUser();
         Type type=getTypeFromUser();
-        Stock stock= mainEngine.getStockByName(symbol);
         int numofstock=getNumOfStockFromUser();
         if(type==Type.LMT){
             int limitprice=getLimitPriceFromUser();
-            return CommandFactory.Createcmd(direction,type,stock,numofstock,limitprice);
+            return CommandFactory.Createcmd(mainEngine.getConnectedUser(), direction,type,stockSymbol,numofstock,limitprice);
         }
-
-        return CommandFactory.Createcmd(direction,type,stock,numofstock,0);
+        return CommandFactory.Createcmd(mainEngine.getConnectedUser(),direction,type,stockSymbol,numofstock,0);
     }
     public Direction getDirectionFromUser() throws Myexception {
         Scanner scanner = new Scanner(System.in);
@@ -128,7 +132,7 @@ public class ExecuteCommandMenu {
                if(symbol.equals("q")){
                    throw new Myexception("Back");
                }
-               if(mainEngine.getAllStocks().getAllStocks().containsKey(symbol.toUpperCase())){
+               if((!mainEngine.isStockExist(symbol.toUpperCase()))){
                    return symbol.toUpperCase();
                }else{
                    System.out.println("There is no Stock with that name in the system \n  Try another name or type q  for back to previous menu");

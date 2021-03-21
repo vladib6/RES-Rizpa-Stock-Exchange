@@ -1,27 +1,30 @@
 package com.Engine;
 
-import com.Command.WaitingCommands.AllWaitingcommands;
-import com.Transaction.Alltransactions;
+import com.Command.CmdTypes.CommandType;
+import com.StockDTO;
+import com.TransactionDTO;
+import com.User.Userinterface;
 import com.stock.Allstocks;
 import com.stock.Stock;
 import com.stock.StockArray;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @XmlRootElement(name="rizpa-stock-exchange-descriptor")
-public class MainEngine {
+public class MainEngine implements EngineInterface {
 
     public MainEngine(){
-        allWaitingcommands=new AllWaitingcommands();
         allStocks= new Allstocks();
-        allTransactions= new Alltransactions();
         stockArray=new StockArray();
     }
-   private AllWaitingcommands allWaitingcommands;
    private Allstocks allStocks;
-   private Alltransactions allTransactions;
    private StockArray stockArray;
+   private Userinterface connectedUser;
 
     @XmlElement(name="rse-stocks")
     public StockArray getStockArray() {
@@ -32,17 +35,11 @@ public class MainEngine {
         this.stockArray = stockArray;
     }
 
-    public AllWaitingcommands getAllWaitingcommands() {
-        return allWaitingcommands;
-    }
 
     public Allstocks getAllStocks() {
         return allStocks;
     }
 
-    public Alltransactions getAllTransactions() {
-        return allTransactions;
-    }
 
     public void addStock(Stock stock) throws StockException {
         if(allStocks.getAllStocks().containsKey(stock.getSymbol())){
@@ -52,8 +49,6 @@ public class MainEngine {
             throw new StockException(stock.getCompanyName(),"Company name");
         }else{
             allStocks.addStock(stock);
-            allTransactions.addCellToHashMap(stock.getSymbol(),stock.getTransactionsList());
-            allWaitingcommands.addCellToHashMap(stock.getSymbol(),stock.getBuyWaitinglist(),stock.getSellWaitinglist());
         }
 
     }
@@ -63,7 +58,41 @@ public class MainEngine {
        return allStocks.getStockByName(symbol);
     }
 
+    public StockDTO getStockDto(String symbol){
+            Stock tempStock=allStocks.getStockByName(symbol);
+            return tempStock.createStockDto();
+    }
 
+    public List<StockDTO> getAllstocksDto(){
+        List<StockDTO> res=new ArrayList<>();
+        for(Map.Entry<String,Stock> entry: allStocks.getAllStocks().entrySet()){
+            res.add(entry.getValue().createStockDto());
+        }
 
+        return res;
+    }
+    public void Connect(Userinterface user){
+        connectedUser=user;
+    }
 
+    public Userinterface getConnectedUser() { return connectedUser; }
+
+    public boolean isStockExist(String symbol){
+        boolean res=false;
+        for(Map.Entry<String,Stock> entry:getAllStocks().getAllStocks().entrySet()){
+            if(entry.getKey()==symbol){
+                res=true;
+                return  res;
+            }
+        }
+        return res;
+    }
+
+    public LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol){
+       return getStockByName(symbol).createTransactionDTOlist();
+    }
+
+    public int ExecuteCmd(CommandType cmd){
+       return cmd.Execute(getStockByName(cmd.getStockSymbol()));
+    }
 }

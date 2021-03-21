@@ -1,12 +1,14 @@
 package com.Transaction;
 
+import com.TransactionDTO;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Alltransactions {
     public Alltransactions() {
 
-        allTransactionList =new HashMap<String,LinkedList<Transaction>>() ;
+        allTransactionList =new HashMap<>() ;
     }
 
     private HashMap<String, LinkedList<Transaction>> allTransactionList;
@@ -23,5 +25,6 @@ public class Alltransactions {
     public void addCellToHashMap(String symbol,LinkedList<Transaction> lt){
         allTransactionList.put(symbol,lt);
     }
+
 
 }

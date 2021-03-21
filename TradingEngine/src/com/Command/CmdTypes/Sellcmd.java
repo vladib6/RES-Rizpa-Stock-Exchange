@@ -11,8 +11,5 @@ public class Sellcmd extends Command {
         return command;
     }
 
-    public void Execue(){
-        command.Execute();
-    }
 
 }

@@ -1,23 +1,22 @@
 package com.Command.CmdTypes;
 
-import com.Command.WaitingCommands.BuyWaitinglist;
-import com.Command.WaitingCommands.SellWaitinglist;
 import com.Transaction.Transaction;
+import com.User.Userinterface;
 import com.stock.Stock;
 
 public class LMTcmd extends CommandType {
 
-    public LMTcmd(Direction direction, Stock stock, int numOfStocks, int limitprice) {
-        super(direction, numOfStocks,stock,limitprice);
+    public LMTcmd(Userinterface user, Direction direction, String stockName, int numOfStocks, int limitprice) {
+        super(user,direction, numOfStocks,stockName,limitprice);
     }
 
 
-    public Transaction FindSellcmd(SellWaitinglist sellWaitinglist) {//find the matching sell command to buy command that execute
-       for(CommandType cmd: sellWaitinglist.getSellwaitinglist()){
+    public Transaction FindSellcmd(Stock stock) {//find the matching sell command to buy command that execute
+       for(CommandType cmd: stock.getSellWaitinglist().getSellwaitinglist()){
            if(super.getPrice()>=cmd.getPrice()){
-               Transaction transaction=DoTransaction(this,cmd,cmd.getPrice());
+               Transaction transaction=DoTransaction(this,cmd,cmd.getPrice(),stock);
                if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
-                   sellWaitinglist.removeByObject(cmd);
+                   stock.getSellWaitinglist().removeByObject(cmd);
                }
                return transaction;
            }
@@ -25,15 +24,12 @@ public class LMTcmd extends CommandType {
         return null;
     }
 
-
-
-    public Transaction FindBuycmd(BuyWaitinglist buyWaitinglist) {
-
-        for(CommandType cmd: buyWaitinglist.getBuywaitinglist()){
+    public Transaction FindBuycmd(Stock stock) {
+        for(CommandType cmd: stock.getBuyWaitinglist().getBuywaitinglist()){
             if(super.price<=cmd.getPrice()){
-                Transaction transaction=DoTransaction(cmd,this,cmd.getPrice());
+                Transaction transaction=DoTransaction(cmd,this,cmd.getPrice(),stock);
                 if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
-                    buyWaitinglist.removeByObject(cmd);
+                    stock.getBuyWaitinglist().removeByObject(cmd);
                 }
                 return transaction;
             }
@@ -41,47 +37,46 @@ public class LMTcmd extends CommandType {
         return null;
     }
 
-    public Transaction DoTransaction(CommandType Buy,CommandType Sell,int price){// create and return transaction and update commands details.
-        super.stock.setCurrentPrice(price);//Set new stock price
+    public Transaction DoTransaction(CommandType Buy,CommandType Sell,int price,Stock stock){// create and return transaction and update commands details.
+        stock.setCurrentPrice(price);//Set new stock price
         if(Buy.getNumOfStocks()>=Sell.getNumOfStocks()){
             int numOfRelevantStocks=Sell.getNumOfStocks();
             Buy.setNumOfStocks(Buy.getNumOfStocks()-Sell.getNumOfStocks());
             Sell.setNumOfStocks(0);
-            return new Transaction(price,super.stock,numOfRelevantStocks,price*numOfRelevantStocks,super.direction);
+            return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,super.direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
         }else{
             int numOfRelevantStocks=Buy.getNumOfStocks();
             Sell.setNumOfStocks(Sell.getNumOfStocks()-Buy.getNumOfStocks());
             Buy.setNumOfStocks(0);
-            return new Transaction(price,super.stock,numOfRelevantStocks,price*numOfRelevantStocks,super.direction);
+            return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,super.direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
         }
     }
 
     @Override
-    public int Execute() {
+    public int Execute(Stock stock) {
         int numOfTransactions=0;
         Transaction newTransaction;
         do {
-            newTransaction= Findcmd();//try to find first matching opposite command and do transaction
+            newTransaction= Findcmd(stock);//try to find first matching opposite command and do transaction
             if(newTransaction!=null){
                 stock.addTransaction(newTransaction);
                 numOfTransactions++;
                 stock.setTransactionTurnover(newTransaction.getTurnover());
             }
         }
-        while(newTransaction!=null && numOfStocks!=0);//while has stocks in command and success do transaction
+        while(newTransaction!=null && numOfStocks!=0);//while has stocks in command and success do transaction(not return null)
 
         if(numOfStocks>0) {//if there is stocks in command so add the command to waiting list
             stock.addWaitingCommand(this);
         }
-
         return numOfTransactions;
     }
 
-    public Transaction Findcmd(){
+    public Transaction Findcmd(Stock stock){
         if(super.direction==Direction.SELL) {
-            return FindBuycmd(super.stock.getBuyWaitinglist());
+            return FindBuycmd(stock);
         }   else{
-            return FindSellcmd(super.stock.getSellWaitinglist());
+            return FindSellcmd(stock);
         }
     }
 }

@@ -1,27 +1,31 @@
 package com.Transaction;
 
 import com.Command.CmdTypes.Direction;
-import com.stock.Stock;
+import com.TransactionDTO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Transaction {
-    public Transaction(int price,Stock stock, int numOfStock, int turnover,Direction direction ){
+    public Transaction(int price,String stockName, int numOfStock, int turnover,Direction direction ,String buyer,String seller){
         this.price=price;
         this.numOfStock=numOfStock;
         this.turnover=turnover;
         this.direction=direction;
-        this.stock=stock;
+        this.stockName=stockName;
         this.date=DateTimeFormatter.ofPattern("HH:mm:ss.SSS").format(LocalDateTime.now());
+        this.buyer=buyer;
+        this.seller=seller;
     }
     private String date;
     private int price;
     private int numOfStock;
     private int turnover;
     private Direction direction;
-    private Stock stock;
+    private String stockName;
+    String buyer;
+    String seller;
 
     public String getDate() {
         return date;
@@ -43,13 +47,17 @@ public class Transaction {
         return direction;
     }
 
-    public Stock getStock() {
-        return stock;
+    public String getStockName() {
+        return stockName;
     }
+
+    public String getBuyer() { return buyer; }
+
+    public String getSeller() { return seller; }
 
     @Override
     public String toString(){
-        return date+"   "+ "Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
+        return date+"   Seller: "+seller+"   Buyer: "+buyer+ "   Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
     }
 
     @Override
@@ -64,4 +72,11 @@ public class Transaction {
     public int hashCode() {
         return Objects.hash(date, price, numOfStock);
     }
+
+
+    public TransactionDTO createDTO(){
+        return new TransactionDTO(date,price,numOfStock,turnover,direction,buyer,seller);
+    }
 }
+
+

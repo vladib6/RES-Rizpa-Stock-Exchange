@@ -10,7 +10,4 @@ public class Buycmd extends Command {
 
     public CommandType getCommand() { return command; }
 
-    public void Execue(){
-        command.Execute();
-    }
 }
