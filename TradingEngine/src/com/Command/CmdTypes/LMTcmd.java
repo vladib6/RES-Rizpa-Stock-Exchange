@@ -37,20 +37,7 @@ public class LMTcmd extends CommandType {
         return null;
     }
 
-    public Transaction DoTransaction(CommandType Buy,CommandType Sell,int price,Stock stock){// create and return transaction and update commands details.
-        stock.setCurrentPrice(price);//Set new stock price
-        if(Buy.getNumOfStocks()>=Sell.getNumOfStocks()){
-            int numOfRelevantStocks=Sell.getNumOfStocks();
-            Buy.setNumOfStocks(Buy.getNumOfStocks()-Sell.getNumOfStocks());
-            Sell.setNumOfStocks(0);
-            return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,super.direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
-        }else{
-            int numOfRelevantStocks=Buy.getNumOfStocks();
-            Sell.setNumOfStocks(Sell.getNumOfStocks()-Buy.getNumOfStocks());
-            Buy.setNumOfStocks(0);
-            return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,super.direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
-        }
-    }
+
 
     @Override
     public int Execute(Stock stock) {

@@ -1,5 +1,6 @@
 package com.Command.CmdTypes;
 
+import com.Transaction.Transaction;
 import com.User.Userinterface;
 import com.stock.Stock;
 
@@ -54,5 +55,22 @@ public  abstract class CommandType {
       return time+ "   Initiative User : "+initiativeUser.getUsername()+"   "+ stockSymbol+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
    }
 
-
+   public Transaction DoTransaction(CommandType Buy, CommandType Sell, int price, Stock stock){// create and return transaction and update commands details.
+      stock.setCurrentPrice(price);//Set new stock price
+      if(Buy.getNumOfStocks()>=Sell.getNumOfStocks()){
+         int numOfRelevantStocks=Sell.getNumOfStocks();
+         Buy.setNumOfStocks(Buy.getNumOfStocks()-Sell.getNumOfStocks());
+         Sell.setNumOfStocks(0);
+         Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
+         Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
+         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
+      }else{
+         int numOfRelevantStocks=Buy.getNumOfStocks();
+         Sell.setNumOfStocks(Sell.getNumOfStocks()-Buy.getNumOfStocks());
+         Buy.setNumOfStocks(0);
+         Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
+         Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
+         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
+      }
+   }
 }

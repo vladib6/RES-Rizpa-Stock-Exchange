@@ -1,7 +1,12 @@
 package com.User;
 
+import com.stock.Stock;
+
 public interface Userinterface {
 
-    public String getUsername();
-    public int CalcCurrentHoldings();
+     String getUsername();
+     int CalcCurrentHoldings();
+     void addHoldings(Stock stock, int quantity);
+     void removeHoldings(Stock stock, int quantity);
+
 }

@@ -1,5 +1,7 @@
 package com.User;
 
+import com.stock.Stock;
+
 public class User implements  Userinterface{
 
    public User(String username){
@@ -16,10 +18,16 @@ public class User implements  Userinterface{
     }
 
     @Override
-    public int CalcCurrentHoldings(){
+    public int CalcCurrentHoldings(){ return  holdings.currentHoldings(); }
 
-        return 0;
+    @Override
+    public void addHoldings(Stock stock, int quantity) {
+        holdings.addToHoldings(stock, quantity);
     }
 
+    @Override
+    public void removeHoldings(Stock stock, int quantity) {
+        holdings.removeFromHoldings(stock, quantity);
+    }
 
 }

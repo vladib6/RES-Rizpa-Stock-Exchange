@@ -14,11 +14,6 @@ import java.util.Objects;
 
 @XmlRootElement (name="rse-stock")
 public class Stock {
-    public Stock(){
-        sellWaitinglist=new SellWaitinglist();
-        buyWaitinglist=new BuyWaitinglist();
-        transactionsList= new LinkedList<Transaction>();
-    }
     public Stock(String symbol, String companyName, int price) {
         this.symbol = symbol.toUpperCase();
         this.companyName = companyName;
@@ -85,8 +80,6 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public void setTransactionsList(LinkedList<Transaction> transactionsList) { this.transactionsList = transactionsList; }
-
     public void addTransaction(Transaction transaction){//add to head of list
         transactionsList.addFirst(transaction);
 
@@ -118,6 +111,7 @@ public class Stock {
         return Objects.hash(symbol, companyName);
     }
 
+    //Data Transfer Objects
     public LinkedList<TransactionDTO> createTransactionDTOlist(){
             LinkedList<TransactionDTO> res=new LinkedList<>();
             for(Transaction trs: transactionsList){

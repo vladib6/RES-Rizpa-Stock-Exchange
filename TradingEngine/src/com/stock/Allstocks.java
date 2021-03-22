@@ -1,11 +1,11 @@
 package com.stock;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
+
 public class Allstocks {
     public Allstocks() {
-        allStocks=new HashMap<String,Stock>();
+        allStocks=new HashMap<>();
     }
 
     private HashMap<String,Stock> allStocks;
@@ -18,10 +18,6 @@ public class Allstocks {
 
     public void addStock(Stock stock){
         allStocks.put(stock.getSymbol(),stock);
-    }
-
-    public void removeStock(String symbol){
-        allStocks.remove(symbol);
     }
 
     public boolean isCompanyNameExist(String cName){//check if already exist stock with that company name

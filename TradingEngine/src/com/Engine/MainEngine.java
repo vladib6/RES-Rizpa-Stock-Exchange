@@ -6,9 +6,7 @@ import com.TransactionDTO;
 import com.User.Userinterface;
 import com.stock.Allstocks;
 import com.stock.Stock;
-import com.stock.StockArray;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,26 +18,28 @@ public class MainEngine implements EngineInterface {
 
     public MainEngine(){
         allStocks= new Allstocks();
-        stockArray=new StockArray();
+        //stockArray=new StockArray();
     }
    private Allstocks allStocks;
-   private StockArray stockArray;
+ //  private StockArray stockArray;
    private Userinterface connectedUser;
 
-    @XmlElement(name="rse-stocks")
-    public StockArray getStockArray() {
-        return stockArray;
-    }
-
-    public void setStockArray(StockArray stockArray) {
-        this.stockArray = stockArray;
-    }
-
+//    @XmlElement(name="rse-stocks")
+//    public StockArray getStockArray() {
+//        return stockArray;
+//    }
+//
+//    public void setStockArray(StockArray stockArray) {
+//        this.stockArray = stockArray;
+//    }
 
     public Allstocks getAllStocks() {
         return allStocks;
     }
 
+    public void Connect(Userinterface user){
+        connectedUser=user;
+    }
 
     public void addStock(Stock stock) throws StockException {
         if(allStocks.getAllStocks().containsKey(stock.getSymbol())){
@@ -53,7 +53,7 @@ public class MainEngine implements EngineInterface {
 
     }
 
-
+    //Interface implement
     public Stock getStockByName(String symbol){
        return allStocks.getStockByName(symbol);
     }
@@ -71,9 +71,6 @@ public class MainEngine implements EngineInterface {
 
         return res;
     }
-    public void Connect(Userinterface user){
-        connectedUser=user;
-    }
 
     public Userinterface getConnectedUser() { return connectedUser; }
 
@@ -88,9 +85,7 @@ public class MainEngine implements EngineInterface {
         return res;
     }
 
-    public LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol){
-       return getStockByName(symbol).createTransactionDTOlist();
-    }
+    public LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol){ return getStockByName(symbol).createTransactionDTOlist(); }
 
     public int ExecuteCmd(CommandType cmd){
        return cmd.Execute(getStockByName(cmd.getStockSymbol()));
