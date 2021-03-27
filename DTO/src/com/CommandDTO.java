@@ -22,6 +22,6 @@ public class CommandDTO {//Data Transfer Object
 
     @Override
     public String toString(){
-        return time+ "   Initiative User : "+initiativeUser+"   "+ stockSymbol+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
+        return time+"    "+ stockSymbol+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
     }
 }

@@ -159,6 +159,9 @@ public class ExecuteCommandMenu {
               if(numofstock==0){
                   throw new Myexception("Back");
               }
+              if(numofstock<0){
+                    throw new Myexception("Numbers of stock must be greater then zero");
+                }
               validchoise=true;
 
             } catch (InputMismatchException e) {
@@ -183,6 +186,9 @@ public class ExecuteCommandMenu {
                 limitprice=scanner.nextInt();
                 if(limitprice==0){
                     throw new Myexception("Back");
+                }
+                if(limitprice<0){
+                    throw new Myexception("Limit price must be greater then zero");
                 }
                 validchoise=true;
             } catch (InputMismatchException e) {

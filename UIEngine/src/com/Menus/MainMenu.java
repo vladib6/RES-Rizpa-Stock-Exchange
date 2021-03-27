@@ -75,7 +75,9 @@ public class MainMenu {
                         System.out.println("Wrong Input");
                      } catch (StockException e) {
                         System.out.println(e);
-                    } catch (JAXBException  e) {
+                    } catch (Myexception e) {
+                       System.out.println(e);
+                      }catch (JAXBException  e) {
                         System.out.println("The file not found or problem with the schema");
                     }
                 break;
@@ -118,7 +120,7 @@ public class MainMenu {
                     System.out.println("Wrong Input");
                 } catch (JAXBException e) {
                     System.out.println("The file not found or problem with the schema");
-                }catch (StockException e){
+                }catch (StockException | Myexception e){
                     System.out.println(e.toString());
                 }
                 break;

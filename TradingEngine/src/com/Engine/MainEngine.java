@@ -3,35 +3,26 @@ package com.Engine;
 import com.Command.CmdTypes.CommandType;
 import com.StockDTO;
 import com.TransactionDTO;
+import com.User.User;
 import com.User.Userinterface;
 import com.stock.Allstocks;
 import com.stock.Stock;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @XmlRootElement(name="rizpa-stock-exchange-descriptor")
 public class MainEngine implements EngineInterface {
 
     public MainEngine(){
         allStocks= new Allstocks();
-        //stockArray=new StockArray();
+        userMap= new HashMap();
     }
    private Allstocks allStocks;
- //  private StockArray stockArray;
    private Userinterface connectedUser;
+    private Map<String,User> userMap;
 
-//    @XmlElement(name="rse-stocks")
-//    public StockArray getStockArray() {
-//        return stockArray;
-//    }
-//
-//    public void setStockArray(StockArray stockArray) {
-//        this.stockArray = stockArray;
-//    }
+    public Map<String,User> getUserMap(){return userMap;}
 
     public Allstocks getAllStocks() {
         return allStocks;
@@ -50,7 +41,14 @@ public class MainEngine implements EngineInterface {
         }else{
             allStocks.addStock(stock);
         }
+    }
 
+    public void addUser(User user) throws Myexception {
+        if(userMap.containsKey(user.getUsername())){
+            throw new Myexception("The User: "+ user.getUsername() +" Already exist, each user must different username");
+        }else{
+            userMap.put(user.getUsername(),user);
+        }
     }
 
     //Interface implement

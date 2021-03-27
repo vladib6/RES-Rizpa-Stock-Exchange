@@ -23,6 +23,6 @@ public class TransactionDTO {//Data Transfer Object
 
     @Override
     public String toString(){
-        return date+"   Seller: "+seller+"   Buyer: "+buyer+ "   Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
+        return date+"    Number of stocks: "+numOfStock+"   "+ "Price : "+ price+"   "+"Turnover : "+ turnover+"$";
     }
 }
