@@ -5,6 +5,7 @@ import com.StockDTO;
 import com.TransactionDTO;
 import com.User.User;
 import com.User.Userinterface;
+import com.UserDTO;
 import com.stock.Allstocks;
 import com.stock.Stock;
 
@@ -68,6 +69,18 @@ public class MainEngine implements EngineInterface {
         }
 
         return res;
+    }
+
+    public List<UserDTO> getAllUsersDto(){
+        List<UserDTO> res=new ArrayList<>();
+        for(Map.Entry<String,User> entry: userMap.entrySet()){
+            res.add(entry.getValue().createDTO());
+        }
+        return res;
+    }
+
+    public UserDTO getUserDto(String username){
+        return userMap.get(username).createDTO();
     }
 
     public Userinterface getConnectedUser() { return connectedUser; }

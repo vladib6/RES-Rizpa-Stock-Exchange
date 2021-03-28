@@ -4,12 +4,14 @@ import com.Command.CmdTypes.CommandType;
 import com.StockDTO;
 import com.TransactionDTO;
 import com.User.Userinterface;
+import com.UserDTO;
 import com.stock.Stock;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public interface EngineInterface {
+    List<UserDTO> getAllUsersDto();
     StockDTO getStockDto(String symbol);
     List<StockDTO> getAllstocksDto();
     Userinterface getConnectedUser();

@@ -1,0 +1,8 @@
+.root {
+    -fx-background-image: url('/Resources/stocks.jpg');
+    -fx-background-size: cover;
+}
+
+.button{
+    -fx-background-color: none;
+}

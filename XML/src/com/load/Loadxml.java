@@ -18,15 +18,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Map;
 
 public class Loadxml {//TODO: delete the connect user in phase 3
 
-    public static EngineInterface ParseXml(String filepath) throws JAXBException, FileNotFoundException, StockException, Myexception {
-        InputStream inputStream = new FileInputStream(new File(filepath));
+    public static EngineInterface ParseXml(File file) throws JAXBException, FileNotFoundException, StockException, Myexception {
+        InputStream inputStream = new FileInputStream(file);
         JAXBContext jaxbContext=JAXBContext.newInstance("com.Generated");
         Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
-        RizpaStockExchangeDescriptor RSE =(RizpaStockExchangeDescriptor) unmarshaller.unmarshal(new File(filepath));
+        RizpaStockExchangeDescriptor RSE =(RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
 
         return createMainEngine(RSE);
 
@@ -52,13 +51,6 @@ public class Loadxml {//TODO: delete the connect user in phase 3
             }
             mainEngine.addUser(newUser);
         }
-
-        for(Map.Entry<String,User> entry : mainEngine.getUserMap().entrySet()){
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue().createDTO().getHoldingsDTOList());
-
-        }
-
 
         mainEngine.Connect(new User("vladi"));
         return mainEngine;

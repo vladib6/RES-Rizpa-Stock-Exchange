@@ -5,6 +5,7 @@ import com.stock.Stock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Holdings {//TODO : think how save stocks+quantity + current price
@@ -19,7 +20,6 @@ public class Holdings {//TODO : think how save stocks+quantity + current price
         for( Map.Entry<Stock,Integer> entry : holdingsMap.entrySet()){
             res+=entry.getKey().getCurrentPrice()*entry.getValue();
         }
-
         return res;
     }
 
@@ -39,7 +39,7 @@ public class Holdings {//TODO : think how save stocks+quantity + current price
         }
     }
 
-    public ArrayList<HoldingsDTO> createDTO(){
+    public List<HoldingsDTO> createDTO(){
         ArrayList<HoldingsDTO> res = new ArrayList<>();
         for(Map.Entry<Stock,Integer> entry : holdingsMap.entrySet()){
             res.add(new HoldingsDTO(entry.getValue(),entry.getKey().getSymbol(),entry.getKey().getCurrentPrice()));

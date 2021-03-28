@@ -15,5 +15,10 @@ public class UserDTO {//Data Transfer Object
     String username;
     List<HoldingsDTO> holdingsDTOList;
 
+
+    public int getTotalHoldings() { return totalHoldings; }
+
+    public String getUsername() { return username; }
+
     public List<HoldingsDTO> getHoldingsDTOList(){return holdingsDTOList;}
 }

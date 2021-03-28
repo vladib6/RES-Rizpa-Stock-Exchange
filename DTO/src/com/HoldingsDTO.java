@@ -11,6 +11,13 @@ public class HoldingsDTO {
     String symbol;
     int stockPrice;
 
+    public int getQuantity() { return quantity; }
+
+    public String getSymbol() { return symbol; }
+
+    public int getStockPrice() { return stockPrice; }
+
+
     public String toString(){
         return "Symbol : "+symbol+"   Price :"+stockPrice+"   Quantity :"+quantity +"\n";
     }
