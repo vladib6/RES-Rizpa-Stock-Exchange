@@ -2,13 +2,12 @@ package com.User;
 
 import com.HoldingsDTO;
 import com.stock.Stock;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Holdings {//TODO : think how save stocks+quantity + current price
+public class Holdings {
 
     public Holdings(){
         holdingsMap=new HashMap<>();

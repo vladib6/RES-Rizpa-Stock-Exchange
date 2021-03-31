@@ -31,6 +31,6 @@
       </Button>
    </center>
    <bottom>
-      <Label fx:id="errMessage" alignment="CENTER" prefHeight="42.0" prefWidth="618.0" style="-fx-background-color: #CFD8DC ; -fx-font-size: 16; " text="Error message label" textAlignment="CENTER" textFill="#d70d0d" BorderPane.alignment="CENTER" />
+      <Label fx:id="errMessage" alignment="CENTER" prefHeight="42.0" prefWidth="618.0" style="-fx-background-color: #CFD8DC; -fx-font-size: 16; " text="Error message label" textAlignment="CENTER" textFill="#d70d0d" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

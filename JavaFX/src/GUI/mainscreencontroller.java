@@ -26,7 +26,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class mainscreencontroller  implements Initializable {
-    private EngineInterface mainEngine;
+   private EngineInterface mainEngine;
+
     @FXML
     private ImageView lockImageView;
 
@@ -57,19 +58,20 @@ public class mainscreencontroller  implements Initializable {
                     FXMLLoader loader=new FXMLLoader();
                     loader.setLocation(getClass().getResource("AfterLoadScreen.fxml"));
                     Parent userScene= loader.load();
-                    Scene newScene=new Scene(userScene);
+                    Scene newScene=new Scene(userScene,660,420);
                     AfterLoadScreenController controller=loader.getController();
+
                     controller.initEngine(mainEngine);
                     Stage window=((Stage)((Node)event.getSource()).getScene().getWindow());
                     window.setScene(newScene);
                     window.show();
-                    //
+
                 } catch (JAXBException | Myexception | FileNotFoundException | StockException e) {
                     errMessage.setVisible(true);
                     errMessage.setText(e.toString());
                 } catch (IOException e) {
                     errMessage.setVisible(true);
-                    errMessage.setText(e.getMessage());                }
+                    errMessage.setText(e.toString());                }
             }
         });
 
@@ -78,7 +80,5 @@ public class mainscreencontroller  implements Initializable {
         errMessage.prefWidthProperty().bind(borderPane.widthProperty());
 
     }
-
-
 
 }

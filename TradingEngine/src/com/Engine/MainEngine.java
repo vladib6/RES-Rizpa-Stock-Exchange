@@ -83,6 +83,7 @@ public class MainEngine implements EngineInterface {
         return userMap.get(username).createDTO();
     }
 
+
     public Userinterface getConnectedUser() { return connectedUser; }
 
     public boolean isStockExist(String symbol){

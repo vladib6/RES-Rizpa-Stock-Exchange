@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface EngineInterface {
     List<UserDTO> getAllUsersDto();
+    UserDTO getUserDto(String username);
     StockDTO getStockDto(String symbol);
     List<StockDTO> getAllstocksDto();
     Userinterface getConnectedUser();
