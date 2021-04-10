@@ -190,10 +190,25 @@ public class MainMenu {
                 System.out.println("-->  Stock Data : "+stockDTO.getSymbol()+ "  "+ stockDTO.getCompanyName()+"<--");
                 System.out.println("<------- Transactions ------->");
                 ShowTransactionsByStock(stockDTO.getTransactionDTOS());
+                int total=0;
+                for(TransactionDTO transactionDTO : stockDTO.getTransactionDTOS()){
+                    total+=transactionDTO.getTurnover();
+                }
+                System.out.println("Total Transactions Turnover : "+total);
                 System.out.println("<------- Waiting Buy Commands ------->");
                 ShowWaitingCommands(stockDTO.getBuyWaiting());
+                total=0;
+                for(CommandDTO commandDTO : stockDTO.getBuyWaiting()){
+                    total+=commandDTO.getPrice()*commandDTO.getNumOfStocks();
+                }
+                System.out.println("Total Buy Waiting Commands Turnover : "+total);
                 System.out.println("<------- Waiting Sell Commands ------->");
                 ShowWaitingCommands(stockDTO.getSellWaiting());
+                total=0;
+                for(CommandDTO commandDTO : stockDTO.getSellWaiting()){
+                    total+=commandDTO.getPrice()*commandDTO.getNumOfStocks();
+                }
+                System.out.println("Total Sell Waiting Commands Turnover : "+total);
                 System.out.println("");
                 System.out.println("");
             }

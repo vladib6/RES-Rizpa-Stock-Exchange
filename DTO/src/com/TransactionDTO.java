@@ -13,13 +13,27 @@ public class TransactionDTO {//Data Transfer Object
         this.buyer=buyer;
         this.seller=seller;
     }
-    private String date;
-    private int price;
-    private int numOfStock;
-    private int turnover;
-    private Direction direction;
-    String buyer;
-    String seller;
+    private final String date;
+    private final int price;
+    private final int numOfStock;
+    private final int turnover;
+    private final Direction direction;
+    private final String buyer;
+    private final String seller;
+
+    public String getDate() { return date; }
+
+    public int getPrice() { return price; }
+
+    public int getNumOfStock() { return numOfStock; }
+
+    public int getTurnover() { return turnover; }
+
+    public Direction getDirection() { return direction; }
+
+    public String getBuyer() { return buyer; }
+
+    public String getSeller() { return seller; }
 
     @Override
     public String toString(){

@@ -22,9 +22,9 @@ public class StockDTO {//Data Transfer Object
     private final int currentPrice;
     private final int TransactionTurnover;
     private final int numOfTransactions;
-    private List<CommandDTO> sellWaiting;
-    private List<CommandDTO> buyWaiting;
-    private LinkedList<TransactionDTO> transactionDTOS;
+    private final List<CommandDTO> sellWaiting;
+    private final List<CommandDTO> buyWaiting;
+    private final LinkedList<TransactionDTO> transactionDTOS;
     @Override
     public String toString(){
         return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+numOfTransactions + "  Turnover: "+TransactionTurnover+" $";

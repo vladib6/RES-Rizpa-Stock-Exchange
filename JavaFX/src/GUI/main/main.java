@@ -1,4 +1,4 @@
-package GUI;
+package GUI.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root= FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
         primaryStage.setTitle("RSE-Rizpa Stock Exchange");
-        Scene scene=new Scene(root,620,400);
+        Scene scene=new Scene(root,800,600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

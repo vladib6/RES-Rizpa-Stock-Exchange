@@ -13,12 +13,24 @@ public class CommandDTO {//Data Transfer Object
         this.price = price;
     }
 
-    private String initiativeUser;
-    private String stockSymbol;
-    private Direction direction;
-    private String time;
-    private int numOfStocks;
-    private int price;
+    private final String initiativeUser;
+    private final String stockSymbol;
+    private final Direction direction;
+    private final String time;
+    private final int numOfStocks;
+    private final int price;
+
+    public String getInitiativeUser() { return initiativeUser; }
+
+    public String getStockSymbol() { return stockSymbol; }
+
+    public Direction getDirection() { return direction; }
+
+    public String getTime() { return time; }
+
+    public int getNumOfStocks() { return numOfStocks; }
+
+    public int getPrice() { return price; }
 
     @Override
     public String toString(){

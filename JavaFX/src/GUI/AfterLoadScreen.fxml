@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@AfterLoadScreen.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AfterLoadScreenController">
-   <center>
-      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
-   </center>
-   <bottom>
-      <VBox prefHeight="34.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="errMessage" alignment="CENTER" prefHeight="37.0" prefWidth="600.0" style="-fx-background-color: #CFD8DC;" text="Error message" textAlignment="CENTER" textFill="#d70d0d" />
-         </children></VBox>
-   </bottom>
-</BorderPane>
+<ScrollPane fx:id="scrollPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AfterLoadScreenController">
+   <content>
+      <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" stylesheets="@AfterLoadScreen.css">
+         <center>
+            <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+               <opaqueInsets>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </opaqueInsets>
+            </TabPane>
+         </center>
+         <bottom>
+            <VBox prefHeight="54.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="errMessage" alignment="CENTER" prefHeight="122.0" prefWidth="750.0" style="-fx-background-color: #CFD8DC;" text="Error message" textAlignment="CENTER" textFill="#d70d0d" />
+               </children>
+            </VBox>
+         </bottom>
+      </BorderPane>
+   </content>
+</ScrollPane>

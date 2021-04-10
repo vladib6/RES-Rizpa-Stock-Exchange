@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fx:id="scrollPane" stylesheets="@mainscreenstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.main.mainscreencontroller">
+   <content>
+      <BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <Button fx:id="button" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="123.0" snapToPixel="false" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="lockImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resources/pngegg.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <rotationAxis>
+                  <Point3D z="5.0" />
+               </rotationAxis>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </Button>
+         </center>
+         <bottom>
+            <VBox prefHeight="75.0" prefWidth="616.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ProgressBar fx:id="progressBar" prefHeight="63.0" prefWidth="616.0" progress="0.0" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ProgressBar>
+                  <Label fx:id="errMessage" alignment="CENTER" prefHeight="72.0" prefWidth="616.0" style="-fx-background-color: #CFD8DC; -fx-font-size: 16; " text="Error message label" textAlignment="CENTER" textFill="#d70d0d" />
+               </children>
+            </VBox>
+         </bottom>
+      </BorderPane>
+   </content>
+</ScrollPane>

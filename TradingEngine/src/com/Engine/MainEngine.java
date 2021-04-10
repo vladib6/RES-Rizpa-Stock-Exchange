@@ -83,7 +83,6 @@ public class MainEngine implements EngineInterface {
         return userMap.get(username).createDTO();
     }
 
-
     public Userinterface getConnectedUser() { return connectedUser; }
 
     public boolean isStockExist(String symbol){
@@ -102,4 +101,15 @@ public class MainEngine implements EngineInterface {
     public int ExecuteCmd(CommandType cmd){
        return cmd.Execute(getStockByName(cmd.getStockSymbol()));
     }
+
+    public void Connect(String username) throws Myexception {
+        User user = userMap.get(username);
+        if (user == null) {
+            throw new Myexception("The user " + username + " not found");
+        } else {
+            connectedUser =user;
+        }
+    }
+
+
 }

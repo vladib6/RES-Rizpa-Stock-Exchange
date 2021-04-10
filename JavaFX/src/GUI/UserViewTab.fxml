@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UserViewTabController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@UsertabView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UserViewTabController">
    <children>
-      <HBox layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <HBox fx:id="hBox" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
          <children>
             <TableView fx:id="tableView" prefHeight="400.0" prefWidth="320.0">
                <columns>
@@ -32,9 +24,9 @@
                </HBox.margin>
             </TableView>
             <Separator orientation="VERTICAL" prefHeight="400.0" prefWidth="21.0" style="-fx-background-color: #CFD8DC;" />
-            <VBox fx:id="vBox" prefHeight="400.0" prefWidth="259.0">
+            <VBox fx:id="vBox" prefHeight="391.0" prefWidth="461.0" style="-fx-border-color: #212121;">
                <children>
-                  <Label fx:id="username" alignment="CENTER" prefHeight="121.0" prefWidth="260.0" text="username" textAlignment="CENTER">
+                  <Label fx:id="username" alignment="CENTER" prefHeight="121.0" prefWidth="467.0" text="username" textAlignment="CENTER">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -49,7 +41,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="holdingsValue" alignment="CENTER" prefHeight="121.0" prefWidth="260.0" text="Value">
+                  <Label fx:id="holdingsValue" alignment="CENTER" prefHeight="121.0" prefWidth="463.0" text="Value">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -61,15 +53,25 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Button fx:id="tradeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="88.0" prefWidth="177.0" text="Trade !" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="tradeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="80.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
                      <VBox.margin>
-                        <Insets bottom="10.0" left="70.0" right="10.0" top="35.0" />
+                        <Insets left="150.0" right="100.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
+                     <graphic>
+                        <ImageView fx:id="tradeImg" fitHeight="110.0" fitWidth="122.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../Resources/exchange.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </VBox>
          </children>
          <opaqueInsets>

@@ -11,9 +11,9 @@ public class UserDTO {//Data Transfer Object
         this.holdingsDTOList = holdingsDTOList;
     }
 
-    int totalHoldings;
-    String username;
-    List<HoldingsDTO> holdingsDTOList;
+    private final int totalHoldings;
+    private final String username;
+    private final List<HoldingsDTO> holdingsDTOList;
 
 
     public int getTotalHoldings() { return totalHoldings; }
@@ -21,4 +21,13 @@ public class UserDTO {//Data Transfer Object
     public String getUsername() { return username; }
 
     public List<HoldingsDTO> getHoldingsDTOList(){return holdingsDTOList;}
+
+    public HoldingsDTO getHoldingsDtoByStock(String stock){
+        for(HoldingsDTO dto: holdingsDTOList){
+            if(dto.getSymbol().equals(stock)){
+                return dto;
+            }
+        }
+        return null;
+    }
 }

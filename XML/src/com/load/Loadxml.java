@@ -15,14 +15,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
-public class Loadxml {//TODO: delete the connect user in phase 3
+public class Loadxml {
 
     public static EngineInterface ParseXml(File file) throws JAXBException, FileNotFoundException, StockException, Myexception {
-        InputStream inputStream = new FileInputStream(file);
         JAXBContext jaxbContext=JAXBContext.newInstance("com.Generated");
         Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
         RizpaStockExchangeDescriptor RSE =(RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
@@ -52,7 +49,6 @@ public class Loadxml {//TODO: delete the connect user in phase 3
             mainEngine.addUser(newUser);
         }
 
-        mainEngine.Connect(new User("vladi"));
         return mainEngine;
     }
 

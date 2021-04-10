@@ -7,9 +7,9 @@ public class HoldingsDTO {
         this.symbol = symbol;
         this.stockPrice = stockPrice;
     }
-    int quantity;
-    String symbol;
-    int stockPrice;
+    private final int quantity;
+    private final String symbol;
+    private final int stockPrice;
 
     public int getQuantity() { return quantity; }
 

@@ -20,5 +20,6 @@ public interface EngineInterface {
     Stock getStockByName(String symbol);
     int ExecuteCmd(CommandType cmd);
     LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol);
+    void Connect(String username) throws Myexception;
     }
 

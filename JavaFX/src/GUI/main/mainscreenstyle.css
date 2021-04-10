@@ -3,6 +3,12 @@
     -fx-background-size: cover;
 }
 
-.button{
+#button{
     -fx-background-color: none;
+}
+
+.scroll-pane .viewport {
+    -fx-background-image: url('/Resources/stocks.jpg');
+    -fx-background-size: cover;
+
 }
