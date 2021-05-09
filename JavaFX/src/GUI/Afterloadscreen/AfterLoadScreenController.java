@@ -1,5 +1,7 @@
-package GUI;
+package GUI.Afterloadscreen;
 
+import GUI.Admintab.AdminTabController;
+import GUI.Usertab.UserViewTabController;
 import com.Engine.EngineInterface;
 import com.Engine.Myexception;
 import com.UserDTO;
@@ -12,7 +14,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,7 +54,7 @@ public class AfterLoadScreenController implements Initializable {
         this.Engine=engine;
         for(UserDTO dto: engine.getAllUsersDto()){//creates users tabs
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("UserViewTab.fxml"));
+            loader.setLocation(getClass().getResource("../Usertab//UserViewTab.fxml"));
             Parent root=loader.load();
             UserViewTabController controller=loader.getController();
             controller.initUserTab(dto);
@@ -64,7 +65,7 @@ public class AfterLoadScreenController implements Initializable {
         }
         //create admin tab
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AdminTab.fxml"));
+        loader.setLocation(getClass().getResource("../Admintab/AdminTab.fxml"));
         Parent root=loader.load();
         AdminTabController controller=loader.getController();
         controller.injectMainController(this);

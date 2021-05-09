@@ -1,4 +1,5 @@
 package com.Menus;
+
 import com.CommandDTO;
 import com.Engine.EngineInterface;
 import com.Engine.Myexception;
@@ -8,6 +9,7 @@ import com.TransactionDTO;
 import com.load.Loadxml;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -64,7 +66,8 @@ public class MainMenu {
                         System.out.println("Enter full path of XML file");
                         scanner.nextLine();
                         String filepath= scanner.nextLine();
-                        mainEngine= Loadxml.ParseXml(filepath);
+                        File file= new File(filepath);
+                        mainEngine= Loadxml.ParseXml(file);
 
                         System.out.println("<--- Loading Success ---> \n Now you Can Trade in the system");
                     }
@@ -110,7 +113,8 @@ public class MainMenu {
                     System.out.println("Enter full path of XML file");
                     scanner.nextLine();
                     String filepath=scanner.nextLine();
-                    mainEngine= Loadxml.ParseXml(filepath);
+                    File file= new File(filepath);
+                    mainEngine= Loadxml.ParseXml(file);
                     System.out.println("<--- Loading Success --->");
                     System.out.println("Now you can Trade on the system");
                 } catch (FileNotFoundException e) {

@@ -1,6 +1,6 @@
 package com.Engine;
 
-import com.Command.CmdTypes.CommandType;
+import com.Command.CmdTypes.*;
 import com.StockDTO;
 import com.TransactionDTO;
 import com.User.User;
@@ -8,7 +8,6 @@ import com.User.Userinterface;
 import com.UserDTO;
 import com.stock.Allstocks;
 import com.stock.Stock;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
@@ -111,5 +110,20 @@ public class MainEngine implements EngineInterface {
         }
     }
 
+    public Command CreateAndExecuteCmd(String direction,String stockSymbol,String cmdType,int quantity,int limitPrice){
+        Direction dir;
+        if(direction.equals("Sell")){
+            dir=Direction.SELL;
+        }else{
+            dir=Direction.BUY;
+        }
+        Type type;
+        if(cmdType.equals("LMT")){
+            type=Type.LMT;
+        }else{
+            type=Type.MKT;
+        }
 
+        return CommandFactory.Createcmd(getConnectedUser(),dir,type,stockSymbol,quantity,limitPrice);
+    }
 }

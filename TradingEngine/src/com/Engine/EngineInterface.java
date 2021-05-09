@@ -1,5 +1,6 @@
 package com.Engine;
 
+import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
 import com.StockDTO;
 import com.TransactionDTO;
@@ -21,5 +22,6 @@ public interface EngineInterface {
     int ExecuteCmd(CommandType cmd);
     LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol);
     void Connect(String username) throws Myexception;
+    Command CreateAndExecuteCmd(String direction, String stockSymbol, String cmdType, int quantity, int limitPrice);
     }
 

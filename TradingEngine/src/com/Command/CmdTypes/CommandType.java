@@ -52,7 +52,7 @@ public  abstract class CommandType {
 
    @Override
    public String toString(){
-      return time+ "   Initiative User : "+initiativeUser.getUsername()+"   "+ stockSymbol+"   "+direction+ "   Stocks : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
+      return time+ "   Initiative User : "+initiativeUser.getUsername()+"   "+ stockSymbol+"   "+direction+ "   Stock quantity : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
    }
 
    public Transaction DoTransaction(CommandType Buy, CommandType Sell, int price, Stock stock){// create and return transaction and update commands details.

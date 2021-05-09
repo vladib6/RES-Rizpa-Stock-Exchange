@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@UsertabView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UserViewTabController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@UsertabView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Usertab.UserViewTabController">
    <children>
       <HBox fx:id="hBox" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
          <children>
@@ -33,7 +41,7 @@
                      <graphic>
                         <ImageView fx:id="userImg" fitHeight="80.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Resources/user.png" />
+                              <Image url="@../../Resources/user.png" />
                            </image>
                            <viewport>
                               <Rectangle2D />
@@ -48,25 +56,18 @@
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Resources/holdings.png" />
+                              <Image url="@../../Resources/holdings.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Button fx:id="tradeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="80.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="tradeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="7.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="169.0" text="Trade" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
                      <VBox.margin>
                         <Insets left="150.0" right="100.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
-                     <graphic>
-                        <ImageView fx:id="tradeImg" fitHeight="110.0" fitWidth="122.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../Resources/exchange.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                   </Button>
                </children>
                <HBox.margin>

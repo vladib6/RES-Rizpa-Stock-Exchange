@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Admintab.AdminTabController">
+   <children>
+      <Label fx:id="topLabel" alignment="CENTER" layoutX="-7.0" prefHeight="50.0" prefWidth="808.0" style="-fx-background-color: #CFD8DC;" text="Admin " AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ComboBox fx:id="comboBox" layoutY="6.0" prefHeight="39.0" prefWidth="216.0" promptText="Choose Stock" AnchorPane.topAnchor="6.0" />
+      <Accordion fx:id="accordion" layoutY="50.0" prefHeight="323.0" prefWidth="800.0" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <panes>
+          <TitledPane animated="false" prefHeight="265.0" prefWidth="800.0" text="Waiting Buy Commands">
+            <content>
+                  <ScrollPane>
+                     <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="228.0" prefWidth="798.0">
+                           <children>
+                              <TableView fx:id="BuyCmdtableView" layoutX="10.699999809265137" layoutY="10.699999809265137" prefHeight="302.0" prefWidth="800.0" AnchorPane.bottomAnchor="-84.69999980926514" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.699999809265137">
+                                <columns>
+                                  <TableColumn fx:id="buyCmdDate" prefWidth="147.00000309944153" text="Date" />
+                                    <TableColumn fx:id="buyCmdType" prefWidth="109.99998474121094" text="Type" />
+                                    <TableColumn fx:id="buyCmdQuantity" prefWidth="120.0" text="Quantity" />
+                                    <TableColumn fx:id="buyCmdPrice" prefWidth="99.99998474121094" text="Price" />
+                                    <TableColumn fx:id="buyCmdUser" minWidth="2.0" prefWidth="99.0" text="User" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" prefHeight="306.0" prefWidth="800.0" text="Waiting Sell Commands">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="793.0">
+                     <children>
+                        <TableView fx:id="SellCmdtableView" prefHeight="210.0" prefWidth="800.0" AnchorPane.bottomAnchor="-97.99999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.7">
+                          <columns>
+                              <TableColumn fx:id="sellCmdDate" prefWidth="134.00000607967377" text="Date" />
+                              <TableColumn fx:id="sellCmdType" prefWidth="134.00000607967377" text="Type" />
+                            <TableColumn fx:id="sellCmdQuantity" prefWidth="81.0" text="Quantity" />
+                              <TableColumn fx:id="sellCmdPrice" prefWidth="83.0" text="Price" />
+                              <TableColumn fx:id="sellCmdUser" prefWidth="93.0" text="User" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" prefHeight="320.0" prefWidth="800.0" text="Transactions">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="795.0">
+                     <children>
+                        <TableView fx:id="transactionstableView" prefHeight="211.0" prefWidth="800.0" AnchorPane.bottomAnchor="-97.99999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.7">
+                          <columns>
+                            <TableColumn fx:id="transactionDate" prefWidth="116.0" text="Date" />
+                            <TableColumn fx:id="transactionQuantity" prefWidth="110.00006866455078" text="Quantity" />
+                              <TableColumn fx:id="transactionPrice" prefWidth="84.0" text="Price" />
+                              <TableColumn fx:id="transactionTurnover" prefWidth="114.0" text="Turnover" />
+                              <TableColumn fx:id="transactionSellUser" prefWidth="109.99996948242188" text="Seller" />
+                              <TableColumn fx:id="transactionBuyUser" prefWidth="90.0" text="Buyer" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+      <LineChart fx:id="lineChart" layoutX="-1.0" layoutY="438.0" prefHeight="229.0" prefWidth="800.0" title="Transactions History" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0">
+        <xAxis>
+          <CategoryAxis prefHeight="10.0" prefWidth="738.0" side="BOTTOM" fx:id="xAxis">
+               <tickLabelFont>
+                  <Font size="7.0" />
+               </tickLabelFont></CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>

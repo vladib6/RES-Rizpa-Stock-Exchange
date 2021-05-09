@@ -1,6 +1,6 @@
 package GUI.main;
 
-import GUI.AfterLoadScreenController;
+import GUI.Afterloadscreen.AfterLoadScreenController;
 import com.Engine.EngineInterface;
 import com.Engine.Myexception;
 import com.Engine.StockException;
@@ -10,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,9 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
@@ -35,18 +35,12 @@ public class mainscreencontroller  implements Initializable {
     @FXML private ImageView lockImageView;
     @FXML private Label errMessage;
     @FXML private Button button;
-    @FXML private BorderPane borderPane;
-    @FXML private ScrollPane scrollPane;
+    @FXML private AnchorPane anchorPane;
     @FXML private ProgressBar progressBar;
-
-
+    @FXML private ScrollPane scrollPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Load xml file button
-        File lockImage= new File("./JavaFX/src/Resources/pngegg.png");
-        Image lkImage= new Image(lockImage.toURI().toString());
-        lockImageView.setImage(lkImage);
-        //button
+        button.setPadding(new Insets(-1,-1,-1,-1));
         button.setGraphic(lockImageView);
         button.setOnMouseClicked(event -> {
                     FileChooser fileChooser = new FileChooser();
@@ -58,25 +52,19 @@ public class mainscreencontroller  implements Initializable {
                 });
         //Error Label
         errMessage.setText("");
-        errMessage.prefWidthProperty().bind(borderPane.widthProperty());
-        errMessage.prefHeightProperty().bind(borderPane.heightProperty());
+        errMessage.prefWidthProperty().bind(anchorPane.widthProperty());
         //Progress bar
-        progressBar.prefWidthProperty().bind(scrollPane.widthProperty());
+        progressBar.prefWidthProperty().bind(anchorPane.widthProperty());
         progressBar.setVisible(false);
-        //borderpane
-        borderPane.prefHeightProperty().bind(scrollPane.heightProperty());
-        borderPane.prefWidthProperty().bind(scrollPane.widthProperty());
-
-        //scroll pane
-//        borderPane.setPrefSize(400,400);
-        scrollPane.setPrefViewportHeight(400);
-        scrollPane.setPrefViewportWidth(400);
-//        scrollPane.setFitToHeight(true);
-//        scrollPane.setFitToWidth(true);
-
+        anchorPane.prefHeightProperty().bind(scrollPane.heightProperty());
+        anchorPane.prefWidthProperty().bind(scrollPane.widthProperty());
+           //ScrollPane
+        scrollPane.setPannable(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 
-    public void loadTaskfunc(){
+    public void loadTaskfunc(){//TODO : uncomment the progress bar before submiting the exercise
         Service<EngineInterface> service=new Service<EngineInterface>() {
             @Override
             protected Task<EngineInterface> createTask() {
@@ -87,13 +75,14 @@ public class mainscreencontroller  implements Initializable {
                         progressBar.setVisible(true);
                         try {
                               res = Loadxml.ParseXml(file);
-//                            for(int i=1;i<=10;i++){
-//                                Thread.sleep(300);
-//                                updateProgress(i*100,1000);
-//                            }
+                            for(int i=1;i<=10;i++){
+                                Thread.sleep(300);
+                                updateProgress(i*100,1000);
+                            }
                             updateMessage("Loading Success");
 
-                        } catch (JAXBException | Myexception | FileNotFoundException | StockException e) {
+                        } catch (JAXBException | Myexception | FileNotFoundException | StockException | InterruptedException e) {
+                            progressBar.setVisible(false);
                             updateMessage(e.toString());
                         }
                         return res;
@@ -117,16 +106,16 @@ public class mainscreencontroller  implements Initializable {
 
         public void SwitchScene(EngineInterface engine) throws IOException {   //Switch scene
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../AfterLoadScreen.fxml"));
+            loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
             Parent userScene = loader.load();
-            Scene newScene = new Scene(userScene, 800, 600);
+            Scene newScene = new Scene(userScene, 1100, 800);
             AfterLoadScreenController controller = loader.getController();
             controller.initEngine(engine);
-            Stage window = ((Stage)borderPane.getScene().getWindow());
+            Stage window = ((Stage)anchorPane.getScene().getWindow());
             window.setScene(newScene);
             window.show();
+            }
         }
 
-    }
 
 

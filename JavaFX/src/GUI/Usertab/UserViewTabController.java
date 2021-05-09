@@ -1,5 +1,7 @@
-package GUI;
+package GUI.Usertab;
 
+import GUI.Afterloadscreen.AfterLoadScreenController;
+import GUI.Commandform.CommandFormController;
 import com.HoldingsDTO;
 import com.UserDTO;
 import javafx.fxml.FXML;
@@ -12,11 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +36,6 @@ public class UserViewTabController implements Initializable {
     @FXML private VBox vBox;
     @FXML private HBox hBox;
     @FXML private AnchorPane anchorPane;
-    @FXML private ImageView tradeImg;
 
 
     @Override
@@ -55,12 +56,9 @@ public class UserViewTabController implements Initializable {
         quantity.setCellValueFactory( new PropertyValueFactory<>("quantity"));
         price.setCellValueFactory( new PropertyValueFactory<>("stockPrice"));
 
-        tradeImg.setPreserveRatio(true);
-        tradeImg.setPickOnBounds(true);
-        tradeButton.setGraphic(tradeImg);
         tradeButton.setOnMouseClicked(event -> {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("CommandForm.fxml"));
+            loader.setLocation(getClass().getResource("../Commandform/CommandForm.fxml"));
             try {
                 Parent commandFormScene = loader.load();
                 Scene newScene = new Scene(commandFormScene, 500, 600);

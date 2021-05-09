@@ -26,6 +26,7 @@ public class MKTcmd extends CommandType {
         while(newTransaction!=null && numOfStocks!=0);//while has stocks in command and success do transaction
 
         if(numOfStocks>0) {//if there is stocks in command so add the command to waiting list
+            this.price=stock.getCurrentPrice();
             stock.addWaitingCommand(this);
         }
         return numOfTransactions;

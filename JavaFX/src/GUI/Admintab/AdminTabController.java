@@ -1,5 +1,6 @@
-package GUI;
+package GUI.Admintab;
 
+import GUI.Afterloadscreen.AfterLoadScreenController;
 import com.CommandDTO;
 import com.StockDTO;
 import com.TransactionDTO;
@@ -12,7 +13,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,11 +29,13 @@ public class AdminTabController implements Initializable {
     @FXML private TableView transactionstableView;
 
     @FXML private TableColumn<CommandDTO,String> buyCmdDate;
+    @FXML private TableColumn<CommandDTO,String> buyCmdType;
     @FXML private TableColumn<CommandDTO,String> buyCmdQuantity;
     @FXML private TableColumn<CommandDTO,String> buyCmdPrice;
     @FXML private TableColumn<CommandDTO,String> buyCmdUser;
 
     @FXML private TableColumn<CommandDTO,String> sellCmdDate;
+    @FXML private TableColumn<CommandDTO,String> sellCmdType;
     @FXML private TableColumn<CommandDTO,String> sellCmdQuantity;
     @FXML private TableColumn<CommandDTO,String> sellCmdPrice;
     @FXML private TableColumn<CommandDTO,String> sellCmdUser;
@@ -78,9 +80,8 @@ public class AdminTabController implements Initializable {
         //update line chart
         series.getData().clear();
         for(TransactionDTO dto: stockDTO.getTransactionDTOS()){
-            series.getData().add(new XYChart.Data<>(dto.getDate(), dto.getTurnover()));
+            series.getData().add(0,new XYChart.Data<>(dto.getDate(), dto.getTurnover()));
         }
-
 
         //update tables view
         BuyCmdtableView.getItems().clear();
@@ -96,6 +97,8 @@ public class AdminTabController implements Initializable {
         BuyCmdtableView.setPlaceholder(new Label("No waiting commands yet"));
         buyCmdDate.setText("Date");
         buyCmdDate.setCellValueFactory(new PropertyValueFactory<>("time"));
+        buyCmdType.setText("Type");
+        buyCmdType.setCellValueFactory(new PropertyValueFactory<>("type"));
         buyCmdQuantity.setText("Quantity");
         buyCmdQuantity.setCellValueFactory(new PropertyValueFactory<>("numOfStocks"));
         buyCmdPrice.setText("Price");
@@ -103,11 +106,13 @@ public class AdminTabController implements Initializable {
         buyCmdUser.setText("User");
         buyCmdUser.setCellValueFactory(new PropertyValueFactory<>("initiativeUser"));
         BuyCmdtableView.getColumns().clear();
-        BuyCmdtableView.getColumns().addAll(buyCmdDate,buyCmdQuantity,buyCmdPrice,buyCmdUser);
+        BuyCmdtableView.getColumns().addAll(buyCmdDate,buyCmdType,buyCmdQuantity,buyCmdPrice,buyCmdUser);
 
         SellCmdtableView.setPlaceholder(new Label("No waiting commands yet"));
         sellCmdDate.setText("Date");
         sellCmdDate.setCellValueFactory(new PropertyValueFactory<>("time"));
+        sellCmdType.setText("Type");
+        sellCmdType.setCellValueFactory(new PropertyValueFactory<>("type"));
         sellCmdQuantity.setText("Quantity");
         sellCmdQuantity.setCellValueFactory(new PropertyValueFactory<>("numOfStocks"));
         sellCmdPrice.setText("Price");
@@ -115,7 +120,7 @@ public class AdminTabController implements Initializable {
         sellCmdUser.setText("User");
         sellCmdUser.setCellValueFactory(new PropertyValueFactory<>("initiativeUser"));
         SellCmdtableView.getColumns().clear();
-        SellCmdtableView.getColumns().addAll(sellCmdDate,sellCmdQuantity,sellCmdPrice,sellCmdUser);
+        SellCmdtableView.getColumns().addAll(sellCmdDate,sellCmdType, sellCmdQuantity,sellCmdPrice,sellCmdUser);
 
 
         transactionstableView.setPlaceholder(new Label("No transactions yet"));
