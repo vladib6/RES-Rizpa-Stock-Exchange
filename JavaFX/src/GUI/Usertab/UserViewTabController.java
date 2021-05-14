@@ -17,8 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,12 +59,9 @@ public class UserViewTabController implements Initializable {
             loader.setLocation(getClass().getResource("../Commandform/CommandForm.fxml"));
             try {
                 Parent commandFormScene = loader.load();
-                Scene newScene = new Scene(commandFormScene, 500, 600);
                 CommandFormController controller = loader.getController();
                 controller.init(currentScene(),mainController);
-                Stage window = ((Stage)anchorPane.getScene().getWindow());
-                window.setScene(newScene);
-                window.show();
+                anchorPane.getScene().setRoot(commandFormScene);
             } catch (IOException e) {
                 mainController.updateMessage(e.toString());
             }

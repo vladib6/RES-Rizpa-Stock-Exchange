@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,9 +63,17 @@ public class CommandFormController implements Initializable {
         MKT.setOnMouseClicked(event -> { limitPriceTextFiled.setVisible(false); });
         cancelButton.setOnMouseClicked(event -> {
             //back to previous scene
-            Stage stage=(Stage) userLabel.getScene().getWindow();
-            stage.setScene(prevScene);
-            stage.show();
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
+                Parent  userScene = loader.load();
+                AfterLoadScreenController controller = loader.getController();
+                controller.initEngine(mainController.getEngine());
+                anchorPane.getScene().setRoot(userScene);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         });
 
         executeButton.setOnMouseClicked(event -> {
@@ -236,12 +243,9 @@ public class CommandFormController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
         Parent userScene = loader.load();
-        Scene newScene = new Scene(userScene, 800, 600);
         AfterLoadScreenController controller = loader.getController();
         controller.initEngine(mainController.getEngine());
-        Stage window = ((Stage)anchorPane.getScene().getWindow());
-        window.setScene(newScene);
-        window.show();
+       anchorPane.getScene().setRoot(userScene);
     }
 
     public void setListeners(){

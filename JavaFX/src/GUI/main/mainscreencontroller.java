@@ -13,15 +13,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +35,6 @@ public class mainscreencontroller  implements Initializable {
     @FXML private Button button;
     @FXML private AnchorPane anchorPane;
     @FXML private ProgressBar progressBar;
-    @FXML private ScrollPane scrollPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         button.setPadding(new Insets(-1,-1,-1,-1));
@@ -56,12 +53,10 @@ public class mainscreencontroller  implements Initializable {
         //Progress bar
         progressBar.prefWidthProperty().bind(anchorPane.widthProperty());
         progressBar.setVisible(false);
-        anchorPane.prefHeightProperty().bind(scrollPane.heightProperty());
-        anchorPane.prefWidthProperty().bind(scrollPane.widthProperty());
+//        anchorPane.prefHeightProperty().bind(scrollPane.heightProperty());
+//        anchorPane.prefWidthProperty().bind(scrollPane.widthProperty());
            //ScrollPane
-        scrollPane.setPannable(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
     }
 
     public void loadTaskfunc(){//TODO : uncomment the progress bar before submiting the exercise
@@ -108,12 +103,13 @@ public class mainscreencontroller  implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
             Parent userScene = loader.load();
-            Scene newScene = new Scene(userScene, 1100, 800);
+//            Scene newScene = new Scene(userScene, 1100, 800);
             AfterLoadScreenController controller = loader.getController();
             controller.initEngine(engine);
-            Stage window = ((Stage)anchorPane.getScene().getWindow());
-            window.setScene(newScene);
-            window.show();
+            anchorPane.getScene().setRoot(userScene);
+//            Stage window = ((Stage)anchorPane.getScene().getWindow());
+//            window.setScene(newScene);
+//            window.show();
             }
         }
 

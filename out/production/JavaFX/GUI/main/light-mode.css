@@ -1,0 +1,43 @@
+.scroll-pane > .viewport{
+    -fx-background-image: url('/Resources/stocks.jpg');
+    -fx-background-size: cover;
+}
+
+#button{
+    -fx-background-color: none;
+    -fx-border-color: none;
+    -fx-border-width: 0;
+}
+
+#errMessage{
+    -fx-text-fill: red;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #CFD8DC;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-radius: 10 10 0 0, 9 9 0 0, 8 8 0 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-radius: 9 9 0 0, 8 8 0 0;
+}
+
+#username {
+    -fx-background-color: #56D4;
+    -fx-border-color: black;
+
+}
+
+#holdingsValue {
+    -fx-border-color: black;
+    -fx-background-color: rgba(205, 42, 94, 0.27);
+
+}
+#tradeButton{
+    -fx-background-color: grey;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50px;
+    -fx-font-size: 16px;
+}

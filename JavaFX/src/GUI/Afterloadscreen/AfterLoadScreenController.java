@@ -9,26 +9,51 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AfterLoadScreenController implements Initializable {
     private EngineInterface Engine;
-
+    private  boolean animation;
     @FXML private BorderPane borderPane;
     @FXML private TabPane tabPane;
     @FXML private Label errMessage;
+    @FXML private ToggleGroup themeToggleGroup;
+    @FXML private ToggleButton classicMode;
+    @FXML private ToggleButton lightMode;
+    @FXML private ToggleButton darkMode;
+    @FXML private CheckBox animationBox;
     @FXML private ScrollPane scrollPane;
 
+    final String classicThemePath= getClass().getResource("../main/mainscreenstyle.css").toExternalForm();
+    final String lightThemePath= getClass().getResource("../main/light-mode.css").toExternalForm();
+    final String darkThemePath= getClass().getResource("../main/dark-mode.css").toExternalForm();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        animation=false;
+        animationBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            animation=newValue;
+        });
+
+        themeToggleGroup=new ToggleGroup();
+        themeToggleGroup.getToggles().addAll(classicMode,lightMode,darkMode);
+        themeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if(classicMode.isSelected()){
+                borderPane.getScene().getStylesheets().clear();
+                borderPane.getScene().getStylesheets().add(classicThemePath);
+            }else if(lightMode.isSelected()){
+                borderPane.getScene().getStylesheets().clear();
+                borderPane.getScene().getStylesheets().add(lightThemePath);
+            }else{
+                borderPane.getScene().getStylesheets().clear();
+                borderPane.getScene().getStylesheets().add(darkThemePath);
+            }
+        });
         errMessage.setText("");
         errMessage.prefWidthProperty().bind(borderPane.widthProperty());
         tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -41,13 +66,6 @@ public class AfterLoadScreenController implements Initializable {
         }
         });
 
-       // borderpane
-        borderPane.prefHeightProperty().bind(scrollPane.heightProperty());
-        borderPane.prefWidthProperty().bind(scrollPane.widthProperty());
-       // scroll pane
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefSize(115, 150);
     }
 
     public void initEngine(EngineInterface engine) throws IOException {

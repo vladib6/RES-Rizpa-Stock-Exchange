@@ -8,14 +8,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hmax="0.0" pannable="true" prefHeight="800.0" prefWidth="1100.0" stylesheets="@mainscreenstyle.css" vmax="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.main.mainscreencontroller">
+
+<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.main.mainscreencontroller">
    <content>
-      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" stylesheets="@mainscreenstyle.css">
+      <AnchorPane id="mainanchor" fx:id="anchorPane" minHeight="600.0" minWidth="600.0" stylesheets="@mainscreenstyle.css">
          <children>
             <Label fx:id="errMessage" alignment="CENTER" layoutY="752.0" prefHeight="48.0" prefWidth="1100.0" style="-fx-background-color: #CFD8DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <ProgressBar fx:id="progressBar" layoutY="720.0" prefHeight="32.0" prefWidth="1100.0" progress="0.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Button fx:id="button" layoutX="519.0" layoutY="374.0" mnemonicParsing="false" AnchorPane.bottomAnchor="394.0" AnchorPane.leftAnchor="519.0" AnchorPane.rightAnchor="527.0" AnchorPane.topAnchor="374.0" />
-            <ImageView fx:id="lockImageView" fitHeight="150.0" fitWidth="200.0" layoutX="462.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="button" layoutX="519.0" layoutY="374.0" mnemonicParsing="false" AnchorPane.leftAnchor="519.0" AnchorPane.rightAnchor="527.0" />
+            <ImageView fx:id="lockImageView" fitHeight="150.0" fitWidth="200.0" layoutX="462.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="486.0">
                <image>
                   <Image url="@../../Resources/pngegg.png" />
                </image>

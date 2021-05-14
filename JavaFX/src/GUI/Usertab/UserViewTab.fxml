@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@UsertabView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Usertab.UserViewTabController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="/GUI/main/mainscreenstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Usertab.UserViewTabController">
    <children>
       <HBox fx:id="hBox" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
          <children>
@@ -34,7 +35,7 @@
             <Separator orientation="VERTICAL" prefHeight="400.0" prefWidth="21.0" style="-fx-background-color: #CFD8DC;" />
             <VBox fx:id="vBox" prefHeight="391.0" prefWidth="461.0" style="-fx-border-color: #212121;">
                <children>
-                  <Label fx:id="username" alignment="CENTER" prefHeight="121.0" prefWidth="467.0" text="username" textAlignment="CENTER">
+                  <Label fx:id="username" alignment="CENTER" prefHeight="121.0" prefWidth="467.0" style="-fx-border-color: black;" text="username" textAlignment="CENTER">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -49,7 +50,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="holdingsValue" alignment="CENTER" prefHeight="121.0" prefWidth="463.0" text="Value">
+                  <Label fx:id="holdingsValue" alignment="CENTER" prefHeight="121.0" prefWidth="463.0" style="-fx-border-color: black;" text="Value">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -63,11 +64,17 @@
                   </Label>
                   <Button fx:id="tradeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="7.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="169.0" text="Trade" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
                      <VBox.margin>
-                        <Insets left="150.0" right="100.0" />
+                        <Insets left="150.0" right="150.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <HBox.margin>
