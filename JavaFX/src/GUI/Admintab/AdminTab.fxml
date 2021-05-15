@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Admintab.AdminTabController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../main/mainscreenstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Admintab.AdminTabController">
    <children>
       <Label fx:id="topLabel" alignment="CENTER" layoutX="-7.0" prefHeight="50.0" prefWidth="808.0" style="-fx-background-color: #CFD8DC;" text="Admin " AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ComboBox fx:id="comboBox" layoutY="6.0" prefHeight="39.0" prefWidth="216.0" promptText="Choose Stock" AnchorPane.topAnchor="6.0" />
@@ -77,7 +77,7 @@
           </TitledPane>
         </panes>
       </Accordion>
-      <LineChart fx:id="lineChart" layoutX="-1.0" layoutY="438.0" prefHeight="229.0" prefWidth="800.0" title="Transactions History" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0">
+      <LineChart fx:id="lineChart" layoutX="-1.0" layoutY="438.0" prefHeight="229.0" prefWidth="800.0" styleClass="lineChart" title="Transactions History" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0">
         <xAxis>
           <CategoryAxis prefHeight="10.0" prefWidth="738.0" side="BOTTOM" fx:id="xAxis">
                <tickLabelFont>

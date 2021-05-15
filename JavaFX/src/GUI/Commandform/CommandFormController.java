@@ -1,6 +1,7 @@
 package GUI.Commandform;
 
 import GUI.Afterloadscreen.AfterLoadScreenController;
+import GUI.ThemeAnimation.ThemeAnimation;
 import com.Command.CmdTypes.Command;
 import com.HoldingsDTO;
 import com.StockDTO;
@@ -9,11 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,11 +20,9 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class CommandFormController implements Initializable {
-    private Scene prevScene;
     private AfterLoadScreenController mainController;
 
-    @FXML private AnchorPane anchorPane;
-    @FXML private VBox vBox;
+    @FXML private GridPane gridPane;
     @FXML private Label userLabel;
     @FXML private RadioButton Sell;
     @FXML private RadioButton Buy;
@@ -34,15 +31,16 @@ public class CommandFormController implements Initializable {
     @FXML private RadioButton LMT;
     @FXML private TextField limitPriceTextFiled;
     @FXML private Label limitPriceLabel;
+    @FXML private Label quantityLabel;
     @FXML private Pane typePane;
     @FXML private ComboBox<MenuItem> comboBox;
     @FXML private Pane chooseStockPane;
     @FXML private TextField quantityTextFiled;
-    @FXML private Pane quantityPane;
-    @FXML private Label quantityLabel;
     @FXML private CheckBox apllyCheckbox;
     @FXML private Button cancelButton;
     @FXML private Button executeButton;
+    @FXML private Label errMessage;
+
     ToggleGroup directionToggleGroup=new ToggleGroup();
     ToggleGroup typeToggleGroup=new ToggleGroup();
 
@@ -53,7 +51,6 @@ public class CommandFormController implements Initializable {
         MKT.setToggleGroup(typeToggleGroup);
         LMT.setToggleGroup(typeToggleGroup);
         limitPriceTextFiled.setVisible(false);
-        quantityLabel.setStyle("-fx-text-fill: red");
         limitPriceLabel.setStyle("-fx-text-fill: red");
 
         //mouse click actions set
@@ -68,12 +65,11 @@ public class CommandFormController implements Initializable {
                 loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
                 Parent  userScene = loader.load();
                 AfterLoadScreenController controller = loader.getController();
-                controller.initEngine(mainController.getEngine());
-                anchorPane.getScene().setRoot(userScene);
+                controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());
+                gridPane.getScene().setRoot(userScene);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });
 
         executeButton.setOnMouseClicked(event -> {
@@ -88,10 +84,20 @@ public class CommandFormController implements Initializable {
     }
 
 
-    public void init(Scene prevScene,AfterLoadScreenController controller){
-        this.prevScene=prevScene;
+    public void init(AfterLoadScreenController controller){
         mainController=controller;
         userLabel.setText("You trade as :" +mainController.getEngine().getConnectedUser().getUsername());
+
+        FXMLLoader themeLoader = new FXMLLoader();
+        themeLoader.setLocation(getClass().getResource("../ThemeAnimation/ThemeAnimation.fxml"));
+        try {
+            Parent themeLabel = themeLoader.load();
+            ThemeAnimation themeController=themeLoader.getController();
+            themeController.Init(mainController.getTheme(), mainController.getAnimationState(), mainController);
+            gridPane.add(themeLabel,0,0,4,1);
+        } catch (IOException e) {
+            errMessage.setText(e.getMessage());
+        }
     }
 
     public void setItemsInCombobox(String type){
@@ -175,7 +181,7 @@ public class CommandFormController implements Initializable {
         //Quantity selected?
         if(quantityTextFiled.getText().equals("")){
             count++;
-            quantityPane.setStyle("-fx-border-color: red");
+            quantityTextFiled.setStyle("-fx-border-color: red");
         }else if(directionToggleGroup.getSelectedToggle().equals(Sell) && comboBox.getSelectionModel().getSelectedItem()!=null){
             if(!checkValidQuantity(quantityTextFiled.getText())){
                 count++;
@@ -183,9 +189,9 @@ public class CommandFormController implements Initializable {
         }else{
             if(!isStringContainOnlyDigits(quantityTextFiled.getText())|| Integer.parseInt(quantityTextFiled.getText())<=0){
                 count++;
-                quantityPane.setStyle("-fx-border-color: red");
+                quantityTextFiled.setStyle("-fx-border-color: red");
             }else{
-                quantityPane.setStyle("-fx-border-color: none");
+                quantityTextFiled.setStyle("-fx-border-color: none");
             }
         }
         //aplly selected?
@@ -244,8 +250,8 @@ public class CommandFormController implements Initializable {
         loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
         Parent userScene = loader.load();
         AfterLoadScreenController controller = loader.getController();
-        controller.initEngine(mainController.getEngine());
-       anchorPane.getScene().setRoot(userScene);
+        controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());
+        gridPane.getScene().setRoot(userScene);
     }
 
     public void setListeners(){

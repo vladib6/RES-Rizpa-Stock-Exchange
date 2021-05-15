@@ -1,0 +1,137 @@
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: #607D8B;
+    -fx-font-size: 1.5em;
+}
+.table-row-cell:odd{
+    -fx-background-color: #26a69a;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: #1dbbdd11;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
+}
+
+
+#button{
+    -fx-background-color: none;
+    -fx-border-color: none;
+    -fx-border-width: 0;
+}
+
+#errMessage{
+    -fx-text-fill: red;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #004d40;
+    -fx-text-fill: wheat;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-radius: 10 10 0 0, 9 9 0 0, 8 8 0 0;
+}
+.tab-pane {
+    -fx-background-color:#004d40;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-radius: 9 9 0 0, 8 8 0 0;
+}
+
+#username {
+    -fx-background-color: #00695c;
+    -fx-border-color: black;
+    -fx-font-weight: bold;
+    -fx-text-fill: wheat;
+}
+
+#holdingsValue {
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-background-color: #00695c;
+    -fx-text-fill: wheat;
+}
+#tradeButton{
+    -fx-background-color: #00695c;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50px;
+    -fx-font-size: 16px;
+    -fx-text-fill: wheat;
+}
+#tradeButton:hover{
+    -fx-background-color: #b2dfdb;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50px;
+    -fx-font-size: 16px;
+}
+
+.themeButton{
+    -fx-background-color: #00796b;
+    -fx-background-radius: 10px;
+    -fx-text-fill: wheat;
+}
+.themeButton:hover{
+    -fx-background-color: #004d40;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+
+}
+
+.themeButton:pressed{
+    -fx-background-color: #80cbc4;
+    -fx-background-radius: 10px;
+}
+
+.label{
+    -fx-font-family: "David CLM";
+    -fx-font-size: 20px;
+
+}
+
+.formLabel{
+    -fx-background-color: #004d40;
+    -fx-text-fill: wheat;
+}
+
+.formButton{
+    -fx-background-color: #455a64;
+    -fx-background-radius: 10px;
+    -fx-text-fill: wheat;
+}
+
+.formButton:hover{
+    -fx-background-color: #37474f;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: wheat;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+
+.axis-label {
+    -fx-text-fill: wheat;
+}
+
+.chart-title{
+    -fx-text-fill: wheat;
+}

@@ -1,6 +1,7 @@
 package GUI.Afterloadscreen;
 
 import GUI.Admintab.AdminTabController;
+import GUI.ThemeAnimation.ThemeAnimation;
 import GUI.Usertab.UserViewTabController;
 import com.Engine.EngineInterface;
 import com.Engine.Myexception;
@@ -9,51 +10,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AfterLoadScreenController implements Initializable {
     private EngineInterface Engine;
-    private  boolean animation;
     @FXML private BorderPane borderPane;
     @FXML private TabPane tabPane;
     @FXML private Label errMessage;
-    @FXML private ToggleGroup themeToggleGroup;
-    @FXML private ToggleButton classicMode;
-    @FXML private ToggleButton lightMode;
-    @FXML private ToggleButton darkMode;
-    @FXML private CheckBox animationBox;
     @FXML private ScrollPane scrollPane;
+    private boolean animationState;
+    private String theme;
 
-    final String classicThemePath= getClass().getResource("../main/mainscreenstyle.css").toExternalForm();
-    final String lightThemePath= getClass().getResource("../main/light-mode.css").toExternalForm();
-    final String darkThemePath= getClass().getResource("../main/dark-mode.css").toExternalForm();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        animation=false;
-        animationBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            animation=newValue;
-        });
-
-        themeToggleGroup=new ToggleGroup();
-        themeToggleGroup.getToggles().addAll(classicMode,lightMode,darkMode);
-        themeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if(classicMode.isSelected()){
-                borderPane.getScene().getStylesheets().clear();
-                borderPane.getScene().getStylesheets().add(classicThemePath);
-            }else if(lightMode.isSelected()){
-                borderPane.getScene().getStylesheets().clear();
-                borderPane.getScene().getStylesheets().add(lightThemePath);
-            }else{
-                borderPane.getScene().getStylesheets().clear();
-                borderPane.getScene().getStylesheets().add(darkThemePath);
-            }
-        });
         errMessage.setText("");
         errMessage.prefWidthProperty().bind(borderPane.widthProperty());
         tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -68,7 +45,9 @@ public class AfterLoadScreenController implements Initializable {
 
     }
 
-    public void initEngine(EngineInterface engine) throws IOException {
+    public void initEngine(EngineInterface engine,String theme,boolean animation) throws IOException {
+        setTheme(theme);
+        setAnimationState(animation);
         this.Engine=engine;
         for(UserDTO dto: engine.getAllUsersDto()){//creates users tabs
             FXMLLoader loader = new FXMLLoader();
@@ -91,7 +70,36 @@ public class AfterLoadScreenController implements Initializable {
         Tab tab=new Tab("Admin");
         tab.setContent(root);
         tabPane.getTabs().add(tab);
+
+        //load Theme and Animation label
+        FXMLLoader themeLoader = new FXMLLoader();
+        themeLoader.setLocation(getClass().getResource("../ThemeAnimation/ThemeAnimation.fxml"));
+        try {
+            Parent themeLabel = themeLoader.load();
+            ThemeAnimation themeController=themeLoader.getController();
+            themeController.Init(theme,animation,this);
+            borderPane.setTop(themeLabel);
+        } catch (IOException e) {
+            errMessage.setText(e.getMessage());
+        }
     }
+
+    public void setAnimationState(boolean animationState) {
+        this.animationState = animationState;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public boolean getAnimationState() {
+        return animationState;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
 
     public EngineInterface getEngine() {
         return Engine;

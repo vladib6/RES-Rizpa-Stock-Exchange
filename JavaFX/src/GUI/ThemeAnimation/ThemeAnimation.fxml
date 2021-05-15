@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="38.0" prefWidth="643.0" stylesheets="@../main/mainscreenstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ThemeAnimation.ThemeAnimation">
+   <children>
+      <Label layoutX="14.0" layoutY="11.0" text="Theme :" />
+      <CheckBox fx:id="animationBox" layoutX="534.0" layoutY="10.0" mnemonicParsing="false" text="Animation" AnchorPane.rightAnchor="18.0" />
+      <ToggleButton fx:id="classicMode" layoutX="68.0" layoutY="6.0" mnemonicParsing="false" styleClass="themeButton" text="Classic" />
+      <ToggleButton fx:id="lightMode" contentDisplay="CENTER" layoutX="131.0" layoutY="6.0" mnemonicParsing="false" styleClass="themeButton" text="Light">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></ToggleButton>
+      <ToggleButton fx:id="darkMode" contentDisplay="CENTER" layoutX="189.0" layoutY="6.0" mnemonicParsing="false" styleClass="themeButton" text="Dark" textAlignment="CENTER" AnchorPane.leftAnchor="189.0" />
+   </children>
+</AnchorPane>

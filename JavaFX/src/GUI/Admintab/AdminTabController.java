@@ -57,6 +57,7 @@ public class AdminTabController implements Initializable {
         comboBox.setOnAction(event -> showDataOfStock(comboBox.getSelectionModel().getSelectedItem().getText()));
         initializeTablesView();
         lineChart.getData().add(series);
+
     }
     public void injectMainController(AfterLoadScreenController controller){
         mainController=controller;
@@ -72,7 +73,6 @@ public class AdminTabController implements Initializable {
             };
             comboBox.getItems().add(newItem);
         }
-
     }
 
     public void showDataOfStock(String stockName){

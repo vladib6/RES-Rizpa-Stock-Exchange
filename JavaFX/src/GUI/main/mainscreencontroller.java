@@ -53,13 +53,11 @@ public class mainscreencontroller  implements Initializable {
         //Progress bar
         progressBar.prefWidthProperty().bind(anchorPane.widthProperty());
         progressBar.setVisible(false);
-//        anchorPane.prefHeightProperty().bind(scrollPane.heightProperty());
-//        anchorPane.prefWidthProperty().bind(scrollPane.widthProperty());
-           //ScrollPane
+
 
     }
 
-    public void loadTaskfunc(){//TODO : uncomment the progress bar before submiting the exercise
+    public void loadTaskfunc(){
         Service<EngineInterface> service=new Service<EngineInterface>() {
             @Override
             protected Task<EngineInterface> createTask() {
@@ -103,13 +101,10 @@ public class mainscreencontroller  implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
             Parent userScene = loader.load();
-//            Scene newScene = new Scene(userScene, 1100, 800);
             AfterLoadScreenController controller = loader.getController();
-            controller.initEngine(engine);
+            controller.initEngine(engine,"classic",false);
             anchorPane.getScene().setRoot(userScene);
-//            Stage window = ((Stage)anchorPane.getScene().getWindow());
-//            window.setScene(newScene);
-//            window.show();
+
             }
         }
 
