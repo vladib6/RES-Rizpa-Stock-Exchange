@@ -4,7 +4,7 @@ import GUI.Afterloadscreen.AfterLoadScreenController;
 import GUI.Commandform.CommandFormController;
 import com.HoldingsDTO;
 import com.UserDTO;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -79,7 +79,21 @@ public class UserViewTabController implements Initializable {
                 Parent commandFormScene = loader.load();
                 CommandFormController controller = loader.getController();
                 controller.init(mainController);
-                anchorPane.getScene().setRoot(commandFormScene);
+                if(mainController.getAnimationState()){
+                    commandFormScene.translateYProperty().set(anchorPane.getScene().getHeight());
+                    anchorPane.getScene().setRoot(commandFormScene);
+                    Timeline timeline= new Timeline();
+                    KeyValue kv= new KeyValue(commandFormScene.translateYProperty(),0, Interpolator.EASE_IN);
+                    KeyFrame kf= new KeyFrame(Duration.seconds(1),kv);
+                    timeline.getKeyFrames().add(kf);
+                    timeline.play();
+
+                }else{
+                    anchorPane.getScene().setRoot(commandFormScene);
+
+                }
+
+
             } catch (IOException e) {
                 mainController.updateMessage(e.toString());
             }

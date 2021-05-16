@@ -6,6 +6,10 @@ import com.Command.CmdTypes.Command;
 import com.HoldingsDTO;
 import com.StockDTO;
 import com.TransactionDTO;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +71,17 @@ public class CommandFormController implements Initializable {
                 Parent  userScene = loader.load();
                 AfterLoadScreenController controller = loader.getController();
                 controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());
-                gridPane.getScene().setRoot(userScene);
+                if(mainController.getAnimationState()){
+                    userScene.translateYProperty().set(gridPane.getScene().getHeight());
+                    gridPane.getScene().setRoot(userScene);
+                    Timeline timeline= new Timeline();
+                    KeyValue kv= new KeyValue(userScene.translateYProperty(),0, Interpolator.EASE_IN);
+                    KeyFrame kf= new KeyFrame(Duration.seconds(1),kv);
+                    timeline.getKeyFrames().add(kf);
+                    timeline.play();
+                }else{
+                    gridPane.getScene().setRoot(userScene);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -251,7 +266,18 @@ public class CommandFormController implements Initializable {
         Parent userScene = loader.load();
         AfterLoadScreenController controller = loader.getController();
         controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());
-        gridPane.getScene().setRoot(userScene);
+        if(mainController.getAnimationState()){
+            userScene.translateYProperty().set(gridPane.getScene().getHeight());
+            gridPane.getScene().setRoot(userScene);
+            Timeline timeline= new Timeline();
+            KeyValue kv= new KeyValue(userScene.translateYProperty(),0, Interpolator.EASE_IN);
+            KeyFrame kf= new KeyFrame(Duration.seconds(1),kv);
+            timeline.getKeyFrames().add(kf);
+            timeline.play();
+        }else{
+            gridPane.getScene().setRoot(userScene);
+        }
+
     }
 
     public void setListeners(){
