@@ -21,9 +21,9 @@ public class ThemeAnimation implements Initializable {
     @FXML private ToggleButton darkMode;
     @FXML private CheckBox animationBox;
 
-    final String classicThemePath= getClass().getResource("../main/mainscreenstyle.css").toExternalForm();
-    final String lightThemePath= getClass().getResource("../main/light-mode.css").toExternalForm();
-    final String darkThemePath= getClass().getResource("../main/dark-mode.css").toExternalForm();
+    final String classicThemePath= getClass().getResource("/GUI/main/mainscreenstyle.css").toExternalForm();
+    final String lightThemePath= getClass().getResource("/GUI/main/light-mode.css").toExternalForm();
+    final String darkThemePath= getClass().getResource("/GUI/main/dark-mode.css").toExternalForm();
 
 
     @Override

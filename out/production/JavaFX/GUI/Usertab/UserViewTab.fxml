@@ -42,7 +42,7 @@
                      <graphic>
                         <ImageView fx:id="userImg" fitHeight="80.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/home/vladi/IdeaProjects/RizpaStockExchange/JavaFX/src/Resources/user.png" />
+                              <Image url="/Resources/user.png" />
                            </image>
                            <viewport>
                               <Rectangle2D />
@@ -57,7 +57,7 @@
                      <graphic>
                         <ImageView fx:id="valueImg" fitHeight="80.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/home/vladi/IdeaProjects/RizpaStockExchange/JavaFX/src/Resources/holdings.png" />
+                              <Image url="/Resources/holdings.png" />
                            </image>
                         </ImageView>
                      </graphic>

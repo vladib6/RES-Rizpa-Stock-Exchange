@@ -49,9 +49,10 @@ public class AfterLoadScreenController implements Initializable {
         setTheme(theme);
         setAnimationState(animation);
         this.Engine=engine;
+
         for(UserDTO dto: engine.getAllUsersDto()){//creates users tabs
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../Usertab//UserViewTab.fxml"));
+            loader.setLocation(getClass().getResource("/GUI/Usertab/UserViewTab.fxml"));
             Parent root=loader.load();
             UserViewTabController controller=loader.getController();
             controller.initUserTab(dto);
@@ -62,7 +63,7 @@ public class AfterLoadScreenController implements Initializable {
         }
         //create admin tab
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../Admintab/AdminTab.fxml"));
+        loader.setLocation(getClass().getResource("/GUI/Admintab/AdminTab.fxml"));
         Parent root=loader.load();
         AdminTabController controller=loader.getController();
         controller.injectMainController(this);
@@ -73,7 +74,7 @@ public class AfterLoadScreenController implements Initializable {
 
         //load Theme and Animation label
         FXMLLoader themeLoader = new FXMLLoader();
-        themeLoader.setLocation(getClass().getResource("../ThemeAnimation/ThemeAnimation.fxml"));
+        themeLoader.setLocation(getClass().getResource("/GUI/ThemeAnimation/ThemeAnimation.fxml"));
         try {
             Parent themeLabel = themeLoader.load();
             ThemeAnimation themeController=themeLoader.getController();

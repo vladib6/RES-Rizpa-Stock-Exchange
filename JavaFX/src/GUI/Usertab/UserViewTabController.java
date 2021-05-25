@@ -74,7 +74,7 @@ public class UserViewTabController implements Initializable {
 
         tradeButton.setOnMouseClicked(event -> {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../Commandform/CommandForm2.fxml"));
+            loader.setLocation(getClass().getResource("/GUI/Commandform/CommandForm2.fxml"));
             try {
                 Parent commandFormScene = loader.load();
                 CommandFormController controller = loader.getController();
@@ -90,15 +90,11 @@ public class UserViewTabController implements Initializable {
 
                 }else{
                     anchorPane.getScene().setRoot(commandFormScene);
-
                 }
-
-
             } catch (IOException e) {
                 mainController.updateMessage(e.toString());
             }
         });
-
     }
 
     public void injectMainController(AfterLoadScreenController controller){

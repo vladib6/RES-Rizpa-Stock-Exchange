@@ -7,8 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="TradingEngine" exported="" />
-    <orderEntry type="module" module-name="XML" exported="" />
+    <orderEntry type="module" module-name="XML" />
     <orderEntry type="module" module-name="DTO" />
+    <orderEntry type="module" module-name="TradingEngine" />
   </component>
 </module>

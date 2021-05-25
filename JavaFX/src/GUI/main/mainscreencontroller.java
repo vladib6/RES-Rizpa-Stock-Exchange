@@ -89,8 +89,8 @@ public class mainscreencontroller  implements Initializable {
                 if(service.getValue()!=null){
                     SwitchScene(service.getValue());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IllegalStateException|IOException e) {
+                errMessage.setText(e.toString());
             }
         });
         progressBar.progressProperty().bind(service.progressProperty());
@@ -99,7 +99,7 @@ public class mainscreencontroller  implements Initializable {
 
         public void SwitchScene(EngineInterface engine) throws IOException {   //Switch scene
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
+            loader.setLocation(getClass().getResource("/GUI/Afterloadscreen/AfterLoadScreen.fxml"));
             Parent userScene = loader.load();
             AfterLoadScreenController controller = loader.getController();
             controller.initEngine(engine,"classic",false);

@@ -67,7 +67,7 @@ public class CommandFormController implements Initializable {
             //back to previous scene
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
+                loader.setLocation(getClass().getResource("/GUI/Afterloadscreen/AfterLoadScreen.fxml"));
                 Parent  userScene = loader.load();
                 AfterLoadScreenController controller = loader.getController();
                 controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());
@@ -104,7 +104,7 @@ public class CommandFormController implements Initializable {
         userLabel.setText("You trade as :" +mainController.getEngine().getConnectedUser().getUsername());
 
         FXMLLoader themeLoader = new FXMLLoader();
-        themeLoader.setLocation(getClass().getResource("../ThemeAnimation/ThemeAnimation.fxml"));
+        themeLoader.setLocation(getClass().getResource("/GUI/ThemeAnimation/ThemeAnimation.fxml"));
         try {
             Parent themeLabel = themeLoader.load();
             ThemeAnimation themeController=themeLoader.getController();
@@ -262,7 +262,7 @@ public class CommandFormController implements Initializable {
 
     public void backToScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../Afterloadscreen/AfterLoadScreen.fxml"));
+        loader.setLocation(getClass().getResource("/GUI/Afterloadscreen/AfterLoadScreen.fxml"));
         Parent userScene = loader.load();
         AfterLoadScreenController controller = loader.getController();
         controller.initEngine(mainController.getEngine(), mainController.getTheme(), mainController.getAnimationState());

@@ -18,7 +18,7 @@
             <Button fx:id="button" layoutX="519.0" layoutY="374.0" mnemonicParsing="false" AnchorPane.leftAnchor="519.0" AnchorPane.rightAnchor="527.0" />
             <ImageView fx:id="lockImageView" fitHeight="150.0" fitWidth="200.0" layoutX="462.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="486.0">
                <image>
-                  <Image url="@../../Resources/pngegg.png" />
+                  <Image url="/Resources/pngegg.png" />
                </image>
             </ImageView>
          </children>
