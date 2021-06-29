@@ -57,6 +57,7 @@ public class AdminTabController implements Initializable {
         comboBox.setOnAction(event -> showDataOfStock(comboBox.getSelectionModel().getSelectedItem().getText()));
         initializeTablesView();
         lineChart.getData().add(series);
+        yAxis.autosize();
 
     }
     public void injectMainController(AfterLoadScreenController controller){
@@ -80,7 +81,7 @@ public class AdminTabController implements Initializable {
         //update line chart
         series.getData().clear();
         for(TransactionDTO dto: stockDTO.getTransactionDTOS()){
-            series.getData().add(0,new XYChart.Data<>(dto.getDate(), dto.getTurnover()));
+            series.getData().add(0,new XYChart.Data<>(dto.getDate(), dto.getPrice()));
         }
 
         //update tables view

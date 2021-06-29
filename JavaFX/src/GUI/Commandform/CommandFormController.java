@@ -234,10 +234,10 @@ public class CommandFormController implements Initializable {
             return res;
         }
 
-    public void createAndShowAlert(int numOfTransactions, Command cmd){//TODO:fix the size of alert box
+    public void createAndShowAlert(int numOfTransactions, Command cmd){
         Alert alert= new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Command Execute Information");
-
+        alert.getDialogPane().setMinSize(700,300);
         if(numOfTransactions==0){
             alert.setContentText("No Transactions Were performed");
         }else{

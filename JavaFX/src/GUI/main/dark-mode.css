@@ -56,6 +56,7 @@
     -fx-border-color: black;
     -fx-font-weight: bold;
     -fx-text-fill: wheat;
+    -fx-font-family:"Dubai Light";
 }
 
 #holdingsValue {
@@ -63,6 +64,7 @@
     -fx-border-color: black;
     -fx-background-color: #00695c;
     -fx-text-fill: wheat;
+    -fx-font-family:"Dubai Light";
 }
 #tradeButton{
     -fx-background-color: #00695c;
@@ -82,6 +84,7 @@
     -fx-background-color: #00796b;
     -fx-background-radius: 10px;
     -fx-text-fill: wheat;
+
 }
 .themeButton:hover{
     -fx-background-color: #004d40;
@@ -97,7 +100,7 @@
 }
 
 .label{
-    -fx-font-family: "David CLM";
+    -fx-font-family:"Dubai Light";
     -fx-font-size: 20px;
 
 }
@@ -105,6 +108,8 @@
 .formLabel{
     -fx-background-color: #004d40;
     -fx-text-fill: wheat;
+    -fx-font-family: Arial;
+
 }
 
 .formButton{

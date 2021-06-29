@@ -54,6 +54,7 @@
     -fx-background-color: #00BCD4;
     -fx-border-color: black;
     -fx-font-weight: bold;
+    -fx-font-family: "Aharoni CLM";
 
 }
 
@@ -61,6 +62,7 @@
     -fx-font-weight: bold;
     -fx-border-color: black;
     -fx-background-color: #00BCD4;
+    -fx-font-family: "Aharoni CLM";
 
 }
 #tradeButton{
@@ -100,6 +102,7 @@
 
 .formLabel{
     -fx-background-color: #CFD8DC;
+    -fx-font-family: "Aharoni CLM";
 }
 
 .formButton{
