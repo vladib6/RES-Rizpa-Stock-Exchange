@@ -1,7 +1,7 @@
 package com.Command.CmdTypes;
 
-import com.Transaction.Transaction;
-import com.User.Userinterface;
+import com.Actions.Transaction;
+import com.User.Traderinterface;
 import com.stock.Stock;
 
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public  abstract class CommandType {
 
-   public CommandType(Userinterface user,Direction direction, int numOfStocks, String stockName, int price){
+   public CommandType(Traderinterface user, Direction direction, int numOfStocks, String stockName, int price){
       this.direction=direction;
       this.numOfStocks=numOfStocks;
       this.stockSymbol=stockName;
@@ -19,7 +19,7 @@ public  abstract class CommandType {
       staticid++;
       this.id=staticid;
    }
-   Userinterface initiativeUser;
+   Traderinterface initiativeUser;
    protected String stockSymbol;
    protected Direction direction;
    protected String time;
@@ -31,7 +31,7 @@ public  abstract class CommandType {
 
    //GETTERS
 
-   public Userinterface getInitiativeUser() { return initiativeUser; }
+   public Traderinterface getInitiativeUser() { return initiativeUser; }
 
    public int getId(){return id; }
    public Direction getDirection() { return direction; }
@@ -52,7 +52,7 @@ public  abstract class CommandType {
 
    @Override
    public String toString(){
-      return time+ "   Initiative User : "+initiativeUser.getUsername()+"   "+ stockSymbol+"   "+direction+ "   Stock quantity : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
+      return time+ "   Initiative User : "+initiativeUser.getUserName()+"   "+ stockSymbol+"   "+direction+ "   Stock quantity : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
    }
 
    public Transaction DoTransaction(CommandType Buy, CommandType Sell, int price, Stock stock){// create and return transaction and update commands details.
@@ -63,14 +63,14 @@ public  abstract class CommandType {
          Sell.setNumOfStocks(0);
          Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
          Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
-         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
+         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
       }else{
          int numOfRelevantStocks=Buy.getNumOfStocks();
          Sell.setNumOfStocks(Sell.getNumOfStocks()-Buy.getNumOfStocks());
          Buy.setNumOfStocks(0);
          Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
          Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
-         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUsername(),Sell.getInitiativeUser().getUsername());
+         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
       }
    }
 }

@@ -5,7 +5,7 @@ import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
 import com.StockDTO;
-import com.Transaction.Transaction;
+import com.Actions.Transaction;
 import com.TransactionDTO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,9 +27,9 @@ public class Stock {
     private String companyName;
     private int currentPrice;
     private int TransactionTurnover;
-    private  LinkedList<Transaction> transactionsList;
-    private SellWaitinglist sellWaitinglist;
-    private BuyWaitinglist buyWaitinglist;
+    private final LinkedList<Transaction> transactionsList;
+    private final SellWaitinglist sellWaitinglist;
+    private final BuyWaitinglist buyWaitinglist;
 
     //Getters
     @XmlElement(name="rse-symbol")
@@ -121,8 +121,6 @@ public class Stock {
             return res;
     }
     public StockDTO createStockDto(){
-        return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover,transactionsList.size(),sellWaitinglist.createList(),buyWaitinglist.createList(),createTransactionDTOlist());
-
-    }
+        return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover); }
 }
 

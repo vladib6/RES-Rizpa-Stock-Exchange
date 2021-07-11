@@ -1,12 +1,12 @@
 package com.Command.CmdTypes;
 
-import com.User.Userinterface;
+import com.User.Traderinterface;
 
 import java.security.InvalidParameterException;
 
 public class CommandFactory {
 
-    public static Command Createcmd(Userinterface user, Direction direction, Type type, String symbol, int numOfstocks, int limitprice){//the argument limitprice only use when create LMT command in others command will be sent as current price of stock
+    public static Command Createcmd(Traderinterface user, Direction direction, Type type, String symbol, int numOfstocks, int limitprice){//the argument limitprice only use when create LMT command in others command will be sent as current price of stock
         Command res=null;
         switch (direction){
             case SELL://create Sell Command

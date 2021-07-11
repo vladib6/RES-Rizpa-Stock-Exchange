@@ -1,6 +1,10 @@
 package com.stock;
 
+import com.StockDTO;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Allstocks {
@@ -8,7 +12,7 @@ public class Allstocks {
         allStocks=new HashMap<>();
     }
 
-    private HashMap<String,Stock> allStocks;
+    private HashMap<String,Stock> allStocks; //key=symbol
 
     public HashMap<String,Stock> getAllStocks(){ return allStocks; }
 
@@ -16,8 +20,15 @@ public class Allstocks {
         return allStocks.get(stockname);
     }
 
-    public void addStock(Stock stock){
-        allStocks.put(stock.getSymbol(),stock);
+    public boolean addStock(String companyName,String symbol,int price){
+        if(isCompanyNameExist(companyName)){
+            return false;
+        }else{
+            if (!allStocks.containsKey(symbol)){
+                allStocks.put(symbol,new Stock(symbol, companyName, price));
+            }
+            return true;
+        }
     }
 
     public boolean isCompanyNameExist(String cName){//check if already exist stock with that company name
@@ -26,6 +37,14 @@ public class Allstocks {
             if(entry.getValue().getCompanyName().equals(cName)){
                 res=true;
             }
+        }
+        return res;
+    }
+
+    public List<StockDTO> getStocksDTO (){
+        List<StockDTO> res=new ArrayList<>();
+        for(Map.Entry<String,Stock> entry: allStocks.entrySet()){
+            res.add(entry.getValue().createStockDto());
         }
         return res;
     }

@@ -1,11 +1,11 @@
 package com.Command.CmdTypes;
 
-import com.Transaction.Transaction;
-import com.User.Userinterface;
+import com.Actions.Transaction;
+import com.User.Traderinterface;
 import com.stock.Stock;
 
 public class MKTcmd extends CommandType {
-    public MKTcmd(Userinterface user,Direction direction, String stockName, int numOfStocks) {
+    public MKTcmd(Traderinterface user, Direction direction, String stockName, int numOfStocks) {
         super(user,direction, numOfStocks, stockName,0);
 
     }

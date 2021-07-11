@@ -6,38 +6,26 @@ import java.util.List;
 public class StockDTO {//Data Transfer Object
 
 
-    public StockDTO(String symbol, String companyName, int currentPrice, int transactionTurnover, int numOfTransactions,List<CommandDTO> sellWaiting,List<CommandDTO> buyWaiting,LinkedList<TransactionDTO> transactionDTOS) {
+    public StockDTO(String symbol, String companyName, int currentPrice, int transactionTurnover) {
         this.symbol = symbol;
         this.companyName = companyName;
         this.currentPrice = currentPrice;
-        TransactionTurnover = transactionTurnover;
-        this.numOfTransactions = numOfTransactions;
-        this.buyWaiting=buyWaiting;
-        this.sellWaiting=sellWaiting;
-        this.transactionDTOS=transactionDTOS;
+        this.TransactionTurnover = transactionTurnover;
+
     }
 
     private final String symbol;
     private final String companyName;
     private final int currentPrice;
     private final int TransactionTurnover;
-    private final int numOfTransactions;
-    private final List<CommandDTO> sellWaiting;
-    private final List<CommandDTO> buyWaiting;
-    private final LinkedList<TransactionDTO> transactionDTOS;
-    @Override
-    public String toString(){
-        return  "-->  Stock Data : "+symbol+ " -- "+ companyName+ "  Current Price: "+currentPrice +"  Number Of Transactions : "+numOfTransactions + "  Turnover: "+TransactionTurnover+" $";
 
-    }
-
-    public List<CommandDTO> getSellWaiting() { return sellWaiting; }
-
-    public List<CommandDTO> getBuyWaiting() { return buyWaiting; }
-
-    public LinkedList<TransactionDTO> getTransactionDTOS() { return transactionDTOS; }
 
     public String getSymbol() { return symbol; }
 
     public String getCompanyName() { return companyName; }
+
+    public int getCurrentPrice() {return currentPrice; }
+
+    public int getTransactionTurnover() { return TransactionTurnover; }
+
 }

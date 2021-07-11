@@ -5,29 +5,20 @@ import java.util.List;
 public class UserDTO {//Data Transfer Object
 
 
-    public UserDTO(int totalHoldings, String username, List<HoldingsDTO> holdingsDTOList) {
+    public UserDTO(int totalHoldings, String username, int accountBalance,int totalTransactions) {
         this.totalHoldings = totalHoldings;
         this.username = username;
-        this.holdingsDTOList = holdingsDTOList;
+        this.accountBalance=accountBalance;
+        this.totalTransactions=totalTransactions;
     }
 
     private final int totalHoldings;
     private final String username;
-    private final List<HoldingsDTO> holdingsDTOList;
-
-
+    private final int accountBalance;
+    private final int totalTransactions;
     public int getTotalHoldings() { return totalHoldings; }
 
     public String getUsername() { return username; }
 
-    public List<HoldingsDTO> getHoldingsDTOList(){return holdingsDTOList;}
-
-    public HoldingsDTO getHoldingsDtoByStock(String stock){
-        for(HoldingsDTO dto: holdingsDTOList){
-            if(dto.getSymbol().equals(stock)){
-                return dto;
-            }
-        }
-        return null;
-    }
+    public int getAccountBalance() { return accountBalance; }
 }

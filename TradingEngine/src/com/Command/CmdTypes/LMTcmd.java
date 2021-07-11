@@ -1,12 +1,12 @@
 package com.Command.CmdTypes;
 
-import com.Transaction.Transaction;
-import com.User.Userinterface;
+import com.Actions.Transaction;
+import com.User.Traderinterface;
 import com.stock.Stock;
 
 public class LMTcmd extends CommandType {
 
-    public LMTcmd(Userinterface user, Direction direction, String stockName, int numOfStocks, int limitprice) {
+    public LMTcmd(Traderinterface user, Direction direction, String stockName, int numOfStocks, int limitprice) {
         super(user,direction, numOfStocks,stockName,limitprice);
     }
 

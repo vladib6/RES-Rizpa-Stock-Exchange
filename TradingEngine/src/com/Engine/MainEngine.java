@@ -1,14 +1,19 @@
 package com.Engine;
 
 import com.Command.CmdTypes.*;
+import com.OnlineUserDTO;
 import com.StockDTO;
 import com.TransactionDTO;
-import com.User.User;
-import com.User.Userinterface;
+import com.User.*;
 import com.UserDTO;
+import com.load.Loadxml;
 import com.stock.Allstocks;
 import com.stock.Stock;
+
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 
 @XmlRootElement(name="rizpa-stock-exchange-descriptor")
@@ -16,39 +21,20 @@ public class MainEngine implements EngineInterface {
 
     public MainEngine(){
         allStocks= new Allstocks();
-        userMap= new HashMap();
+        allUsers=new AllUsers();
     }
-   private Allstocks allStocks;
-   private Userinterface connectedUser;
-    private Map<String,User> userMap;
+    private Allstocks allStocks;
+    private AllUsers allUsers;
 
-    public Map<String,User> getUserMap(){return userMap;}
 
     public Allstocks getAllStocks() {
         return allStocks;
     }
 
-    public void Connect(Userinterface user){
-        connectedUser=user;
-    }
 
-    public void addStock(Stock stock) throws StockException {
-        if(allStocks.getAllStocks().containsKey(stock.getSymbol())){
-            throw new StockException(stock.getSymbol(),"Symbol");
-        }
-        if(allStocks.isCompanyNameExist(stock.getCompanyName())){
-            throw new StockException(stock.getCompanyName(),"Company name");
-        }else{
-            allStocks.addStock(stock);
-        }
-    }
 
-    public void addUser(User user) throws Myexception {
-        if(userMap.containsKey(user.getUsername())){
-            throw new Myexception("The User: "+ user.getUsername() +" Already exist, each user must different username");
-        }else{
-            userMap.put(user.getUsername(),user);
-        }
+    public boolean addUser(User user) throws Myexception {
+       return allUsers.addUser(user);
     }
 
     //Interface implement
@@ -61,32 +47,23 @@ public class MainEngine implements EngineInterface {
             return tempStock.createStockDto();
     }
 
-    public List<StockDTO> getAllstocksDto(){
-        List<StockDTO> res=new ArrayList<>();
-        for(Map.Entry<String,Stock> entry: allStocks.getAllStocks().entrySet()){
-            res.add(entry.getValue().createStockDto());
-        }
 
-        return res;
+    public UserDTO getUserDto(String username){ return allUsers.getUserDTO(username); }
+
+
+    @Override
+    public List<StockDTO> getStocksInfo() {
+        return allStocks.getStocksDTO();
     }
 
-    public List<UserDTO> getAllUsersDto(){
-        List<UserDTO> res=new ArrayList<>();
-        for(Map.Entry<String,User> entry: userMap.entrySet()){
-            res.add(entry.getValue().createDTO());
-        }
-        return res;
+    @Override
+    public Traderinterface getTrader(String name) {
+        return allUsers.getTrader(name);
     }
 
-    public UserDTO getUserDto(String username){
-        return userMap.get(username).createDTO();
-    }
-
-    public Userinterface getConnectedUser() { return connectedUser; }
-
-    public boolean isStockExist(String symbol){
+    public boolean isStockExist(String symbol){ //check by symbol
         boolean res=false;
-        for(Map.Entry<String,Stock> entry:getAllStocks().getAllStocks().entrySet()){
+        for(Map.Entry<String,Stock> entry:allStocks.getAllStocks().entrySet()){
             if(entry.getKey()==symbol){
                 res=true;
                 return  res;
@@ -101,16 +78,8 @@ public class MainEngine implements EngineInterface {
        return cmd.Execute(getStockByName(cmd.getStockSymbol()));
     }
 
-    public void Connect(String username) throws Myexception {
-        User user = userMap.get(username);
-        if (user == null) {
-            throw new Myexception("The user " + username + " not found");
-        } else {
-            connectedUser =user;
-        }
-    }
 
-    public Command CreateAndExecuteCmd(String direction,String stockSymbol,String cmdType,int quantity,int limitPrice){
+    public Command CreateAndExecuteCmd(String username,String direction,String stockSymbol,String cmdType,int quantity,int limitPrice){
         Direction dir;
         if(direction.equals("Sell")){
             dir=Direction.SELL;
@@ -124,6 +93,32 @@ public class MainEngine implements EngineInterface {
             type=Type.MKT;
         }
 
-        return CommandFactory.Createcmd(getConnectedUser(),dir,type,stockSymbol,quantity,limitPrice);
+        return CommandFactory.Createcmd(allUsers.getTrader(username),dir,type,stockSymbol,quantity,limitPrice);
+    }
+
+    @Override
+    public boolean addUser(String name,String type) {
+        User newUser;
+        if(type.equals("Admin")){
+            newUser=new Admin(name);
+        }else{
+            newUser=new Trader(name);
+        }
+        return allUsers.addUser(newUser);
+    }
+
+    @Override
+    public boolean addStock(String companyName, String symbol, int price) {
+        return allStocks.addStock(companyName, symbol, price);
+    }
+
+    @Override
+    public List<OnlineUserDTO> getConnectedUsers() {
+        return allUsers.getConnected();
+    }
+
+    @Override
+    public void loadDataFromXml(InputStream inputStream,String username) throws FileNotFoundException, Myexception, StockException, JAXBException {
+        Loadxml.ParseXml(inputStream,this,username);
     }
 }

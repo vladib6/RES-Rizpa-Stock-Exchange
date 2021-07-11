@@ -7,48 +7,67 @@ import com.Engine.StockException;
 import com.Generated.RizpaStockExchangeDescriptor;
 import com.Generated.RseItem;
 import com.Generated.RseStock;
-import com.Generated.RseUser;
-import com.User.User;
+import com.User.Trader;
+import com.User.Traderinterface;
 import com.stock.Stock;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
 
 public class Loadxml {
 
-    public static EngineInterface ParseXml(File file) throws JAXBException, FileNotFoundException, StockException, Myexception {
+    public static void ParseXml(InputStream inputStream,EngineInterface engineInterface,String username) throws JAXBException, FileNotFoundException, StockException, Myexception {
         JAXBContext jaxbContext=JAXBContext.newInstance("com.Generated");
         Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
-        RizpaStockExchangeDescriptor RSE =(RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
-
-        return createMainEngine(RSE);
-
+        RizpaStockExchangeDescriptor RSE =(RizpaStockExchangeDescriptor) unmarshaller.unmarshal(inputStream);
+        addDataToEngine(engineInterface,RSE,username);
     }
 
-    public static MainEngine createMainEngine(RizpaStockExchangeDescriptor rse) throws StockException, Myexception {//this method pass all data from Generated classes to work class Mainengine
-        MainEngine mainEngine=new MainEngine();
-        for(RseStock stock: rse.getRseStocks().getRseStock()){ //copy the stocks data
-            mainEngine.addStock(new Stock(stock.getRseSymbol(), stock.getRseCompanyName(), stock.getRsePrice()));
-        }
+    public static void addDataToEngine(EngineInterface engineInterface,RizpaStockExchangeDescriptor RSE,String usename) throws Myexception {
+                if(isValidXml(RSE.getRseHoldings().getRseItem(),RSE.getRseStocks().getRseStock())){
+                    List<RseStock> rseStocks= RSE.getRseStocks().getRseStock();
+                    for(RseStock stock:rseStocks){
+                        if(!engineInterface.addStock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice())){
+                            throw new Myexception("you try to load stock with duplicate company name");
+                        }
+                    }
+                    List<RseItem> rseItems=RSE.getRseHoldings().getRseItem();
+                    Traderinterface traderinterface= engineInterface.getTrader(usename);
+                    for(RseItem item:rseItems){
+                        traderinterface.addHoldings(engineInterface.getStockByName(item.getSymbol()), item.getQuantity());
+                    }
 
-        for(RseUser user: rse.getRseUsers().getRseUser()){ //copy the users data
-            User newUser= new User(user.getName());
-            for(RseItem item:user.getRseHoldings().getRseItem()){
-                Stock stock=mainEngine.getStockByName(item.getSymbol());
-                if(stock==null){
-                    throw new Myexception("The stock : "+item.getSymbol()+ " at User :"+user.getName()+" Is not exist in the system");
+                }else{
+                    throw new Myexception("XML File are not valid,you try load your own holdings with stock that no exist in stocks lisy");
                 }
-                if(item.getQuantity()<=0){
-                    throw new Myexception("The quantity of stock :"+ item.getSymbol()+" at user"+ user.getName() +" is less or equal to zero");
+    }
+
+    public static boolean isValidXml(List<RseItem> rseItems,List<RseStock> rseStocks){
+            boolean res=true;
+
+            for(RseItem item: rseItems){
+                if(!isItemInStocks(item,rseStocks)){
+                    res=false;
                 }
-                newUser.addHoldings(stock, item.getQuantity());
             }
-            mainEngine.addUser(newUser);
-        }
-        return mainEngine;
+            return res;
+
     }
+
+    public  static boolean isItemInStocks(RseItem item,List<RseStock> rseStocks){
+        boolean res=false;
+            for(RseStock stock:rseStocks){
+                if(item.getSymbol().equals(stock.getRseSymbol())){
+                    res=true;
+                }
+            }
+
+        return  res;
+    }
+
 
 }
