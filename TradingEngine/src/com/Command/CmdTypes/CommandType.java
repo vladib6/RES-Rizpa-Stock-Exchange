@@ -1,5 +1,6 @@
 package com.Command.CmdTypes;
 
+import com.Actions.ActionEntry;
 import com.Actions.Transaction;
 import com.User.Traderinterface;
 import com.stock.Stock;
@@ -56,21 +57,27 @@ public  abstract class CommandType {
    }
 
    public Transaction DoTransaction(CommandType Buy, CommandType Sell, int price, Stock stock){// create and return transaction and update commands details.
-      stock.setCurrentPrice(price);//Set new stock price
-      if(Buy.getNumOfStocks()>=Sell.getNumOfStocks()){
+         stock.setCurrentPrice(price);//Set new stock price
+         int numOfRelevantStocks=calcNumOfRelevantsStocks(Buy, Sell);
+         Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
+         Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
+         Transaction transaction=new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
+         Buy.getInitiativeUser().setActionsHistory(new ActionEntry(transaction,Direction.BUY));
+         Sell.getInitiativeUser().setActionsHistory(new ActionEntry(transaction,Direction.SELL));
+         return transaction;
+   }
+
+   public int calcNumOfRelevantsStocks(CommandType Buy, CommandType Sell){
+      if(Buy.getNumOfStocks()>=Sell.getNumOfStocks()) {
          int numOfRelevantStocks=Sell.getNumOfStocks();
          Buy.setNumOfStocks(Buy.getNumOfStocks()-Sell.getNumOfStocks());
          Sell.setNumOfStocks(0);
-         Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
-         Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
-         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
+         return numOfRelevantStocks;
       }else{
          int numOfRelevantStocks=Buy.getNumOfStocks();
          Sell.setNumOfStocks(Sell.getNumOfStocks()-Buy.getNumOfStocks());
          Buy.setNumOfStocks(0);
-         Buy.getInitiativeUser().addHoldings(stock,numOfRelevantStocks);
-         Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
-         return new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
+         return numOfRelevantStocks;
       }
    }
 }

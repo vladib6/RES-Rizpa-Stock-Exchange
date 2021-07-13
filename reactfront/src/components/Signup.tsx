@@ -6,21 +6,22 @@ import { useEffect } from "react";
 import Cookies from 'js-cookie'
 export const Signup = ()=>{
   const history=useHistory()
-  const {setUser,setLogged}=useGlobalContext();
+  const {setUser,setLogged,setType}=useGlobalContext();
   const [username,setUsername]=useState("")
   const [usertype,setUsertype]=useState("Trader")
   const [invalidUsername,setInvalid]=useState(false);
 
   const handleLogin= async(e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
-      let answer:boolean=await API.post('/api/login?user='+username+'&type='+usertype,username).then(res=>res.data).catch(err=>console.log(err));
+      let answer:boolean=await API.post('/api/login?user='+username+'&type='+usertype).then(res=>res.data).catch(err=>console.log(err));
       if(answer===true){
         console.log("true");
         setUser(username);
         setLogged(true);
+        setType(usertype);
         history.push("/dashboard/"+username)
       }else{
-        console.log("false");
+        console.log("false"); //TODO :Show message to user
       }
   }
   
@@ -45,7 +46,6 @@ if(user){
   const handleUsertypeChoice=(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
         e.preventDefault()
         setUsertype(e.currentTarget.textContent as string)
-        console.log(e.currentTarget.textContent)
   }
   
 return (

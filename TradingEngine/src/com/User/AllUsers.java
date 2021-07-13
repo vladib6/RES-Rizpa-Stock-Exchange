@@ -1,7 +1,9 @@
 package com.User;
 
 
+import com.Engine.Myexception;
 import com.OnlineUserDTO;
+import com.UserAccountDTO;
 import com.UserDTO;
 import com.stock.Stock;
 
@@ -52,5 +54,26 @@ public class AllUsers {
         }catch (NullPointerException e){
             throw e;
         }
+    }
+
+    public UserAccountDTO getUserAccountDTO(String name) throws Myexception {
+            if(allUsers.containsKey(name)){
+               return ((Traderinterface) allUsers.get(name)).createAccountDTO();
+            }else{
+                throw new Myexception("there is no user with that name");
+            }
+    }
+
+    public boolean ChargeMoney(int amount,String user){
+        if(allUsers.containsKey(user)){
+           ((Traderinterface)allUsers.get(user)).ChargeMoney(amount);
+           return true;
+        }else{
+            return  false;
+        }
+    }
+
+    public void addHoldingToUser(String user,Stock stock,int quantity){
+        ((Traderinterface)allUsers.get(user)).addHoldings(stock, quantity);
     }
 }

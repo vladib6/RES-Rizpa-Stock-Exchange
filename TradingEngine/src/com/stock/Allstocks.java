@@ -1,5 +1,6 @@
 package com.stock;
 
+import com.Engine.Myexception;
 import com.StockDTO;
 
 import java.util.ArrayList;
@@ -16,17 +17,18 @@ public class Allstocks {
 
     public HashMap<String,Stock> getAllStocks(){ return allStocks; }
 
-    public Stock getStockByName(String stockname){
-        return allStocks.get(stockname);
+    public Stock getStockByName(String symbol){
+        return allStocks.get(symbol);
     }
 
     public boolean addStock(String companyName,String symbol,int price){
-        if(isCompanyNameExist(companyName)){
-            return false;
-        }else{
-            if (!allStocks.containsKey(symbol)){
-                allStocks.put(symbol,new Stock(symbol, companyName, price));
+        if (!allStocks.containsKey(symbol)){
+            if(isCompanyNameExist(companyName)){
+                return false;
             }
+            allStocks.put(symbol.toUpperCase(),new Stock(symbol, companyName, price));
+            return true;
+        }else{
             return true;
         }
     }
@@ -40,6 +42,9 @@ public class Allstocks {
         }
         return res;
     }
+    public boolean isStockexist(String symbol){
+        return allStocks.containsKey(symbol);
+    }
 
     public List<StockDTO> getStocksDTO (){
         List<StockDTO> res=new ArrayList<>();
@@ -47,6 +52,19 @@ public class Allstocks {
             res.add(entry.getValue().createStockDto());
         }
         return res;
+    }
+
+    public boolean addNewStock(String name,String symbol,int price) throws Myexception {
+        if(isStockexist(symbol)){
+            throw new Myexception("Duplicate stock symbol");
+        }else if(isCompanyNameExist(name)){
+            throw new Myexception("Duplicate Company name");
+        }else if(price<=0){
+            throw new Myexception("Negative Price is not valid");
+        }else{
+            allStocks.put(symbol.toUpperCase(),new Stock(symbol,name,price));
+            return true;
+        }
     }
 
 

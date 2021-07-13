@@ -35,7 +35,7 @@ public class Transaction implements ActionsInterface {
     @Override
     public String getType() {
         String type=direction.equals(Direction.BUY)?"Buy":"Sell";
-        return "Transcation -"+type;
+        return "Transcation-"+type+"-"+stockName;
     }
 
     public int getPrice() {

@@ -15,15 +15,19 @@ import { useContext } from 'react';
 export type GlobalContent={
     username:string,
     loggedIn:boolean,
+    type:string,
     setUser:(u:string)=>void,
-    setLogged:(s:boolean)=>void
+    setLogged:(s:boolean)=>void,
+    setType:(t:string)=>void
 }
 
 export const GlobalContext=createContext<GlobalContent>({
    username:"",
    loggedIn:false,
+   type:"",
    setUser:()=> {},
-   setLogged:()=>{}
+   setLogged:()=>{},
+   setType:()=>{}
 })
 
 export const useGlobalContext=()=>useContext(GlobalContext)
@@ -31,11 +35,10 @@ export const useGlobalContext=()=>useContext(GlobalContext)
 function App() {
     const [username,setUser]=useState<string>("")
     const [loggedIn,setLogged]=useState<boolean>(false);
- 
+    const [type,setType]=useState<string>("");
 
-  
     return (
-        <GlobalContext.Provider value={{username,setUser,loggedIn,setLogged}}>
+        <GlobalContext.Provider value={{username,setUser,loggedIn,setLogged,type,setType}}>
         <Router> 
             {console.log("rerender")}
             <Topnavbar/>
@@ -44,8 +47,8 @@ function App() {
                 <Route exact path="/index.html" >{loggedIn?<Redirect to="/dashboard"/>:<Homepage/>}</Route>
                 <Route exact path="/" >{loggedIn?<Redirect to={"/dashboard/"+username}/>:<Homepage/>}</Route>
                 <Route path="/signup" >{loggedIn?<Redirect to={"/dashboard/"+username}/>:<Signup/>}</Route>
-                <Route path="/dashboard/:name" >{loggedIn?<Dashboard  type="Trader"/>:<Redirect to="/signup"/>}</Route>
-                <Route path="/actions/:stockname" >{loggedIn?<Actions/>:<Redirect to="/signup"/>}</Route>
+                <Route path="/dashboard/:name" >{loggedIn?<Dashboard />:<Redirect to="/signup"/>}</Route>
+                <Route path="/actions/:stockname"  component={Actions}/>
                 <Route path="/contact" component={Contact}/>
 
             </Switch>

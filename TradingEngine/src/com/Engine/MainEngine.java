@@ -1,11 +1,8 @@
 package com.Engine;
 
+import com.*;
 import com.Command.CmdTypes.*;
-import com.OnlineUserDTO;
-import com.StockDTO;
-import com.TransactionDTO;
 import com.User.*;
-import com.UserDTO;
 import com.load.Loadxml;
 import com.stock.Allstocks;
 import com.stock.Stock;
@@ -23,19 +20,15 @@ public class MainEngine implements EngineInterface {
         allStocks= new Allstocks();
         allUsers=new AllUsers();
     }
-    private Allstocks allStocks;
-    private AllUsers allUsers;
+    private final Allstocks allStocks;
+    private final AllUsers allUsers;
 
 
     public Allstocks getAllStocks() {
         return allStocks;
     }
 
-
-
-    public boolean addUser(User user) throws Myexception {
-       return allUsers.addUser(user);
-    }
+    public boolean addUser(User user) throws Myexception { return allUsers.addUser(user); }
 
     //Interface implement
     public Stock getStockByName(String symbol){
@@ -44,7 +37,10 @@ public class MainEngine implements EngineInterface {
 
     public StockDTO getStockDto(String symbol){
             Stock tempStock=allStocks.getStockByName(symbol);
-            return tempStock.createStockDto();
+            if(tempStock!=null){
+                return tempStock.createStockDto();
+            }
+            return null;
     }
 
 
@@ -57,9 +53,10 @@ public class MainEngine implements EngineInterface {
     }
 
     @Override
-    public Traderinterface getTrader(String name) {
-        return allUsers.getTrader(name);
-    }
+    public Traderinterface getTrader(String name) { return allUsers.getTrader(name); }
+
+    @Override
+    public UserAccountDTO getUserAccount(String name) throws Myexception { return allUsers.getUserAccountDTO(name); }
 
     public boolean isStockExist(String symbol){ //check by symbol
         boolean res=false;
@@ -108,9 +105,7 @@ public class MainEngine implements EngineInterface {
     }
 
     @Override
-    public boolean addStock(String companyName, String symbol, int price) {
-        return allStocks.addStock(companyName, symbol, price);
-    }
+    public boolean addStock(String companyName, String symbol, int price) { return allStocks.addStock(companyName, symbol, price); }
 
     @Override
     public List<OnlineUserDTO> getConnectedUsers() {
@@ -121,4 +116,20 @@ public class MainEngine implements EngineInterface {
     public void loadDataFromXml(InputStream inputStream,String username) throws FileNotFoundException, Myexception, StockException, JAXBException {
         Loadxml.ParseXml(inputStream,this,username);
     }
+
+    @Override
+    public boolean ChargeMoney(int amount, String name) {
+        return allUsers.ChargeMoney(amount, name);
+    }
+
+
+    @Override
+    public void createNewStockByUser(String cName, String symbol, int price, int amount, String username) throws Myexception {
+        if(allStocks.addNewStock(cName,symbol,price)){
+            Stock stock= allStocks.getStockByName(symbol);
+            allUsers.addHoldingToUser(username,stock,amount);
+        }
+    }
+
+
 }

@@ -6,5 +6,6 @@ public class Constants {
    public static final String CONNECTED_USERNAME="username";
    public static  final String URL_USER_PARAM="user";
    public static  final String GSON_PARSER="gson";
+   public static  final String URL_STOCK_PARAM="stock";
 
 }

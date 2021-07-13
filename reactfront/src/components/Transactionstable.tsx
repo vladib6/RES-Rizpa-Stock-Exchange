@@ -1,28 +1,23 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import {BsClipboardData} from 'react-icons/bs'
+import { useEffect, useState } from "react";
 import api from "../api/api";
-import { MyModal } from "./MyModal";
 
-interface Stock{
-    symbol:string,
-    companyName:string,
-    currentPrice:number,
-    TransactionTurnover:number
+
+interface Transactions{
+    date:string,
+    amount:number,
+    price:number
 }
 
-export function Stocktable(){
-    const [stocks,setStocks]=useState<Stock[]>()
-    const [errMsg,setMsg]=useState("");
+interface TransactionsProps {
+    stockname:string,
+}
 
-    const handleErrMsg=(msg:string)=>{
-        setMsg(msg)
-    }
+export function Transactionstable(stock:TransactionsProps){
+    const [stocks,setStocks]=useState<Transactions[]>()
+  
     useEffect(()=>{
         const interval=setInterval(async()=>
-        await api.get('/api/stocks').then(res=>{setStocks(res.data)}).catch(err=>console.log(err))
+        await api.get('/api/transactions?stock='+stock.stockname).then(res=>{setStocks(res.data)}).catch(err=>console.log(err))
         ,5000);
         return ()=>clearInterval(interval)
     },[])
@@ -31,13 +26,12 @@ export function Stocktable(){
     return (
     <div className="card shadow">
                         <div className="card-header py-3">
-                            <p className="text-primary m-0 fw-bold">Stocks in system</p>
+                            <p className="text-primary m-0 fw-bold">Transactions</p>
                         </div>
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-md-6 text-nowrap">
-                                    <MyModal setMsg={handleErrMsg}/>
-                                    <p>{errMsg}</p>
+                                   
                                 </div>
                                
                                 <div className="col-md-6">
@@ -55,13 +49,13 @@ export function Stocktable(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       {stocks?.map(stock=>{return (
-                                        <tr key={stock.symbol} >
-                                        <td><Link to={"/actions/"+stock.symbol }> <BsClipboardData/>  {stock.companyName}</Link></td>
-                                        <td>{stock.symbol}</td>
-                                        <td>{stock.currentPrice}</td>
-                                        <td>{stock.TransactionTurnover}</td>
-                                    </tr>)})}
+                                       {/* {stocks?.map(stock=>{return (
+                                        // <tr key={stock.symbol} >
+                                        // <td> {stock.companyName}</td>
+                                        // <td>{stock.symbol}</td>
+                                        // <td>{stock.currentPrice}</td>
+                                        // <td>{stock.TransactionTurnover}</td>
+                                    </tr>)})} */}
                                   
                                     </tbody>
                                     <tfoot>

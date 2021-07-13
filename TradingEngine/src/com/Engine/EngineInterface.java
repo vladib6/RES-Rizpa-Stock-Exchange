@@ -1,12 +1,9 @@
 package com.Engine;
 
+import com.*;
 import com.Command.CmdTypes.Command;
 import com.Command.CmdTypes.CommandType;
-import com.OnlineUserDTO;
-import com.StockDTO;
-import com.TransactionDTO;
 import com.User.Traderinterface;
-import com.UserDTO;
 import com.stock.Stock;
 
 import javax.xml.bind.JAXBException;
@@ -29,5 +26,8 @@ public interface EngineInterface {
     void loadDataFromXml(InputStream inputStream,String username) throws FileNotFoundException, Myexception, StockException, JAXBException;
     List<StockDTO> getStocksInfo();
     Traderinterface getTrader(String name);
+    UserAccountDTO getUserAccount(String name) throws Myexception;
+    boolean ChargeMoney(int amount,String name);
+    void createNewStockByUser(String cName,String symbol,int price,int amount,String username) throws Myexception;
     }
 

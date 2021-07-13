@@ -19,11 +19,11 @@ public class CommandFactory {
                         break;
 
                     case IOC:
-                        res=new Sellcmd(new IOCcmd(user,direction,symbol ,numOfstocks));
+                        res=new Sellcmd(new IOCcmd(user,direction,symbol ,numOfstocks,limitprice));
                         break;
 
                     case FOK:
-                        res=new Sellcmd(new FOKcmd(user,direction,symbol, numOfstocks));
+                        res=new Sellcmd(new FOKcmd(user,direction,symbol, numOfstocks,limitprice));
                         break;
 
                     default:
@@ -40,11 +40,11 @@ public class CommandFactory {
                         break;
 
                     case IOC:
-                        res=new Buycmd(new IOCcmd(user,direction,symbol ,numOfstocks));
+                        res=new Buycmd(new IOCcmd(user,direction,symbol ,numOfstocks,limitprice));
                         break;
 
                     case FOK:
-                        res=new Buycmd(new FOKcmd(user,direction,symbol ,numOfstocks));
+                        res=new Buycmd(new FOKcmd(user,direction,symbol ,numOfstocks,limitprice));
                         break;
 
                     default:

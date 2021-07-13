@@ -1,7 +1,10 @@
 package com.User;
 
 import com.Actions.ActionEntry;
+import com.Actions.Charging;
+import com.Command.CmdTypes.Direction;
 import com.HoldingsDTO;
+import com.UserAccountDTO;
 import com.UserDTO;
 import com.stock.Stock;
 
@@ -24,11 +27,11 @@ public class Trader implements Traderinterface , User{
     LinkedList<ActionEntry> actionsHistory;
     int accountBalance;
     int numOfTransactions;
-
+    @Override
     public void setActionsHistory(ActionEntry actionEntry){
         actionsHistory.addFirst(actionEntry);
         actionEntry.setOldSum(accountBalance);
-        actionEntry.setNewSum(accountBalance+actionEntry.getAction().getTurnover());
+        actionEntry.setNewSum(accountBalance+actionEntry.getSum());
         this.accountBalance=actionEntry.getNewSum();
     }
     public LinkedList<ActionEntry> getActionsHistory() { return actionsHistory; }
@@ -54,6 +57,12 @@ public class Trader implements Traderinterface , User{
     public UserDTO createDTO(){
         return  new UserDTO(CalcCurrentHoldings(),username, accountBalance,numOfTransactions);
     }
+
+    @Override
+    public UserAccountDTO createAccountDTO() {
+        return new UserAccountDTO(accountBalance,actionsHistory);
+    }
+
     public List<HoldingsDTO> getHoldingsDTO(){ return holdings.createDTO(); }
 
     @Override
@@ -78,4 +87,9 @@ public class Trader implements Traderinterface , User{
     public String getUserType() {
         return Trader.class.getSimpleName();
     }
+    @Override
+    public void ChargeMoney(int amount){
+            setActionsHistory(new ActionEntry(new Charging(amount),Direction.SELL));
+    }
+
 }

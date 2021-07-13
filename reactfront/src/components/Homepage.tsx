@@ -8,18 +8,7 @@ import { useGlobalContext } from "../App";
 export const Homepage=()=>{
     const {setUser,setLogged}=useGlobalContext()
     
-    useEffect(()=>{
-            readCookie();
-    })
-
-    const readCookie = ()=>{
-        const user=Cookies.get("user")
-        if(user){
-            console.log("cookie:"+user)
-            setUser(user);
-            setLogged(true)
-        }
-    };
+   
     return (
       <>
       <header className="masthead" style={{background: 'url(assets/img/stocks.jpg)'}}>

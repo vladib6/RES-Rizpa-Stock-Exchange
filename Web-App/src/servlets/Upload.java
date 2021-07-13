@@ -25,15 +25,14 @@ public class Upload extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        System.out.println("uploaf servlet");
         Collection<Part> parts= req.getParts();
         EngineInterface engineInterface= EngineManager.getEngine(req.getServletContext());
-        System.out.println(req.getParameter(Constants.URL_USER_PARAM));
         for (Part p:parts){
             try {
                 engineInterface.loadDataFromXml(p.getInputStream(),req.getParameter(Constants.URL_USER_PARAM));
             } catch (Myexception | StockException | JAXBException e) {
-                System.out.println(e.toString());
+               resp.setStatus(500);
+               resp.getWriter().print(e.toString());
             }
         }
 

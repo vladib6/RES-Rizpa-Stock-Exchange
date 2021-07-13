@@ -7,10 +7,11 @@ export function List(){
     const [users,updateUsers]=useState<{type:string,name:string}[]>();
 
     useEffect(()=>{
-        setTimeout(async()=>{
+        const interval=setInterval(async()=>{
             await api.get("/api/onlineusers").then((res)=>{ updateUsers(res.data) }).catch(err=>console.log(err))
-       },5000)
-    },[users])
+       },5000);
+       return ()=>clearInterval(interval)
+    },[])
 
     return (
         <div className="card shadow mb-4">
