@@ -76,4 +76,8 @@ public class AllUsers {
     public void addHoldingToUser(String user,Stock stock,int quantity){
         ((Traderinterface)allUsers.get(user)).addHoldings(stock, quantity);
     }
+
+    public int getStockHolding(String username,Stock stock){
+        return ((Traderinterface)allUsers.get(username)).getStockHolding(stock);
+    }
 }

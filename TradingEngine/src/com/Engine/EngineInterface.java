@@ -29,5 +29,10 @@ public interface EngineInterface {
     UserAccountDTO getUserAccount(String name) throws Myexception;
     boolean ChargeMoney(int amount,String name);
     void createNewStockByUser(String cName,String symbol,int price,int amount,String username) throws Myexception;
-    }
+    int getStockHolding(String username,Stock stock);
+    LinkedList<TransactionDTO> createTransactionsDtoList(String stockname);
+    List<CommandDTO> getBuyCommands(String stockname);
+    List<CommandDTO> getSellCommands(String stockname);
+
+}
 

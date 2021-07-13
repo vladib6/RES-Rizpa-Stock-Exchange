@@ -1,6 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router";
+import api from "../api/api";
+import { useGlobalContext } from "../App";
 import { Alerts } from "./Alerts";
+import { Cmdtable } from "./Cmdtable";
 import {Stockdata} from './Stockdata'
 import {Transactionstable} from './Transactionstable'
 
@@ -9,11 +14,38 @@ export interface RouteParams{
     type:string
 }
 
-interface Usertype{
-    type:string;
+export interface Cmd {
+    date:string,
+    type:string,
+    initiativeUser:string,
+    direction:string,
+    numOfStocks:number,
+    price:number,
 }
-export function Actions (usertype:Usertype){
+
+export interface CmdtableProps{
+    data:Cmd[]|undefined,
+    title:string
+}
+
+export function Actions (){
+    const {type}=useGlobalContext()
     const {stockname}=useParams<RouteParams>()
+    const [buyCmds,setBuyCmds]=useState<Cmd[]>()
+    const [sellCmds,setsellCmds]=useState<Cmd[]>()
+  
+
+    useEffect(()=>{
+        const interval=setInterval(async()=>{
+            await api.get('/api/buycommands?stock='+stockname)
+            .then(res=>console.log(res.data))
+            .catch(err=>console.log(err));
+
+            await api.get('/api/sellcommands?stock='+stockname)
+            .then(res=>console.log(res.data))
+            .catch(err=>console.log(err));
+        },7000)
+    })
     return (
                 <section>
                 <Alerts/>
@@ -29,19 +61,25 @@ export function Actions (usertype:Usertype){
                             <Transactionstable stockname={stockname}/>
                         </div>
                     </div>
-                    <div className="col-lg-5 col-xl-3">
-                           
+                    <div className="col-lg-5 col-xl-3"> 
                     </div>
             </div>
             <div className="row">
-                    <div className="col-lg-7 col-xl-8">
+                    {type==="Trader"
+                   ? "accordion"
+                    : <><div className="col-lg-7 col-xl-8">
                         <div className="card shadow mb-4">
+                            <Cmdtable data={buyCmds} title={"Buy Commands"} />
                         </div>
                     </div>
                     <div className="col-lg-1 col-xl-1">
                         <div className="card shadow mb-4">
+                          <Cmdtable data={sellCmds} title={"Sell Commands"} />
                         </div>
                     </div>
+                    </>
+                }
+                    
             </div>
             </section>
 

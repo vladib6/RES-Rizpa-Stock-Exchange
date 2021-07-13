@@ -4,9 +4,8 @@ import com.Command.CmdTypes.Direction;
 
 public class CommandDTO {//Data Transfer Object
 
-    public CommandDTO(String initiativeUser, String stockSymbol, Direction direction, String time, int numOfStocks, int price,String type) {
+    public CommandDTO(String initiativeUser, Direction direction, String time, int numOfStocks, int price,String type) {
         this.initiativeUser = initiativeUser;
-        this.stockSymbol = stockSymbol;
         this.direction = direction;
         this.time = time;
         this.numOfStocks = numOfStocks;
@@ -15,7 +14,6 @@ public class CommandDTO {//Data Transfer Object
     }
     private final String type;
     private final String initiativeUser;
-    private final String stockSymbol;
     private final Direction direction;
     private final String time;
     private final int numOfStocks;
@@ -23,7 +21,6 @@ public class CommandDTO {//Data Transfer Object
 
     public String getInitiativeUser() { return initiativeUser; }
 
-    public String getStockSymbol() { return stockSymbol; }
 
     public Direction getDirection() { return direction; }
 
@@ -35,8 +32,4 @@ public class CommandDTO {//Data Transfer Object
 
     public String getType() { return type; }
 
-    @Override
-    public String toString(){
-        return time+"    "+ stockSymbol+"   "+direction+ "   Stocks quantity : "+numOfStocks+"   "+"Price : "+price +"   Turnover :"+ numOfStocks*price+"$";
-    }
 }

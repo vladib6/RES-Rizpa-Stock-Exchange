@@ -1,12 +1,11 @@
 package com.stock;
 
+import com.CommandDTO;
 import com.Engine.Myexception;
 import com.StockDTO;
+import com.TransactionDTO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Allstocks {
     public Allstocks() {
@@ -68,7 +67,10 @@ public class Allstocks {
     }
 
 
+    public LinkedList<TransactionDTO> createTransactionsDtoList(String stockname){ return allStocks.get(stockname).createTransactionDTOlist(); }
 
+    public List<CommandDTO> getSellCommands(String stockname){return allStocks.get(stockname).getSellCommandsDto();}
+    public List<CommandDTO> getBuyCommands(String stockname){return allStocks.get(stockname).getBuyCommandsDto();}
 
 }
 

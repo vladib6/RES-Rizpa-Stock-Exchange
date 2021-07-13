@@ -4,12 +4,14 @@ import com.Command.CmdTypes.CommandType;
 import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
 import com.Command.WaitingCommands.SellWaitinglist;
+import com.CommandDTO;
 import com.StockDTO;
 import com.Actions.Transaction;
 import com.TransactionDTO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 @XmlRootElement (name="rse-stock")
@@ -115,12 +117,14 @@ public class Stock {
     public LinkedList<TransactionDTO> createTransactionDTOlist(){
             LinkedList<TransactionDTO> res=new LinkedList<>();
             for(Transaction trs: transactionsList){
-                res.add(new TransactionDTO(trs.getDate(),trs.getPrice(),trs.getNumOfStock(),trs.getTurnover(),trs.getDirection(),trs.getBuyer(),trs.getSeller()));
+                res.add(new TransactionDTO(trs.getDate(),trs.getPrice(),trs.getNumOfStock()));
             }
 
             return res;
     }
-    public StockDTO createStockDto(){
-        return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover); }
+    public StockDTO createStockDto(){ return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover); }
+    public List<CommandDTO> getSellCommandsDto(){return sellWaitinglist.createList();}
+    public List<CommandDTO> getBuyCommandsDto(){return buyWaitinglist.createList();}
+
 }
 

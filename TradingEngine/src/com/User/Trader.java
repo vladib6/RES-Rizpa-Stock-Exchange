@@ -92,4 +92,8 @@ public class Trader implements Traderinterface , User{
             setActionsHistory(new ActionEntry(new Charging(amount),Direction.SELL));
     }
 
+    @Override
+    public int getStockHolding(Stock stock) {
+        return holdings.getStockHolding(stock);
+    }
 }

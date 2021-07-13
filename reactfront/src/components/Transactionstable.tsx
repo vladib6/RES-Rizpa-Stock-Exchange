@@ -4,8 +4,8 @@ import api from "../api/api";
 
 interface Transactions{
     date:string,
-    amount:number,
     price:number
+    numOfStock:number,
 }
 
 interface TransactionsProps {
@@ -13,11 +13,11 @@ interface TransactionsProps {
 }
 
 export function Transactionstable(stock:TransactionsProps){
-    const [stocks,setStocks]=useState<Transactions[]>()
+    const [transactions,setTransactions]=useState<Transactions[]>()
   
     useEffect(()=>{
         const interval=setInterval(async()=>
-        await api.get('/api/transactions?stock='+stock.stockname).then(res=>{setStocks(res.data)}).catch(err=>console.log(err))
+        await api.get('/api/transactions?stock='+stock.stockname).then(res=>{console.log(res.data)}).catch(err=>console.log(err))
         ,5000);
         return ()=>clearInterval(interval)
     },[])
@@ -42,28 +42,25 @@ export function Transactionstable(stock:TransactionsProps){
                                 <table className="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Company Name</th>
-                                            <th>Symbol</th>
-                                            <th>Current Rate ($)</th>
-                                            <th>Trading Turnover ($)</th>
+                                            <th>Date</th>
+                                            <th>Price $</th>
+                                            <th>Num of Stocks </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       {/* {stocks?.map(stock=>{return (
-                                        // <tr key={stock.symbol} >
-                                        // <td> {stock.companyName}</td>
-                                        // <td>{stock.symbol}</td>
-                                        // <td>{stock.currentPrice}</td>
-                                        // <td>{stock.TransactionTurnover}</td>
-                                    </tr>)})} */}
+                                       {transactions?.map(tr=>{return (
+                                        <tr key={tr.date} >
+                                        <td> {tr.date}</td>
+                                        <td>{tr.price}</td>
+                                        <td>{tr.numOfStock}</td>
+                                    </tr>)})}
                                   
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td><strong>Company Name</strong></td>
-                                            <td><strong>Symbol</strong></td>
-                                            <td><strong>Current Rate</strong></td>
-                                            <td><strong>Trading Turnover</strong></td>
+                                            <td><strong>Date</strong></td>
+                                            <td><strong>Price $</strong></td>
+                                            <td><strong>Num Of Stocks</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>

@@ -45,4 +45,12 @@ public class Holdings {
         }
         return res;
     }
+
+    public int getStockHolding(Stock stock){
+        if(holdingsMap.containsKey(stock)){
+            return holdingsMap.get(stock);
+        }else{
+            return 0;
+        }
+    }
 }

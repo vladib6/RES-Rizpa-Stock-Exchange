@@ -82,7 +82,7 @@ public class Transaction implements ActionsInterface {
 
 
     public TransactionDTO createDTO(){
-        return new TransactionDTO(date,price,numOfStock,turnover,direction,buyer,seller);
+        return new TransactionDTO(date,price,numOfStock);
     }
 }
 

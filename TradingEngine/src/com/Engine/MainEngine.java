@@ -108,9 +108,7 @@ public class MainEngine implements EngineInterface {
     public boolean addStock(String companyName, String symbol, int price) { return allStocks.addStock(companyName, symbol, price); }
 
     @Override
-    public List<OnlineUserDTO> getConnectedUsers() {
-        return allUsers.getConnected();
-    }
+    public List<OnlineUserDTO> getConnectedUsers() { return allUsers.getConnected(); }
 
     @Override
     public void loadDataFromXml(InputStream inputStream,String username) throws FileNotFoundException, Myexception, StockException, JAXBException {
@@ -118,9 +116,7 @@ public class MainEngine implements EngineInterface {
     }
 
     @Override
-    public boolean ChargeMoney(int amount, String name) {
-        return allUsers.ChargeMoney(amount, name);
-    }
+    public boolean ChargeMoney(int amount, String name) { return allUsers.ChargeMoney(amount, name); }
 
 
     @Override
@@ -131,5 +127,15 @@ public class MainEngine implements EngineInterface {
         }
     }
 
+    @Override
+    public int getStockHolding(String username, Stock stock) { return allUsers.getStockHolding(username, stock); }
 
+    @Override
+    public LinkedList<TransactionDTO> createTransactionsDtoList(String stockname) {return allStocks.createTransactionsDtoList(stockname); }
+
+    @Override
+    public List<CommandDTO> getBuyCommands(String stockname) {return allStocks.getBuyCommands(stockname); }
+
+    @Override
+    public List<CommandDTO> getSellCommands(String stockname) { return allStocks.getSellCommands(stockname); }
 }

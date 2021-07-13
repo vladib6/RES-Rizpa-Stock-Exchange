@@ -15,4 +15,5 @@ public interface Traderinterface {
      UserAccountDTO createAccountDTO();
      void ChargeMoney(int amount);
      void setActionsHistory(ActionEntry actionEntry);
+     int getStockHolding(Stock stock);
 }

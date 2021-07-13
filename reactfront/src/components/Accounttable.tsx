@@ -6,9 +6,9 @@ import { useGlobalContext } from "../App";
 interface actions {
     type:string,
     date:string,
-    amount:number,
-    rateBefore:number,
-    rateAfter:number,
+    actionSum:number,
+    oldSum:number,
+    newSum:number,
 }
 interface accountData{  
     accounteBalance:number,
@@ -23,7 +23,6 @@ export function Accounttable(){
     useEffect(()=>{
         const interval=setInterval(async()=>
         await api.get('/api/account?user='+username).then(res=>{
-            console.log(res.data)
             setAccountData(res.data)}).catch(err=>console.log(err))
         ,5000);
         return ()=>clearInterval(interval)
@@ -47,6 +46,7 @@ export function Accounttable(){
                                     }else if(isNaN(parseInt(e.target.value))||parseInt(e.target.value)<=0){
                                         setChargeBtn(true)
                                     }else{
+                                        setAmount(e.target.value)
                                         setChargeBtn(false)
                                     }
                                 }}/>
@@ -71,9 +71,9 @@ export function Accounttable(){
                                             <tr>
                                                 <td>{action.type}</td>
                                                 <td>{action.date}</td>
-                                                <td>{action.amount}</td>
-                                                <td>{action.rateBefore}</td>
-                                                <td>{action.rateAfter}</td>
+                                                <td>{action.actionSum}</td>
+                                                <td>{action.oldSum}</td>
+                                                <td>{action.newSum}</td>
                                             </tr>
                                             )
                                         })}

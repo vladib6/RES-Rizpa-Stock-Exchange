@@ -47,7 +47,7 @@ public class SellWaitinglist extends CommandWaitinglist{
     public List<CommandDTO> createList(){
         List<CommandDTO> res=new ArrayList<>();
         for(CommandType cmd:sellwaitinglist){
-            res.add(new CommandDTO(cmd.getInitiativeUser().getUserName(), cmd.getStockSymbol(),cmd.getDirection(),cmd.getTime(),cmd.getNumOfStocks(),cmd.getPrice(),cmd.getClass().getSimpleName()));
+            res.add(new CommandDTO(cmd.getInitiativeUser().getUserName(),cmd.getDirection(),cmd.getTime(),cmd.getNumOfStocks(),cmd.getPrice(),cmd.getClass().getSimpleName()));
         }
         return res;
     }
