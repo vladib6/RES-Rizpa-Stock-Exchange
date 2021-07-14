@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/api";
@@ -11,6 +11,12 @@ import { useGlobalContext } from "../App";
 
 export interface RouteParams{
     name:string
+}
+
+interface StateValues {
+    username:string,
+    type:string,
+    loggedIn:boolean
 }
 export function Dashboard(){
     const {name}=useParams<RouteParams>()
@@ -27,15 +33,20 @@ export function Dashboard(){
         
     }
 
+   
+
         return (
             <section>
                 <Alerts/>
             <div className="container-fluid">
+           
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0"> Welcome {name} </h3><input onChange={(e)=>{handleFileChange(e)}}   className="btn btn-primary btn-sm d-none d-sm-inline-block" type="file" /><button onClick={handleSubmission} className="btn btn-primary btn-sm d-none d-sm-inline-block" ><i className="fas fa-download fa-sm text-white-50"></i>Upload File</button>
-            </div>
+                </div>
+          
                {type==="Trader"?<Userdata/>:null} 
             </div>
+           
             <div className="row">
                      <div className="col-lg-7 col-xl-8">
                          <div className="card shadow mb-4">

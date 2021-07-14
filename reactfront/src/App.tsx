@@ -11,7 +11,6 @@ import {Topnavbar} from './components/Navbar';
 import { Contact } from './components/Contact';
 import { createContext } from 'react';
 import { useContext } from 'react';
-
 export type GlobalContent={
     username:string,
     loggedIn:boolean,
@@ -30,6 +29,7 @@ export const GlobalContext=createContext<GlobalContent>({
    setType:()=>{}
 })
 
+
 export const useGlobalContext=()=>useContext(GlobalContext)
 
 function App() {
@@ -37,10 +37,26 @@ function App() {
     const [loggedIn,setLogged]=useState<boolean>(false);
     const [type,setType]=useState<string>("");
 
+    useEffect(()=>{
+        const stateValues=JSON.parse(window.localStorage.getItem("user-profile")!);
+        if(stateValues){
+            setUser(stateValues.username)
+            setLogged(stateValues.loggedIn)
+            setType(stateValues.type)
+        }
+      
+        
+    },[])
+
+    useEffect(()=>{
+        const stateValues={username,loggedIn,type};
+        window.localStorage.setItem("user-profile",JSON.stringify(stateValues))
+    })
+
+   
     return (
         <GlobalContext.Provider value={{username,setUser,loggedIn,setLogged,type,setType}}>
         <Router> 
-            {console.log("rerender")}
             <Topnavbar/>
             <div>
             <Switch>
@@ -50,13 +66,11 @@ function App() {
                 <Route path="/dashboard/:name" >{loggedIn?<Dashboard />:<Redirect to="/signup"/>}</Route>
                 <Route path="/actions/:stockname"  component={Actions}/>
                 <Route path="/contact" component={Contact}/>
-
             </Switch>
             </div>
    
         </Router>
-        </GlobalContext.Provider>
-        
+        </GlobalContext.Provider> 
     )
 }
 

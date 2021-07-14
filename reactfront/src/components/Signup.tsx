@@ -3,7 +3,8 @@ import API from "../api/api";
 import { Redirect,useHistory } from "react-router-dom";
 import { useGlobalContext } from "../App";
 import { useEffect } from "react";
-import Cookies from 'js-cookie'
+
+
 export const Signup = ()=>{
   const history=useHistory()
   const {setUser,setLogged,setType}=useGlobalContext();
@@ -21,22 +22,10 @@ export const Signup = ()=>{
         setType(usertype);
         history.push("/dashboard/"+username)
       }else{
-        console.log("false"); //TODO :Show message to user
+        setInvalid(true)
       }
   }
   
-  useEffect(()=>{
-    readCookie();
-})
-
-const readCookie = ()=>{
-const user=Cookies.get("user")
-if(user){
-    console.log("cookie:"+user)
-    setUser(user);
-    setLogged(true)
-}
-};
   const handleUsernameChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault()
         setUsername(e.target.value)

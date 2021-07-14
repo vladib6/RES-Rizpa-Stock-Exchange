@@ -20,6 +20,8 @@ export function Accounttable(){
     const [amount,setAmount]=useState("0");
     const [chargeMsg,setChargeMsg]=useState(null);
     const [chargeBtn,setChargeBtn]=useState(true);
+
+
     useEffect(()=>{
         const interval=setInterval(async()=>
         await api.get('/api/account?user='+username).then(res=>{

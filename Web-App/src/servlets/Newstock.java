@@ -22,8 +22,10 @@ public class Newstock extends HttpServlet {
         int amount=Integer.parseInt(req.getParameter("amount"));
         int value=Integer.parseInt(req.getParameter("value"));
         if(amount==0) {
+            resp.setStatus(500);
             resp.getWriter().print("amount couldn't be zero");
         }else if(value==0) {
+            resp.setStatus(500);
             resp.getWriter().print("value couldn't be zero");
         }else {
             int price=value/amount;

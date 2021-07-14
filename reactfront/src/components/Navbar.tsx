@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,Redirect,useHistory } from "react-router-dom";
 import { useGlobalContext } from "../App";
-
 export function Topnavbar (){
-        const {username}=useGlobalContext()
+        const {username,setLogged,setType,setUser}=useGlobalContext()
+        const history=useHistory()
     return (
 
         <nav className="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav" style={{background: "var(--bs-indigo)",color: "var(--bs-red)"}}>
@@ -12,8 +12,15 @@ export function Topnavbar (){
                 <ul className="navbar-nav ms-auto text-uppercase">
                     <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/signup">Sign-up</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to={"/dashboard/"+username}>Dashboard</Link></li>
+                    <li className="nav-item"><Link className="nav-link"  to={"/dashboard/"+username}>Dashboard</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to="../" 
+                    onClick={()=>{
+                        setLogged(false)
+                        setType("")
+                        setUser("")
+                        }}>Logout</Link></li>
+
                 </ul>
             </div>
         </div>

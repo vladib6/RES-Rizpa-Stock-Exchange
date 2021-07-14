@@ -6,7 +6,6 @@ import com.OnlineUserDTO;
 import com.UserAccountDTO;
 import com.UserDTO;
 import com.stock.Stock;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

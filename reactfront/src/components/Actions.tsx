@@ -6,6 +6,7 @@ import api from "../api/api";
 import { useGlobalContext } from "../App";
 import { Alerts } from "./Alerts";
 import { Cmdtable } from "./Cmdtable";
+import MyAccordion from "./MyAccordion";
 import {Stockdata} from './Stockdata'
 import {Transactionstable} from './Transactionstable'
 
@@ -34,7 +35,6 @@ export function Actions (){
     const [buyCmds,setBuyCmds]=useState<Cmd[]>()
     const [sellCmds,setsellCmds]=useState<Cmd[]>()
   
-
     useEffect(()=>{
         const interval=setInterval(async()=>{
             await api.get('/api/buycommands?stock='+stockname)
@@ -64,15 +64,20 @@ export function Actions (){
                     <div className="col-lg-5 col-xl-3"> 
                     </div>
             </div>
+            <div className="col-lg-6  col-xl-8">
+                   <div className="card shadow mb-7">
+                       <MyAccordion stockname={stockname} />
+                   </div>
+               </div>
             <div className="row">
                     {type==="Trader"
-                   ? "accordion"
-                    : <><div className="col-lg-7 col-xl-8">
+                   ? <div>sdf</div>
+                    : <><div className="col-lg-5 col-xl-6">
                         <div className="card shadow mb-4">
                             <Cmdtable data={buyCmds} title={"Buy Commands"} />
                         </div>
                     </div>
-                    <div className="col-lg-1 col-xl-1">
+                    <div className="col-lg-7 col-xl-6">
                         <div className="card shadow mb-4">
                           <Cmdtable data={sellCmds} title={"Sell Commands"} />
                         </div>

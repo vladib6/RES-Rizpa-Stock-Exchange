@@ -1,12 +1,9 @@
-import React from "react";
-import { useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import { Contact } from "./Contact";
-import Cookies from "js-cookie";
-import { useGlobalContext } from "../App";
+
 
 export const Homepage=()=>{
-    const {setUser,setLogged}=useGlobalContext()
     
    
     return (
