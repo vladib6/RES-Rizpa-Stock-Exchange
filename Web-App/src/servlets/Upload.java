@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 @WebServlet(name = "upload", urlPatterns = {"/api/upload"})
@@ -30,8 +29,8 @@ public class Upload extends HttpServlet {
         for (Part p:parts){
             try {
                 engineInterface.loadDataFromXml(p.getInputStream(),req.getParameter(Constants.URL_USER_PARAM));
+                resp.getWriter().print("Loaded successfully");
             } catch (Myexception | StockException | JAXBException e) {
-               resp.setStatus(500);
                resp.getWriter().print(e.toString());
             }
         }

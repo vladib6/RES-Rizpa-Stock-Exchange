@@ -33,8 +33,8 @@ export function Cmdtable( params:CmdtableProps){
                     </thead>
                     <tbody>
                        {params.data?.map(cmd=>{return (
-                        <tr key={cmd.date} >
-                        <td>{cmd.date}</td>
+                        <tr key={cmd.time} >
+                        <td>{cmd.time}</td>
                         <td>{cmd.type}</td>
                         <td>{cmd.direction}</td>
                         <td>{cmd.initiativeUser}</td>

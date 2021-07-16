@@ -43,7 +43,7 @@ export function Accounttable(){
                                <div className="col-md-6 text-nowrap">
                                 <button disabled={chargeBtn} className="btn btn-primary btn-sm d-none d-sm-inline-block" onClick={handleCharging} ><i className="fas fa-download fa-sm text-white-50"></i>Charge Money</button>
                                 <div className="mb-3"><input required min="1" className="form-control item" type="username" id="amount" placeholder="amount" onChange={(e)=>{
-                                    if(e.target.value =="0"||e.target.value ==""){
+                                    if(e.target.value ==="0"||e.target.value ===""){
                                         setChargeBtn(true)
                                     }else if(isNaN(parseInt(e.target.value))||parseInt(e.target.value)<=0){
                                         setChargeBtn(true)
@@ -62,7 +62,7 @@ export function Accounttable(){
                                         <tr>
                                             <th>Type</th>
                                             <th>Date</th>
-                                            <th>Amount</th>
+                                            <th>Action Sum</th>
                                             <th>Rate Before</th>
                                             <th>Rate After</th>
                                         </tr>
@@ -70,7 +70,7 @@ export function Accounttable(){
                                     <tbody>
                                         {actionsArray?.actionsHistory?.map(action=>{
                                             return(
-                                            <tr>
+                                            <tr key={action.date}>
                                                 <td>{action.type}</td>
                                                 <td>{action.date}</td>
                                                 <td>{action.actionSum}</td>
@@ -84,9 +84,9 @@ export function Accounttable(){
                                         <tr>
                                             <td><strong>Type</strong></td>
                                             <td><strong>Date</strong></td>
-                                            <td><strong>Amount</strong></td>
+                                            <td><strong>Action Sum</strong></td>
                                             <td><strong>Rate Before</strong></td>
-                                            <td><strong>Total Amount: {actionsArray?.accounteBalance}</strong></td>
+                                            <td><strong>Account Balance: {actionsArray?.accounteBalance}</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>

@@ -2,6 +2,7 @@ package com.Command.CmdTypes;
 
 import com.Actions.ActionEntry;
 import com.Actions.Transaction;
+import com.AlertDTO;
 import com.User.Traderinterface;
 import com.stock.Stock;
 
@@ -63,7 +64,15 @@ public  abstract class CommandType {
          Sell.getInitiativeUser().removeHoldings(stock,numOfRelevantStocks);
          Transaction transaction=new Transaction(price,getStockSymbol(),numOfRelevantStocks,price*numOfRelevantStocks,direction,Buy.getInitiativeUser().getUserName(),Sell.getInitiativeUser().getUserName());
          Buy.getInitiativeUser().setActionsHistory(new ActionEntry(transaction,Direction.BUY));
+
+         Buy.getInitiativeUser().addAlert(new AlertDTO("You Buy "+numOfRelevantStocks+' '+stockSymbol+"'s"+" stocks from "+transaction.getSeller()+
+              "\nYou paid "+transaction.getPrice()+"$ per stock and at your buy command left "+Buy.getNumOfStocks()+" stocks"));
+
          Sell.getInitiativeUser().setActionsHistory(new ActionEntry(transaction,Direction.SELL));
+
+         Sell.getInitiativeUser().addAlert(new AlertDTO("You Sell "+numOfRelevantStocks+' '+stockSymbol+"'s"+" stocks to "+transaction.getBuyer()+
+              "\nYou get "+transaction.getPrice()+"$ per stock and at your sell command left "+Sell.getNumOfStocks()+" stocks"));
+
          return transaction;
    }
 

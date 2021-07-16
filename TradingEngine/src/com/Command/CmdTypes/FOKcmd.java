@@ -2,6 +2,7 @@ package com.Command.CmdTypes;
 
 
 import com.Actions.Transaction;
+import com.AlertDTO;
 import com.User.Traderinterface;
 import com.stock.Stock;
 
@@ -45,7 +46,7 @@ public class FOKcmd extends CommandType {
         for(CommandType cmd: stock.getSellWaitinglist().getSellwaitinglist()){
             if(super.getPrice()>=cmd.getPrice()){
                 Transaction transaction=DoTransaction(this,cmd,cmd.getPrice(),stock);
-                if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
+                 if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
                     stock.getSellWaitinglist().removeByObject(cmd);
                 }
                 return transaction;

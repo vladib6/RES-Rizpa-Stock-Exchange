@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import api from "../api/api";
+import { useGlobalContext } from "../App";
 
 interface FormProps {
     stockname:string,
 }
 
 export function CommandForm(params:FormProps){
+    const {username}=useGlobalContext()
     const [checked, setChecked] = useState(false);
     const [typeValue, setTypeValue] = useState("");
     const [directionValue, setDirectionValue] = useState("");
     const [limitPrice,setLimitPrice]=useState(0);
     const [priceErrMsg,setMsg]=useState("");
     const [showMsg,setShow]=useState(false);
+    const [quantity,setQuantity]=useState(0)
+    const [quantityMsg,setQuantityMsg]=useState("")
+    const [showQuantityMsg,setShowQuantityMsg]=useState(false)
     const [showGeneralErr,setShowGeneralErr]=useState(false);
+    const [generalMsg,setGeneralMsg]=useState("");
+
     const cmdTypes = [
       { name: 'LMT', value: '1' },
       { name: 'MKT', value: '2' },
@@ -21,17 +28,24 @@ export function CommandForm(params:FormProps){
       { name: 'FOK', value: '4' },
     ];
     const directions = [
-        { name: 'SELL', value: '1' },
-        { name: 'BUY', value: '2' },
+        { name: 'Sell', value: '1' },
+        { name: 'Buy', value: '2' },
       ];
   
     const handleSubmitCommand=async(e:React.FormEvent<HTMLFormElement>)=>{
             e.preventDefault()
-            if(typeValue ==="" || directionValue==="" || limitPrice==0){
+            if(typeValue ==="" || directionValue==="" || quantity==0){
+                setGeneralMsg("Fill all the fields correctly")
                 setShowGeneralErr(true);
-            }else{
-                console.log("type:"+typeValue+" direction:"+directionValue+" price+"+limitPrice)
-                // await api.post('/api/exchange').then(res=>console.log(res)).catch(err=>console.log(err))
+            }else if(typeValue!=="MKT" && limitPrice==0){
+                setGeneralMsg("Fill all the fields correctly")
+                setShowGeneralErr(true);
+            } else{
+                await api.post('/api/exchange?user='+username+'&stock='+params.stockname+'&direction='+directionValue+'&type='+typeValue+'&quantity='+quantity+'&limit='+limitPrice)
+                .then(res=>{setShowGeneralErr(true);
+                        setGeneralMsg("Transactions made :"+res.data)})
+                .catch(err=>{setShowGeneralErr(true);
+                    setGeneralMsg(err)})
             }
     }
 
@@ -75,6 +89,23 @@ export function CommandForm(params:FormProps){
                         </ToggleButton>))}
                         </ButtonGroup>
                         </div>
+                        <div className="mb-3"><label className="form-label" htmlFor="limitprice">Quantity</label>
+                             <input required min="1" className="form-control item" type="username" id="limitprice"
+                             onChange={(e)=>{
+                                if(isNaN(parseInt(e.target.value))){
+                                    setQuantityMsg("Write only digits");
+                                    setShowQuantityMsg(true)
+                                }else if(parseInt(e.target.value)<=0){
+                                    setQuantityMsg("Limit price can't be zero of negative");
+                                    setShowQuantityMsg(true)
+                                }else{
+                                    setQuantity(parseInt(e.target.value));
+                                    setShowQuantityMsg(false);
+                                }
+                            }}  />
+                             {showQuantityMsg?<label style={{color:"red"}}>{quantityMsg}</label>:null}
+                             </div>
+
                         {(typeValue!=="MKT" && typeValue!=="")?
                              <div className="mb-3"><label className="form-label" htmlFor="limitprice">Limit Price</label>
                              <input required min="1" className="form-control item" type="username" id="limitprice" 
@@ -95,7 +126,7 @@ export function CommandForm(params:FormProps){
                              null
                         }
            
-                        {showGeneralErr?<label style={{color:"red"}}>Fill all the fields correctly</label>:null}
+                        {showGeneralErr?<label style={{color:"red"}}>{generalMsg}</label>:null}
             <div className="mb-3" /><button className="btn btn-primary" type="submit">Exchange {params.stockname} !</button>
           </form>
           </div>

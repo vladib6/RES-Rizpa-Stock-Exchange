@@ -71,11 +71,10 @@ public class MainEngine implements EngineInterface {
 
     public LinkedList<TransactionDTO> getTransactionListDtoByStock(String symbol){ return getStockByName(symbol).createTransactionDTOlist(); }
 
-    public int ExecuteCmd(CommandType cmd){
-       return cmd.Execute(getStockByName(cmd.getStockSymbol()));
-    }
+    @Override
+    public int ExecuteCmd(CommandType cmd){ return cmd.Execute(getStockByName(cmd.getStockSymbol())); }
 
-
+    @Override
     public Command CreateAndExecuteCmd(String username,String direction,String stockSymbol,String cmdType,int quantity,int limitPrice){
         Direction dir;
         if(direction.equals("Sell")){
@@ -86,8 +85,12 @@ public class MainEngine implements EngineInterface {
         Type type;
         if(cmdType.equals("LMT")){
             type=Type.LMT;
-        }else{
+        }else if(cmdType.equals("MKT")){
             type=Type.MKT;
+        }else if(cmdType.equals("IOC")){
+            type=Type.IOC;
+        }else{
+            type=Type.FOK;
         }
 
         return CommandFactory.Createcmd(allUsers.getTrader(username),dir,type,stockSymbol,quantity,limitPrice);
@@ -138,4 +141,7 @@ public class MainEngine implements EngineInterface {
 
     @Override
     public List<CommandDTO> getSellCommands(String stockname) { return allStocks.getSellCommands(stockname); }
+
+    @Override
+    public LinkedList<AlertDTO> getAlerts(String username) { return allUsers.getAlerts(username); }
 }

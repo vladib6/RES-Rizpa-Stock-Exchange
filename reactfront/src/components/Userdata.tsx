@@ -28,7 +28,7 @@ export function Userdata (){
 
     return (
         <div className="row">
-                <div className="col-md-6 col-xl-3 mb-4">
+                <div className="col-md-6 col-xl-4 mb-4">
                     <div className="card shadow border-start-primary py-2">
                         <div className="card-body">
                             <div className="row align-items-center no-gutters">
@@ -36,12 +36,12 @@ export function Userdata (){
                                     <div className="text-uppercase text-primary fw-bold text-xs mb-1"><span>Account Balance</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span>{data?.accountBalance} $</span></div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 col-xl-3 mb-4">
+                <div className="col-md-6 col-xl-4 mb-4">
                     <div className="card shadow border-start-success py-2">
                         <div className="card-body">
                             <div className="row align-items-center no-gutters">
@@ -49,13 +49,13 @@ export function Userdata (){
                                     <div className="text-uppercase text-success fw-bold text-xs mb-1"><span>Stocks Holdings</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span>{data?.totalHoldings} $</span></div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                
-                <div className="col-md-6 col-xl-3 mb-4">
+                <div className="col-md-6 col-xl-4 mb-4">
                     <div className="card shadow border-start-warning py-2">
                         <div className="card-body">
                             <div className="row align-items-center no-gutters">
@@ -63,7 +63,7 @@ export function Userdata (){
                                     <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total Transactions</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span>{data?.totalTransactions}</span></div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-comments fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>

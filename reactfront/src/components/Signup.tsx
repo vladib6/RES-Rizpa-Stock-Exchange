@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import API from "../api/api";
-import { Redirect,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useGlobalContext } from "../App";
-import { useEffect } from "react";
-
+import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
 export const Signup = ()=>{
   const history=useHistory()
@@ -12,11 +11,15 @@ export const Signup = ()=>{
   const [usertype,setUsertype]=useState("Trader")
   const [invalidUsername,setInvalid]=useState(false);
 
+  const userTypes = [
+    { name: 'Trader', value: '1' },
+    { name: 'Admin', value: '2' },
+  ];
+  
   const handleLogin= async(e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
       let answer:boolean=await API.post('/api/login?user='+username+'&type='+usertype).then(res=>res.data).catch(err=>console.log(err));
       if(answer===true){
-        console.log("true");
         setUser(username);
         setLogged(true);
         setType(usertype);
@@ -47,10 +50,22 @@ return (
       <form onSubmit={(e)=> handleLogin(e)} >
         <div className="mb-3"><label className="form-label" htmlFor="email">Username</label><input required min="1" className="form-control item" type="username" id="email" onChange={(e)=>handleUsernameChange(e)}/></div>
         <div className="mb-3"><label className="form-label" htmlFor="password">Password</label><input required min="1" className="form-control" type="password" id="password"/></div>
-        <div className="btn-group" role="group">
-        <button  autoFocus={true} className="btn btn-primary" type="button" onClick={(e)=>handleUsertypeChoice(e)}>Trader</button>
-        <button  className="btn btn-primary" type="button" onClick={(e)=>handleUsertypeChoice(e)}>Admin  </button>
-        </div>
+                    <div>
+                        <ButtonGroup className="mb-2">
+                        {userTypes.map((type, idx) => (
+                        <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant="secondary"
+                            name="radio"
+                            value={type.name}
+                            checked={usertype === type.name}
+                            onChange={(e) => setUsertype(e.currentTarget.value)}>
+                            {type.name}
+                        </ToggleButton>))}
+                        </ButtonGroup>
+                      </div>
         {invalidUsername && <div><label style={{color:"red"}}>{username} already exist in the system please login with another name</label></div>}
         <div className="mb-3" /><button className="btn btn-primary" type="submit">Log In</button>
       </form>

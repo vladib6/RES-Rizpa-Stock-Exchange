@@ -17,7 +17,7 @@ export function Transactionstable(stock:TransactionsProps){
   
     useEffect(()=>{
         const interval=setInterval(async()=>
-        await api.get('/api/transactions?stock='+stock.stockname).then(res=>{console.log(res.data)}).catch(err=>console.log(err))
+        await api.get('/api/transactions?stock='+stock.stockname).then(res=>setTransactions(res.data)).catch(err=>console.log(err))
         ,5000);
         return ()=>clearInterval(interval)
     },[])

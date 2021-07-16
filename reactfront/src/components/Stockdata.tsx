@@ -19,22 +19,24 @@ export function Stockdata (){
     const {username,type}=useGlobalContext()
     const {stockname}=useParams<RouteProps>()
     const [data,setData]=useState<stockData>()
-    let stockHolding:number=0;
+    const [stockHolding,setStockHolding]=useState(0) 
     
     useEffect(()=>{
-        const interval=setInterval(async()=>{
+        const interval1=setInterval(async()=>{
             await api.get('/api/stock?stock='+stockname)
             .then(res=>setData(res.data) )
             .catch(err=>console.log(err))
         },5000);
-        if(type==="Trader"){
-            const interval=setInterval(async()=>{
-                await api.get('/api/stockholding?stock='+stockname+'&user='+username)
-                .then(res=>{stockHolding=res.data as number} )
-                .catch(err=>console.log(err))
+       
+            const interval2=setInterval(async()=>{
+                if(type==="Trader"){
+                    await api.get('/api/stockholding?stock='+stockname+'&user='+username)
+                    .then(res=>setStockHolding(res.data as number) )
+                    .catch(err=>console.log(err))
+                }
             },5000); 
-        }
-        return ()=>clearInterval(interval);
+        return ()=>{clearInterval(interval1)
+            clearInterval(interval2)};
     },[])
 
 
@@ -48,7 +50,7 @@ export function Stockdata (){
                                     <div className="text-uppercase text-primary fw-bold text-xs mb-1"><span>Stock Name</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span>{data?.symbol}</span></div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>
@@ -61,7 +63,7 @@ export function Stockdata (){
                                     <div className="text-uppercase text-success fw-bold text-xs mb-1"><span>Comapany Name</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span></span>{data?.companyName}</div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>
@@ -75,7 +77,7 @@ export function Stockdata (){
                                     <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Current Rate</span></div>
                                     <div className="text-dark fw-bold h5 mb-0"><span>{data?.currentPrice} $</span></div>
                                 </div>
-                                <div className="col-auto"><i className="fas fa-comments fa-2x text-gray-300"></i></div>
+                                <div className="col-auto"></div>
                             </div>
                         </div>
                     </div>

@@ -33,6 +33,7 @@ public interface EngineInterface {
     LinkedList<TransactionDTO> createTransactionsDtoList(String stockname);
     List<CommandDTO> getBuyCommands(String stockname);
     List<CommandDTO> getSellCommands(String stockname);
+    LinkedList<AlertDTO> getAlerts(String username) ;
 
 }
 

@@ -1,15 +1,14 @@
 package com.User;
 
 
+import com.AlertDTO;
 import com.Engine.Myexception;
 import com.OnlineUserDTO;
 import com.UserAccountDTO;
 import com.UserDTO;
 import com.stock.Stock;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class AllUsers {
 
@@ -72,11 +71,9 @@ public class AllUsers {
         }
     }
 
-    public void addHoldingToUser(String user,Stock stock,int quantity){
-        ((Traderinterface)allUsers.get(user)).addHoldings(stock, quantity);
-    }
+    public void addHoldingToUser(String user,Stock stock,int quantity){ ((Traderinterface)allUsers.get(user)).addHoldings(stock, quantity); }
 
-    public int getStockHolding(String username,Stock stock){
-        return ((Traderinterface)allUsers.get(username)).getStockHolding(stock);
-    }
+    public int getStockHolding(String username,Stock stock){ return ((Traderinterface)allUsers.get(username)).getStockHolding(stock); }
+
+    public LinkedList<AlertDTO> getAlerts(String username) { return  ((Traderinterface)allUsers.get(username)).getAlerts(); }
 }

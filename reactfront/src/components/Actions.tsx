@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import api from "../api/api";
 import { useGlobalContext } from "../App";
-import { Alerts } from "./Alerts";
 import { Cmdtable } from "./Cmdtable";
 import MyAccordion from "./MyAccordion";
 import {Stockdata} from './Stockdata'
@@ -16,7 +15,7 @@ export interface RouteParams{
 }
 
 export interface Cmd {
-    date:string,
+    time:string,
     type:string,
     initiativeUser:string,
     direction:string,
@@ -33,22 +32,27 @@ export function Actions (){
     const {type}=useGlobalContext()
     const {stockname}=useParams<RouteParams>()
     const [buyCmds,setBuyCmds]=useState<Cmd[]>()
-    const [sellCmds,setsellCmds]=useState<Cmd[]>()
-  
-    useEffect(()=>{
-        const interval=setInterval(async()=>{
-            await api.get('/api/buycommands?stock='+stockname)
-            .then(res=>console.log(res.data))
-            .catch(err=>console.log(err));
+    const [sellCmds,setSellCmds]=useState<Cmd[]>()
+ 
+        useEffect(()=>{
+            const interval=setInterval(async()=>{
+                if(type==="Admin  "){
+                    await api.get('/api/buycommands?stock='+stockname)
+                    .then(res=>setBuyCmds(res.data))
+                    .catch(err=>console.log(err));
+        
+                    await api.get('/api/sellcommands?stock='+stockname)
+                    .then(res=>setSellCmds(res.data))
+                    .catch(err=>console.log(err));
+                }
+            },7000)
 
-            await api.get('/api/sellcommands?stock='+stockname)
-            .then(res=>console.log(res.data))
-            .catch(err=>console.log(err));
-        },7000)
-    })
+            return ()=>clearInterval(interval)
+         },[])
+    
+    
     return (
                 <section>
-                <Alerts/>
             <div className="container-fluid">
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0"> {stockname} </h3>
@@ -64,14 +68,14 @@ export function Actions (){
                     <div className="col-lg-5 col-xl-3"> 
                     </div>
             </div>
-            <div className="col-lg-6  col-xl-8">
-                   <div className="card shadow mb-7">
-                       <MyAccordion stockname={stockname} />
-                   </div>
-               </div>
+           
             <div className="row">
                     {type==="Trader"
-                   ? <div>sdf</div>
+                   ?  <div className="col-lg-6  col-xl-8">
+                        <div className="card shadow mb-7">
+                            <MyAccordion stockname={stockname} />
+                        </div>
+                    </div>
                     : <><div className="col-lg-5 col-xl-6">
                         <div className="card shadow mb-4">
                             <Cmdtable data={buyCmds} title={"Buy Commands"} />

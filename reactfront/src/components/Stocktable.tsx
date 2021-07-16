@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {BsClipboardData} from 'react-icons/bs'
 import api from "../api/api";
 import { MyModal } from "./MyModal";
+import { useGlobalContext } from "../App";
 
 interface Stock{
     symbol:string,
@@ -14,6 +15,7 @@ interface Stock{
 }
 
 export function Stocktable(){
+    const {type} = useGlobalContext()
     const [stocks,setStocks]=useState<Stock[]>()
     const [errMsg,setMsg]=useState("");
 
@@ -36,7 +38,7 @@ export function Stocktable(){
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-md-6 text-nowrap">
-                                    <MyModal setMsg={handleErrMsg}/>
+                                    {type==="Trader"?<MyModal setMsg={handleErrMsg}/>:null}
                                     <p>{errMsg}</p>
                                 </div>
                                
