@@ -54,20 +54,6 @@ export function Userdata (){
                         </div>
                     </div>
                 </div>
-               
-                <div className="col-md-6 col-xl-4 mb-4">
-                    <div className="card shadow border-start-warning py-2">
-                        <div className="card-body">
-                            <div className="row align-items-center no-gutters">
-                                <div className="col me-2">
-                                    <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total Transactions</span></div>
-                                    <div className="text-dark fw-bold h5 mb-0"><span>{data?.totalTransactions}</span></div>
-                                </div>
-                                <div className="col-auto"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>   
     )
 }

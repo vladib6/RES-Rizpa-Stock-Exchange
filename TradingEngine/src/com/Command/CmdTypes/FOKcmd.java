@@ -17,21 +17,23 @@ public class FOKcmd extends CommandType {
 
     @Override
     public int Execute(Stock stock) {
-        if(checkIfPossible(stock)){
-            int numOfTransactions=0;
-            Transaction newTransaction;
-            do {
-                newTransaction= Findcmd(stock);//try to find first matching opposite command and do transaction
-                if(newTransaction!=null){
-                    stock.addTransaction(newTransaction);
-                    numOfTransactions++;
-                    stock.setTransactionTurnover(newTransaction.getTurnover());
+        synchronized (stock) {
+            if (checkIfPossible(stock)) {
+                int numOfTransactions = 0;
+                Transaction newTransaction;
+                do {
+                    newTransaction = Findcmd(stock);//try to find first matching opposite command and do transaction
+                    if (newTransaction != null) {
+                        stock.addTransaction(newTransaction);
+                        numOfTransactions++;
+                        stock.setTransactionTurnover(newTransaction.getTurnover());
+                    }
                 }
+                while (newTransaction != null && numOfStocks != 0);//while has stocks in command and success do transaction(not return null)
+                return numOfTransactions;
             }
-            while(newTransaction!=null && numOfStocks!=0);//while has stocks in command and success do transaction(not return null)
-            return numOfTransactions;
+            return 0;//the command not execute
         }
-       return 0;//the command not execute
     }
 
     public Transaction Findcmd(Stock stock){
@@ -43,29 +45,29 @@ public class FOKcmd extends CommandType {
     }
 
     public Transaction FindSellcmd(Stock stock) {//find the matching sell command to buy command that execute
-        for(CommandType cmd: stock.getSellWaitinglist().getSellwaitinglist()){
-            if(super.getPrice()>=cmd.getPrice()){
-                Transaction transaction=DoTransaction(this,cmd,cmd.getPrice(),stock);
-                 if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
-                    stock.getSellWaitinglist().removeByObject(cmd);
+            for(CommandType cmd: stock.getSellWaitinglist().getSellwaitinglist()){
+                if(super.getPrice()>=cmd.getPrice()){
+                    Transaction transaction=DoTransaction(this,cmd,cmd.getPrice(),stock);
+                    if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
+                        stock.getSellWaitinglist().removeByObject(cmd);
+                    }
+                    return transaction;
                 }
-                return transaction;
             }
-        }
-        return null;
+            return null;
     }
 
     public Transaction FindBuycmd(Stock stock) {
-        for(CommandType cmd: stock.getBuyWaitinglist().getBuywaitinglist()){
-            if(super.price<=cmd.getPrice()){
-                Transaction transaction=DoTransaction(cmd,this,cmd.getPrice(),stock);
-                if(cmd.getNumOfStocks()==0){ //if numofstock is 0 so remove the cmd from waiting list
-                    stock.getBuyWaitinglist().removeByObject(cmd);
+            for (CommandType cmd : stock.getBuyWaitinglist().getBuywaitinglist()) {
+                if (super.price <= cmd.getPrice()) {
+                    Transaction transaction = DoTransaction(cmd, this, cmd.getPrice(), stock);
+                    if (cmd.getNumOfStocks() == 0) { //if numofstock is 0 so remove the cmd from waiting list
+                        stock.getBuyWaitinglist().removeByObject(cmd);
+                    }
+                    return transaction;
                 }
-                return transaction;
             }
-        }
-        return null;
+            return null;
     }
 
     public boolean checkIfPossible(Stock stock){

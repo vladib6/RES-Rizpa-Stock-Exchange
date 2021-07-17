@@ -14,7 +14,7 @@ export interface RouteParams{
     name:string
 }
 
-interface Popupmsg {
+export interface Popupmsg {
     message:string
 }
 
@@ -24,16 +24,6 @@ export function Dashboard(){
     const {type}=useGlobalContext()
     const [loadMsg,setLoadMsg]=useState("");
     const [showLoadMsg,setShowLoadMsg]=useState(false);
-
-    const notify=(msg:string)=>{toast(msg,{
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        })}
 
     const handleFileChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setFile(e.target.files![0])
@@ -64,7 +54,6 @@ export function Dashboard(){
                     progress: undefined,
                     }))
             })
-            
         },7000)
 
         return ()=>clearInterval(interval)

@@ -21,7 +21,7 @@ export const Homepage=()=>{
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <div className="team-member"><img alt="vladi" className="rounded-circle mx-auto" src="assets/img/team/2.jpg"/>
+                    <div className="team-member"><img alt="vladi" className="rounded-circle mx-auto" src="assets/img/team/vladi.png"/>
                         <h4>Vladi Binyaminov</h4>
                         <p className="text-muted">Web Developer</p>
                         <ul className="list-inline social-buttons">

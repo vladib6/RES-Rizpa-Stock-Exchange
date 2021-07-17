@@ -12,9 +12,7 @@ public class SessionUtil {
 
     public  static void setUsername(HttpServletRequest request){
         HttpSession session= request.getSession(true);
-        System.out.println("session id:"+session.getId());
         session.setAttribute(Constants.CONNECTED_USERNAME, request.getParameter(Constants.URL_USER_PARAM));
-        System.out.println("session details"+Constants.CONNECTED_USERNAME+" "+ request.getParameter(Constants.URL_USER_PARAM));
     }
 
 

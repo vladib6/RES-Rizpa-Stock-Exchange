@@ -14,20 +14,22 @@ public class IOCcmd extends CommandType {
     }
     @Override
     public int Execute(Stock stock) {
-        int numOfTransactions=0;
-        Transaction newTransaction;
-        do {
-            newTransaction= Findcmd(stock);//try to find first matching opposite command and do transaction
-            if(newTransaction!=null){
-                stock.addTransaction(newTransaction);
-                numOfTransactions++;
-                stock.setTransactionTurnover(newTransaction.getTurnover());
+        synchronized (stock) {
+            int numOfTransactions = 0;
+            Transaction newTransaction;
+            do {
+                newTransaction = Findcmd(stock);//try to find first matching opposite command and do transaction
+                if (newTransaction != null) {
+                    stock.addTransaction(newTransaction);
+                    numOfTransactions++;
+                    stock.setTransactionTurnover(newTransaction.getTurnover());
+                }
             }
+            while (newTransaction != null && numOfStocks != 0);//while has stocks in command and success do transaction(not return null)
+
+
+            return numOfTransactions;
         }
-        while(newTransaction!=null && numOfStocks!=0);//while has stocks in command and success do transaction(not return null)
-
-
-        return numOfTransactions;
     }
 
     public Transaction FindSellcmd(Stock stock) {//find the matching sell command to buy command that execute

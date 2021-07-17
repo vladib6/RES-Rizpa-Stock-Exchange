@@ -27,7 +27,7 @@ public class Loadxml {
         addDataToEngine(engineInterface,RSE,username);
     }
 
-    public static void addDataToEngine(EngineInterface engineInterface,RizpaStockExchangeDescriptor RSE,String usename) throws Myexception {
+    public static void addDataToEngine(EngineInterface engineInterface,RizpaStockExchangeDescriptor RSE,String username) throws Myexception {
                 if(isValidXml(RSE.getRseHoldings().getRseItem(),RSE.getRseStocks().getRseStock())){
                     List<RseStock> rseStocks= RSE.getRseStocks().getRseStock();
                     for(RseStock stock:rseStocks){
@@ -36,7 +36,7 @@ public class Loadxml {
                         }
                     }
                     List<RseItem> rseItems=RSE.getRseHoldings().getRseItem();
-                    Traderinterface traderinterface= engineInterface.getTrader(usename);
+                    Traderinterface traderinterface= engineInterface.getTrader(username);
                     for(RseItem item:rseItems){
                         traderinterface.addHoldings(engineInterface.getStockByName(item.getSymbol()), item.getQuantity());
                     }

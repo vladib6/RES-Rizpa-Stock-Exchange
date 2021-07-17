@@ -31,8 +31,8 @@ export const GlobalContext=createContext<GlobalContent>({
 
 export const useGlobalContext=()=>useContext(GlobalContext)
 
-//TODO: threads   , back button in page 3,limit sell stock acordingto user holding
-//TODO: sessions in server, alerts popup, update my photo at homepage
+//TODO: threads   , back button in page 3,
+//TODO: sessions in server, update my photo at homepage
 //TODO:QA,check all commands exchange
 //TODO: QA on tomcat server
 toast.configure();
@@ -40,7 +40,7 @@ function App() {
     const [username,setUser]=useState<string>("")
     const [loggedIn,setLogged]=useState<boolean>(false);
     const [type,setType]=useState<string>("");
-
+    
     useEffect(()=>{
         const stateValues=JSON.parse(window.localStorage.getItem("user-profile")!);
         if(stateValues){
@@ -66,7 +66,7 @@ function App() {
                 <Route exact path="/" >{loggedIn?<Redirect to={"/dashboard/"+username}/>:<Homepage/>}</Route>
                 <Route path="/signup" >{loggedIn?<Redirect to={"/dashboard/"+username}/>:<Signup/>}</Route>
                 <Route path="/dashboard/:name" >{loggedIn?<Dashboard />:<Redirect to="/signup"/>}</Route>
-                <Route path="/actions/:stockname"  component={Actions}/>
+                <Route path="/actions/:stockname/:name"  component={Actions}/>
                 <Route path="/contact" component={Contact}/>
             </Switch>
             </div>

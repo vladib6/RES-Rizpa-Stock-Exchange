@@ -13,16 +13,29 @@ export function MyModal(setFunc:ModalProps){
     const [symbol,setSymbol]=useState("");
     const [amount,setAmount]=useState(0);
     const [value,setValue]=useState(0);
+    const [generalErrMsg,setGeneralErrMsg]=useState("")
+
     const handleSubmit=()=>{
-        api.post('/api/newstock?user='+username+'&company='+company+'&symbol='+symbol+'&amount='+amount+'&value='+value)
-        .then(res=>{setFunc.setMsg(res.data)})
-        .catch(err=>{setFunc.setMsg(err)});
-        setShow(false);
+        if(company==="" || symbol==="" || amount===0 || value===0){
+          setGeneralErrMsg("All the fields are required")
+        }else{
+          api.post('/api/newstock?user='+username+'&company='+company+'&symbol='+symbol+'&amount='+amount+'&value='+value)
+          .then(res=>{setFunc.setMsg(res.data)})
+          .catch(err=>{setFunc.setMsg(err)});
+          setShow(false);
+        }
+        
     }
     const handleClose = () => {setShow(false);}
     
     const handleShow = () => setShow(true);
-  
+    const handleAmountChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+          setAmount(parseInt(e.target.value))
+    }
+
+    const handleValueChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+          setValue(parseInt(e.target.value))
+    }
     return (
       <>
         <Button variant="primary" onClick={handleShow}>
@@ -33,14 +46,16 @@ export function MyModal(setFunc:ModalProps){
             <Modal.Title>Create New Stock</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <form  >
+          <form >
                 <div className="mb-3"><label className="form-label" htmlFor="name">Company Name</label><input required min="1" onChange={(e)=>setCompany(e.target.value)} className="form-control item" type="text" id="company" /></div>
                 <div className="mb-3"><label className="form-label" htmlFor="symbol">Stock Symbol</label><input required min="1" onChange={(e)=>setSymbol(e.target.value)} className="form-control" type="text" id="symbol"/></div>
-                <div className="mb-3"><label className="form-label" htmlFor="amount">Amount Of Stocks</label><input required min="1" onChange={(e)=>setAmount(parseInt(e.target.value) )} className="form-control" type="text" id="amount"/></div>
-                <div className="mb-3"><label className="form-label" htmlFor="value">Company Value</label><input required min="1" onChange={(e)=>setValue(parseInt(e.target.value))} className="form-control" type="text" id="value"/></div>
+                <div className="mb-3"><label className="form-label" htmlFor="amount">Amount Of Stocks</label><input required min="1" onChange={(e)=>handleAmountChange(e)} className="form-control" type="number" id="amount"/></div>
+                <div className="mb-3"><label className="form-label" htmlFor="value">Company Value</label><input required min="1" onChange={(e)=>handleValueChange(e)} className="form-control" type="number" id="value"/></div>
           </form>
 
           </Modal.Body>
+          <p style={{color:"red",paddingLeft:"18px"}}>{generalErrMsg}</p>
+
           <Modal.Footer>
             <Button variant="secondary"  onClick={()=>handleClose()}>
               Cancel

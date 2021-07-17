@@ -42,7 +42,7 @@ export function Accounttable(){
                             <div className="row">
                                <div className="col-md-6 text-nowrap">
                                 <button disabled={chargeBtn} className="btn btn-primary btn-sm d-none d-sm-inline-block" onClick={handleCharging} ><i className="fas fa-download fa-sm text-white-50"></i>Charge Money</button>
-                                <div className="mb-3"><input required min="1" className="form-control item" type="username" id="amount" placeholder="amount" onChange={(e)=>{
+                                <div className="mb-3"><input required min="1" className="form-control item" type="username" id="amount" placeholder="How much to charge ?" onChange={(e)=>{
                                     if(e.target.value ==="0"||e.target.value ===""){
                                         setChargeBtn(true)
                                     }else if(isNaN(parseInt(e.target.value))||parseInt(e.target.value)<=0){

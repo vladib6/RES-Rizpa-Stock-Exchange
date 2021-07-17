@@ -46,8 +46,8 @@ export default  function MyAccordion(params:FormProps) {
                               <div className="col-lg-10 col-xl-14">
                                   <div className="card shadow mb-4">
                                     <CommandForm stockname={params.stockname}/>
-                           </div>
-                           </div>
+                                 </div>
+                             </div>
                            </div>
                           
                           </AccordionDetails>

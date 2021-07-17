@@ -5,9 +5,13 @@ import com.Command.CmdTypes.Direction;
 public class ActionEntry {
 
     public ActionEntry(ActionsInterface action, Direction direction){
-        this.type= action.getType();
+        this.type= action.getType().equals("Charging")?"Charging":discoverType(direction);
         this.date= action.getDate();
         this.actionSum=direction.equals(Direction.BUY)? action.getTurnover()*-1 : action.getTurnover();
+    }
+
+    private  String discoverType(Direction direction){
+        return direction.equals(Direction.BUY)?"Transaction - Buy":"Transaction - Sell";
     }
     private  String type;
     private String date;

@@ -38,6 +38,7 @@ public class Trader implements Traderinterface , User{
         actionEntry.setNewSum(accountBalance+actionEntry.getSum());
         this.accountBalance=actionEntry.getNewSum();
     }
+
     public LinkedList<ActionEntry> getActionsHistory() { return actionsHistory; }
 
     @Override

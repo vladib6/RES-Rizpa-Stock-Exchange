@@ -22,7 +22,7 @@ public class Holdings {
         return res;
     }
 
-    public void addToHoldings(Stock stock,int quantity) {
+    synchronized public void addToHoldings(Stock stock,int quantity) {
         if (holdingsMap.containsKey(stock)) {
             holdingsMap.put(stock, holdingsMap.get(stock) + quantity);
         } else {

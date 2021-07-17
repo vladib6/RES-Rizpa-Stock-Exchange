@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import api from "../api/api";
 import { useGlobalContext } from "../App";
-import {RouteParams} from './Actions'
 
 interface stockData{
     symbol:string,

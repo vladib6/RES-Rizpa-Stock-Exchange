@@ -10,14 +10,12 @@ export const Signup = ()=>{
   const [username,setUsername]=useState("")
   const [usertype,setUsertype]=useState("Trader")
   const [invalidUsername,setInvalid]=useState(false);
-
   const userTypes = [
     { name: 'Trader', value: '1' },
     { name: 'Admin', value: '2' },
   ];
   
   const handleLogin= async(e:React.FormEvent<HTMLFormElement>)=>{
-      e.preventDefault();
       let answer:boolean=await API.post('/api/login?user='+username+'&type='+usertype).then(res=>res.data).catch(err=>console.log(err));
       if(answer===true){
         setUser(username);

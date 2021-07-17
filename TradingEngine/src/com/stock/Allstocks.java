@@ -20,7 +20,7 @@ public class Allstocks {
         return allStocks.get(symbol);
     }
 
-    public boolean addStock(String companyName,String symbol,int price){
+    synchronized public boolean addStock(String companyName,String symbol,int price){
         if (!allStocks.containsKey(symbol)){
             if(isCompanyNameExist(companyName)){
                 return false;
@@ -32,7 +32,7 @@ public class Allstocks {
         }
     }
 
-    public boolean isCompanyNameExist(String cName){//check if already exist stock with that company name
+    synchronized public boolean isCompanyNameExist(String cName){//check if already exist stock with that company name
         boolean res=false;
         for(Map.Entry<String,Stock> entry: allStocks.entrySet()){
             if(entry.getValue().getCompanyName().equals(cName)){
@@ -41,7 +41,7 @@ public class Allstocks {
         }
         return res;
     }
-    public boolean isStockexist(String symbol){
+    synchronized public boolean isStockexist(String symbol){
         return allStocks.containsKey(symbol);
     }
 
@@ -53,7 +53,7 @@ public class Allstocks {
         return res;
     }
 
-    public boolean addNewStock(String name,String symbol,int price) throws Myexception {
+    synchronized public boolean addNewStock(String name,String symbol,int price) throws Myexception {
         if(isStockexist(symbol)){
             throw new Myexception("Duplicate stock symbol");
         }else if(isCompanyNameExist(name)){
