@@ -42,9 +42,10 @@ export function Dashboard(){
 
     useEffect(()=>{
         const interval=setInterval(async()=>{
-            await api.get('/api/alerts?user='+name)
-            .then(res=>{
-                res.data?.map((msg:Popupmsg)=>toast(msg.message,{
+            if(type==="Trader"){ 
+                 await api.get('/api/alerts?user='+name)
+                    .then(res=>{
+                    res.data?.map((msg:Popupmsg)=>toast(msg.message,{
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -53,7 +54,7 @@ export function Dashboard(){
                     draggable: true,
                     progress: undefined,
                     }))
-            })
+            })}
         },7000)
 
         return ()=>clearInterval(interval)

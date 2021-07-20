@@ -13,6 +13,8 @@ public class SessionUtil {
     public  static void setUsername(HttpServletRequest request){
         HttpSession session= request.getSession(true);
         session.setAttribute(Constants.CONNECTED_USERNAME, request.getParameter(Constants.URL_USER_PARAM));
+        session.setAttribute(Constants.USER_TYPE, request.getParameter(Constants.USER_TYPE));
+        session.setAttribute("logged", true);
     }
 
 

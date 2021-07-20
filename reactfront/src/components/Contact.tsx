@@ -2,7 +2,7 @@
 export function Contact(){
 
     return (
-        <section id="contact" style={{backgroundImage:'url(assets/img/map-image.png)'}}> 
+        <section id="contact" style={{backgroundImage:'url(/Web-App_Web/assets/img/map-image.png)'}}> 
         <div className="container">
             <div className="row">
                 <div className="col-lg-12 text-center">

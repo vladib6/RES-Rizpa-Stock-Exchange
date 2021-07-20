@@ -14,9 +14,9 @@ export type GlobalContent={
     username:string,
     loggedIn:boolean,
     type:string,
-    setUser:(u:string)=>void,
-    setLogged:(s:boolean)=>void,
-    setType:(t:string)=>void
+    setUser:React.Dispatch<React.SetStateAction<string>>,
+    setLogged:React.Dispatch<React.SetStateAction<boolean>>,
+    setType:React.Dispatch<React.SetStateAction<string>>
 }
 
 export const GlobalContext=createContext<GlobalContent>({
@@ -28,13 +28,8 @@ export const GlobalContext=createContext<GlobalContent>({
    setType:()=>{}
 })
 
-
 export const useGlobalContext=()=>useContext(GlobalContext)
 
-//TODO: threads   , back button in page 3,
-//TODO: sessions in server, update my photo at homepage
-//TODO:QA,check all commands exchange
-//TODO: QA on tomcat server
 toast.configure();
 function App() {
     const [username,setUser]=useState<string>("")
@@ -54,11 +49,10 @@ function App() {
         const stateValues={username,loggedIn,type};
         window.localStorage.setItem("user-profile",JSON.stringify(stateValues))
     })
-
-   
+    
     return (
-        <GlobalContext.Provider value={{username,setUser,loggedIn,setLogged,type,setType}}>
-        <Router > 
+        <GlobalContext.Provider value={{username,loggedIn,type,setUser,setLogged,setType}}>
+        <Router basename="/Web-App_Web" > 
             <Topnavbar/>
             <div>
             <Switch>
@@ -70,7 +64,6 @@ function App() {
                 <Route path="/contact" component={Contact}/>
             </Switch>
             </div>
-   
         </Router>
         </GlobalContext.Provider> 
     )

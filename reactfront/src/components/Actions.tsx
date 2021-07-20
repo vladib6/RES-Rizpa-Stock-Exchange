@@ -11,6 +11,7 @@ import {Transactionstable} from './Transactionstable'
 import { Popupmsg } from "./Dashboard";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
+import { Chart } from "./Chart";
 export interface RouteParams{
     stockname:string,
     type:string,
@@ -32,14 +33,25 @@ export interface CmdtableProps{
 }
 
 export function Actions (){
-    const {type,username}=useGlobalContext()
+    const {type,username,setLogged,setType,setUser}=useGlobalContext()
     const {stockname,name}=useParams<RouteParams>()
     const [buyCmds,setBuyCmds]=useState<Cmd[]>()
     const [sellCmds,setSellCmds]=useState<Cmd[]>()
     const history=useHistory()
+
+    useEffect(()=>{
+        const stateValues=JSON.parse(window.localStorage.getItem("user-profile")!);
+        if(stateValues){
+            setUser(stateValues.username)
+            setLogged(stateValues.loggedIn)
+            setType(stateValues.type)
+        } 
+    },[])
+
         useEffect(()=>{
             const interval=setInterval(async()=>{
-                if(type==="Admin"){
+                console.log(type)
+                if(type!=="Trader"){
                     await api.get('/api/buycommands?stock='+stockname)
                     .then(res=>setBuyCmds(res.data))
                     .catch(err=>console.log(err));
@@ -55,8 +67,8 @@ export function Actions (){
          useEffect(()=>{
             const interval=setInterval(async()=>{
                 await api.get('/api/alerts?user='+name)
-                .then(res=>{
-                    res.data?.map((msg:Popupmsg)=>toast(msg.message,{
+                        .then(res=>{
+                          res.data?.map((msg:Popupmsg)=>toast(msg.message,{
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -64,8 +76,7 @@ export function Actions (){
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        }))
-                        
+                        }))    
                 })
             },7000)
             return ()=>clearInterval(interval)
@@ -86,6 +97,9 @@ export function Actions (){
                         </div>
                     </div>
                     <div className="col-lg-5 col-xl-3"> 
+                    <div className="card shadow mb-4">
+                            <Chart stockname={stockname}/>
+                        </div>
                     </div>
             </div>
             <div className="row">

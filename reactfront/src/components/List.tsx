@@ -1,6 +1,5 @@
 import { useState } from "react";
 import api from "../api/api"
-import { useGlobalContext } from "../App";
 import {HiStatusOnline} from 'react-icons/hi'
 import { useEffect } from "react";
 export function List(){

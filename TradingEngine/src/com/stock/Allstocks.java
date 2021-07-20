@@ -1,5 +1,6 @@
 package com.stock;
 
+import com.ChartData;
 import com.CommandDTO;
 import com.Engine.Myexception;
 import com.StockDTO;
@@ -71,6 +72,6 @@ public class Allstocks {
 
     public List<CommandDTO> getSellCommands(String stockname){return allStocks.get(stockname).getSellCommandsDto();}
     public List<CommandDTO> getBuyCommands(String stockname){return allStocks.get(stockname).getBuyCommandsDto();}
-
+    public LinkedList<ChartData> getStockChart(String stockname){ return allStocks.get(stockname).getStockChart(); }
 }
 

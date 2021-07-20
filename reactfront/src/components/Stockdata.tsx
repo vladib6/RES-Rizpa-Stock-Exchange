@@ -12,11 +12,12 @@ interface stockData{
 
 interface RouteProps {
     stockname:string,
+    name:string
 }
 
 export function Stockdata (){
     const {username,type}=useGlobalContext()
-    const {stockname}=useParams<RouteProps>()
+    const {stockname,name}=useParams<RouteProps>()
     const [data,setData]=useState<stockData>()
     const [stockHolding,setStockHolding]=useState(0) 
     
@@ -28,8 +29,8 @@ export function Stockdata (){
         },5000);
        
             const interval2=setInterval(async()=>{
-                if(type==="Trader"){
-                    await api.get('/api/stockholding?stock='+stockname+'&user='+username)
+                if(type!=="Admin"){
+                    await api.get('/api/stockholding?stock='+stockname+'&user='+name)
                     .then(res=>setStockHolding(res.data as number) )
                     .catch(err=>console.log(err))
                 }

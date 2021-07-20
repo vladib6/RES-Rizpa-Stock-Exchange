@@ -7,5 +7,7 @@ public class Constants {
    public static  final String URL_USER_PARAM="user";
    public static  final String GSON_PARSER="gson";
    public static  final String URL_STOCK_PARAM="stock";
+   public static  final String USER_TYPE="type";
+
 
 }

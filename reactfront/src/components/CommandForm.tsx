@@ -54,10 +54,10 @@ export function CommandForm(params:FormProps){
   
     const handleSubmitCommand=async(e:React.FormEvent<HTMLFormElement>)=>{
             e.preventDefault()
-            if(typeValue ==="" || directionValue==="" || quantity==0){
+            if(typeValue ==="" || directionValue==="" || quantity===0){
                 setGeneralMsg("Fill all the fields correctly")
                 setShowGeneralErr(true);
-            }else if(typeValue!=="MKT" && limitPrice==0){
+            }else if(typeValue!=="MKT" && limitPrice===0){
                 setGeneralMsg("Fill all the fields correctly")
                 setShowGeneralErr(true);
             } else{

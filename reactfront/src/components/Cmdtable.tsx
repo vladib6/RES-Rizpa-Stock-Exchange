@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import api from "../api/api";
-import { useGlobalContext } from "../App";
-import { CmdtableProps,Cmd } from "./Actions";
+
+import { CmdtableProps } from "./Actions";
 
 
 export function Cmdtable( params:CmdtableProps){

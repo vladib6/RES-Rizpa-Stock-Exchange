@@ -144,4 +144,7 @@ public class MainEngine implements EngineInterface {
 
     @Override
     public LinkedList<AlertDTO> getAlerts(String username) { return allUsers.getAlerts(username); }
+
+    @Override
+    public LinkedList<ChartData> getChartData(String stockname) { return allStocks.getStockChart(stockname); }
 }

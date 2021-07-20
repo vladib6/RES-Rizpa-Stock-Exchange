@@ -1,5 +1,6 @@
 package com.stock;
 
+import com.ChartData;
 import com.Command.CmdTypes.CommandType;
 import com.Command.CmdTypes.Direction;
 import com.Command.WaitingCommands.BuyWaitinglist;
@@ -10,6 +11,7 @@ import com.Actions.Transaction;
 import com.TransactionDTO;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -125,6 +127,14 @@ public class Stock {
     public StockDTO createStockDto(){ return new StockDTO(symbol,companyName,currentPrice,TransactionTurnover); }
     public List<CommandDTO> getSellCommandsDto(){return sellWaitinglist.createList();}
     public List<CommandDTO> getBuyCommandsDto(){return buyWaitinglist.createList();}
+
+    public LinkedList<ChartData> getStockChart(){
+        LinkedList<ChartData> res=new LinkedList<>();
+        for(Transaction transaction:transactionsList){
+            res.addFirst(new ChartData(transaction.getDate(), transaction.getPrice()));
+        }
+        return  res;
+    }
 
 }
 

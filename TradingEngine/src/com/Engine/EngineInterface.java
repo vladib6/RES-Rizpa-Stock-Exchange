@@ -34,6 +34,6 @@ public interface EngineInterface {
     List<CommandDTO> getBuyCommands(String stockname);
     List<CommandDTO> getSellCommands(String stockname);
     LinkedList<AlertDTO> getAlerts(String username) ;
-
+    LinkedList<ChartData> getChartData(String stockname);
 }
 

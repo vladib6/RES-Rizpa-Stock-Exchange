@@ -16,6 +16,7 @@ export const Signup = ()=>{
   ];
   
   const handleLogin= async(e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault()
       let answer:boolean=await API.post('/api/login?user='+username+'&type='+usertype).then(res=>res.data).catch(err=>console.log(err));
       if(answer===true){
         setUser(username);
@@ -33,11 +34,7 @@ export const Signup = ()=>{
         
   }
 
-  const handleUsertypeChoice=(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-        e.preventDefault()
-        setUsertype(e.currentTarget.textContent as string)
-  }
-  
+ 
 return (
     <section className="clean-block clean-form dark">
     <div className="container">
