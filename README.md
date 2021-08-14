@@ -16,4 +16,4 @@ To run the app download the WAR file and drop him to your Tomcat/webapps folder
 and then run tomcat and go to url : localhost:8080/Web-App_Web
 
 Screenshot:
-![screenshot1](/web1.png)
+![screenshot1](web1.png)
