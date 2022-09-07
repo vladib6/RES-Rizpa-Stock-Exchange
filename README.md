@@ -1,19 +1,18 @@
 
-#Client-Server Web-Application
+## Description
 
-##Server:
-Running on Apache Tomcat and written in java. Multi-threading and
-object-oriented programming used design patterns. Support multiply sell\buy
-commands, multiply users, account managing, popup alerts, live chat, and real-time
-data updates.
+The project's purpose is to simulate Stock exchange system for multiple users, each user can manage his own account, see purchases history , data about available stocks and get alerts about transactions.
 
-##Client:
-Written in ReactJS and Typescript, one-page app, responsive design with
-Bootstrap implement API calls, used cookies and sessions
+Enjoy!
 
+## Technology Stack
 
-To run the app download the WAR file and drop him to your Tomcat/webapps folder
-and then run tomcat and go to url : localhost:8080/Web-App_Web
+Written in Java and ReactJs, HTML and CSS were also used. Apache Tomacat[[2]] took part as the Servlet Container.
+
+## How To Run
+ 1.Drag and Drop "ETT.war" from the "Run" folder into the "webapps" folder under the extracted Tomcat folder.
+ 3.2.Run Tomcat                 
+ In your browser, go to "http://localhost:8080/Web-App_Web" and enjoy.
 
 Screenshots:
 ![screenshot1](/web1.PNG)
