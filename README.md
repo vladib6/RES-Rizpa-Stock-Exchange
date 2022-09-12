@@ -10,9 +10,9 @@ Enjoy!
 Written in Java and ReactJs, HTML and CSS were also used. Apache Tomacat[[2]] took part as the Servlet Container.
 
 ## How To Run
- 1.Drag and Drop "ETT.war" from the "Run" folder into the "webapps" folder under the extracted Tomcat folder.
- 3.2.Run Tomcat                 
- In your browser, go to "http://localhost:8080/Web-App_Web" and enjoy.
+ 1.Drag and Drop "Web-App_Web.war" from the "Run" folder into the "webapps" folder under the extracted Tomcat folder.
+ 2.Run Tomcat                 
+ 3.In your browser, go to "http://localhost:8080/Web-App_Web" and enjoy.
 
 Screenshots:
 ![screenshot1](/web1.PNG)
